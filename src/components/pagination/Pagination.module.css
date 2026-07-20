@@ -1,0 +1,110 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paginationList {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.paginationItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginationLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 6px 8px;
+  font: var(--Text/14|16 M);
+  color: var(--Text link/2728C-default);
+  background-color: var(--Background/white);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paginationLink:hover {
+  color: var(--Text link/2728C-hsL72-hover);
+  background-color: var(--Btn toolbar/428C-hsL96-hover);
+}
+
+.paginationLink:active {
+  color: var(--Text link/link-2728C-active);
+  background-color: var(--Btn toolbar/428C-hsL92-active);
+}
+
+.paginationLinkActive {
+  color: var(--Text/Light/Primary);
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/428C-active);
+  cursor: default;
+  pointer-events: none;
+}
+
+.paginationLinkDisabled {
+  color: var(--Icon/428C);
+  background-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.paginationEllipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 6px 8px;
+  font: var(--Text/14|16 M);
+  color: var(--Icon/428C);
+}
+
+.paginationArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  color: var(--Icons/Light/Primary);
+  background-color: var(--Background/white);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paginationArrow:hover {
+  background-color: var(--Btn toolbar/428C-hsL96-hover);
+}
+
+.paginationArrow:active {
+  background-color: var(--Btn toolbar/428C-hsL92-active);
+}
+
+.paginationArrow:disabled {
+  color: var(--Icon/428C);
+  background-color: var(--Background/white);
+  cursor: not-allowed;
+}
+
+.paginationArrowPrev {
+  margin-right: 4px;
+}
+
+.paginationArrowNext {
+  margin-left: 4px;
+}
