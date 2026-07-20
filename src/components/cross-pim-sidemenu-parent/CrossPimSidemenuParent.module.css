@@ -1,0 +1,62 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: var(--Background/Light/Primary);
+  border-right: 1px solid var(--Border/lightGray);
+  box-shadow: var(--Shadows/Low);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.close {
+  transform: translateX(-100%);
+}
+
+.menuContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 280px;
+}
+
+.menuHeader {
+  padding: 24px 20px;
+  border-bottom: 1px solid var(--Border/lightGray);
+  background-color: var(--Background/Light/Primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menuList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  background-color: var(--Background/Light/Primary);
+}
+
+.menuItem {
+  padding: 12px 20px;
+  color: var(--Text/Light/Primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menuItem:hover {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.menuItem:active {
+  background-color: var(--Background/Light/Secondary);
+  border-left: 3px solid var(--Border/428C-active);
+}
