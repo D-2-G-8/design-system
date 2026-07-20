@@ -1,0 +1,45 @@
+.tfootCell {
+  font: var(--Table/Table data);
+  color: var(--Text/Light/Primary);
+  background-color: var(--Background/Light/Primary);
+  border-top: 1px solid var(--Border/lightGray);
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.rowControl {
+  font: var(--Table/Table data);
+  color: var(--Text/Light/Primary);
+  background-color: var(--Background/Light/Secondary);
+  border-top: 1px solid var(--Border/lightGray);
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tableHeader {
+  font: var(--Table/Table header);
+  color: var(--Text/Light/Primary);
+  background-color: var(--Background/Light/Secondary);
+  border-top: 1px solid var(--Border/lightGray);
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.numberFille {
+  font: var(--Table/Table total);
+  color: var(--Main/Black);
+  background-color: var(--Background/Light/Primary);
+  border-top: 1px solid var(--Border/lightGray);
+  padding: 12px 16px;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.cellContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
