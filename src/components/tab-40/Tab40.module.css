@@ -1,0 +1,59 @@
+.tab {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.tabText32 {
+  composes: tab;
+}
+
+.tabDefault {
+  composes: tab;
+}
+
+.tabActive {
+  composes: tab;
+}
+
+.tabContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  gap: 8px;
+}
+
+.tabLabel {
+  font: var(--Text/16|24 M);
+  color: var(--Text/graphite);
+  white-space: nowrap;
+}
+
+.tabText32 .tabLabel {
+  font: var(--Text/16|24 M);
+}
+
+.tabDefault .tabLabel {
+  color: var(--Text/graphite);
+}
+
+.tabActive .tabLabel {
+  color: var(--Text/blackOnix);
+  font: var(--Text/16|24 M);
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--Border/428C-active);
+}
