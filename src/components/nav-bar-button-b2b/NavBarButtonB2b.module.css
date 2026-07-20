@@ -1,0 +1,80 @@
+.navButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--Text/Light/Primary);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.navButtonDefault {
+  background: transparent;
+  border-color: transparent;
+  color: var(--Text/Light/Primary);
+}
+
+.navButtonHover {
+  background: var(--Background/Light/Secondary);
+  border-color: var(--Border/lightGray-hsL76-hover);
+  color: var(--Btn toolbar/text-blackOnyx-Generic);
+}
+
+.navButtonActive {
+  background: var(--Btn toolbar/428C-hsL92-active);
+  border-color: var(--Border/428C-active);
+  color: var(--Btn toolbar/text-blackOnyx-Generic);
+}
+
+.navButtonToggled {
+  background: var(--Background/Light/Secondary);
+  border-color: var(--Border/428C-active);
+  color: var(--Btn toolbar/text-blackOnyx-Generic);
+}
+
+.navButtonWithText {
+  padding: 8px 12px;
+}
+
+.navButtonWithIcon {
+  padding: 8px 12px;
+}
+
+.navButtonIconOnly {
+  padding: 8px;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.navButtonTextOnly {
+  padding: 8px 12px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--Icons/Light/Primary);
+  flex-shrink: 0;
+}
+
+.text {
+  display: inline-block;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: inherit;
+}
