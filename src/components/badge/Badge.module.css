@@ -1,0 +1,141 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  box-sizing: border-box;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.size24 {
+  height: 24px;
+  padding: 0 8px;
+  font: var(--text/Text--12-Medium);
+}
+
+.size32 {
+  height: 32px;
+  padding: 0 12px;
+  font: var(--Text/14|16-M:-Athu);
+}
+
+.size40 {
+  height: 40px;
+  padding: 0 16px;
+  font: var(--Text/16|20-M:-Daze);
+}
+
+.typeLabel {
+  min-width: fit-content;
+}
+
+.typeEmoji {
+  min-width: fit-content;
+}
+
+.typeIcon {
+  min-width: fit-content;
+}
+
+.typeLottie {
+  min-width: fit-content;
+}
+
+.typeLogo {
+  min-width: fit-content;
+}
+
+.appearanceDefault {
+  background-color: var(--Background/Light/Secondary);
+  color: var(--Main/Black);
+  border: 1px solid var(--Grays/Gray-200);
+}
+
+.appearanceSuccess {
+  background-color: var(--Indication/576C-positive);
+  color: var(--Main/Black);
+}
+
+.appearanceInfo {
+  background-color: var(--Indication/2728C-info);
+  color: var(--Main/White);
+}
+
+.appearanceError {
+  background-color: var(--Indication/485C-H0sl-negative);
+  color: var(--Main/White);
+}
+
+.appearanceWarning {
+  background-color: var(--Indication/144C-warning);
+  color: var(--Main/Black);
+}
+
+.filled.appearanceDefault {
+  background-color: var(--Background/Light/Secondary);
+  color: var(--Main/Black);
+  border: 1px solid var(--Grays/Gray-200);
+}
+
+.filled.appearanceSuccess {
+  background-color: var(--Indication/576C-positive);
+  color: var(--Main/Black);
+}
+
+.filled.appearanceInfo {
+  background-color: var(--Indication/2728C-info);
+  color: var(--Main/White);
+}
+
+.filled.appearanceError {
+  background-color: var(--Indication/485C-H0sl-negative);
+  color: var(--Main/White);
+}
+
+.filled.appearanceWarning {
+  background-color: var(--Indication/144C-warning);
+  color: var(--Main/Black);
+}
+
+.unfilled {
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+.unfilled.appearanceDefault {
+  color: var(--Main/Black);
+  border-color: var(--Grays/Gray-200);
+}
+
+.unfilled.appearanceSuccess {
+  color: var(--Other/Green-200);
+  border-color: var(--Other/Green-200);
+}
+
+.unfilled.appearanceInfo {
+  color: var(--Indication/2728C-info);
+  border-color: var(--Indication/2728C-info);
+}
+
+.unfilled.appearanceError {
+  color: var(--Other/Red-200-MAIN);
+  border-color: var(--Other/Red-200-MAIN);
+}
+
+.unfilled.appearanceWarning {
+  color: var(--Other/Yellow-300-MAIN);
+  border-color: var(--Other/Yellow-300-MAIN);
+}
+
+.themeLight {
+  /* Default theme styling */
+}
+
+.themeDark {
+  /* Dark theme overrides if needed */
+}
+
+.filled {
+  border: none;
+}
