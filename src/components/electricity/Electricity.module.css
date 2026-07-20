@@ -1,0 +1,16 @@
+.electricity {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+}
+
+.electricity::before {
+  content: '⚡';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  line-height: 1;
+}
