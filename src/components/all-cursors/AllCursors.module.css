@@ -1,0 +1,29 @@
+.allCursors {
+  cursor: auto;
+}
+
+.allCursors:hover {
+  cursor: pointer;
+}
+
+.allCursors:active {
+  cursor: grabbing;
+}
+
+.allCursors:focus {
+  cursor: text;
+}
+
+.allCursors:disabled {
+  cursor: not-allowed;
+}
+
+.allCursors::before {
+  content: '';
+  cursor: crosshair;
+}
+
+.allCursors::after {
+  content: '';
+  cursor: move;
+}
