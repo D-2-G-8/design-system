@@ -1,0 +1,27 @@
+.statusBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 16px;
+  background-color: var(--Background/Light/Primary);
+  height: 24px;
+}
+
+.timeText {
+  color: var(--Text/Light/Primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  color: var(--Icons/Light/Primary);
+}
