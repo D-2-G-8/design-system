@@ -1,0 +1,14 @@
+.checkmarkBadge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background {
+  fill: var(--Background/Light/Primary);
+}
+
+.icon {
+  fill: var(--Icons/Light/Primary);
+}
