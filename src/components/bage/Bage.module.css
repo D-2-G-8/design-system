@@ -1,0 +1,53 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  font-family: 'Roboto Flex', sans-serif;
+  white-space: nowrap;
+}
+
+.badgePrimary {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+}
+
+.badgeXs {
+  padding: 4px 8px;
+  height: 24px;
+  font: var(--Text/12|16 M: Zest);
+}
+
+.badgeSm {
+  padding: 8px 12px;
+  height: 32px;
+  font: var(--Text/14|16 M: Athu);
+}
+
+.iconLeft {
+  flex-direction: row;
+}
+
+.iconRight {
+  flex-direction: row-reverse;
+}
+
+.iconNone {
+  flex-direction: row;
+}
+
+.withLogo {
+  padding-left: 4px;
+}
+
+.withEmoji {
+  gap: 6px;
+}
+
+.themeLight {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
