@@ -1,0 +1,11 @@
+.container {
+  background: var(--Background/Light/Primary);
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: var(--Small-Down);
+}
+
+.content {
+  font: var(--text/Text  16 Regular);
+  color: var(--Text/Light/Primary);
+}
