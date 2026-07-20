@@ -1,0 +1,8 @@
+.redpolitika {
+  font: var(--Text/16|24 R: Krys);
+  color: var(--Text/Light/Primary);
+  background-color: var(--Background/Light/Primary);
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: var(--Small-Down);
+}
