@@ -1,0 +1,96 @@
+.row {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--Background/white);
+  cursor: pointer;
+  min-height: 40px;
+}
+
+.row:hover {
+  background-color: var(--Drop-down row/428C-hsL96-hover);
+}
+
+.rowContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.label {
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Text/blackOnix);
+  user-select: none;
+}
+
+.iconLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--Text/blackOnix);
+}
+
+.iconRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--Text/blackOnix);
+  margin-left: auto;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkboxInput {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 2px;
+  background-color: var(--Background/white);
+  cursor: pointer;
+  appearance: none;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.checkboxInput:checked {
+  background-color: var(--Check & Radio/blackOnyx-active);
+  border-color: var(--Check & Radio/blackOnyx-active);
+}
+
+.checkboxInput:hover {
+  border-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
+
+.checkboxInput:disabled {
+  background-color: var(--Check & Radio/428C-hsL92-disabled);
+  border-color: var(--Check & Radio/428C-hsL92-disabled);
+  cursor: not-allowed;
+}
+
+.checkboxLabel {
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Text/blackOnix);
+  user-select: none;
+  cursor: pointer;
+}
+
+.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.hover {
+  background-color: var(--Drop-down row/428C-hsL96-hover);
+}
