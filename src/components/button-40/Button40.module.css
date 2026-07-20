@@ -1,0 +1,93 @@
+.button {
+  font: var(--button 40);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.buttonText {
+  background: transparent;
+  color: var(--Btn text regular/blackOnyx-active);
+  border: none;
+  padding: 12px 16px;
+}
+
+.buttonText:hover {
+  color: var(--Btn fill accent/blackOnyx-hsL20-hover);
+}
+
+.buttonText:active {
+  color: var(--Btn text regular/blackOnyx-active);
+}
+
+.buttonText:focus-visible {
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 2px;
+}
+
+.buttonRegular {
+  background: var(--Btn fill regular/428C-hsL96-default);
+  color: var(--Text/blackOnix);
+  border: 1px solid var(--Border/lightGray);
+  padding: 12px 24px;
+  border-radius: 4px;
+}
+
+.buttonRegular:hover {
+  background: var(--Btn fill regular/428C-hsL92-hover);
+  border-color: var(--Border/lightGray-hsL76-hover);
+}
+
+.buttonRegular:active {
+  background: var(--Btn fill regular/blackOnyx-active);
+  color: var(--Main/White);
+  border-color: var(--Border/428C-active);
+}
+
+.buttonRegular:focus-visible {
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 2px;
+}
+
+.buttonRegular:disabled {
+  background: var(--Btn fill regular/428C-hsL96-disabled);
+  color: var(--Text/blackOnix);
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--Border/lightGray);
+}
+
+.buttonDefault {
+  background: var(--Btn fill accent/blackOnyx-default);
+  color: var(--Text/white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+}
+
+.buttonDefault:hover {
+  background: var(--Btn fill accent/blackOnyx-hsL20-hover);
+}
+
+.buttonDefault:active {
+  background: var(--Btn fill accent/blackOnyx-active);
+}
+
+.buttonDefault:focus-visible {
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 2px;
+}
+
+.buttonDefault:disabled {
+  background: var(--Btn fill accent/blackOnyx-default);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
