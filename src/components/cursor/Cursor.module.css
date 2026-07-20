@@ -1,0 +1,141 @@
+.cursor {
+  display: inline-block;
+  position: relative;
+}
+
+.cursorDefault {
+  cursor: default;
+}
+
+.cursorNotAllowed {
+  cursor: not-allowed;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.cursorVerticalText {
+  cursor: vertical-text;
+}
+
+.cursorText {
+  cursor: text;
+}
+
+.cursorCrosshair {
+  cursor: crosshair;
+}
+
+.cursorCell {
+  cursor: cell;
+}
+
+.cursorZoomOut {
+  cursor: zoom-out;
+}
+
+.cursorZoomIn {
+  cursor: zoom-in;
+}
+
+.cursorGrabbing {
+  cursor: grabbing;
+}
+
+.cursorGrab {
+  cursor: grab;
+}
+
+.cursorNoDrop {
+  cursor: no-drop;
+}
+
+.cursorMove {
+  cursor: move;
+}
+
+.cursorCopy {
+  cursor: copy;
+}
+
+.cursorAlias {
+  cursor: alias;
+}
+
+.cursorNwseResize {
+  cursor: nwse-resize;
+}
+
+.cursorNeswResize {
+  cursor: nesw-resize;
+}
+
+.cursorNsResize {
+  cursor: ns-resize;
+}
+
+.cursorEwResize {
+  cursor: ew-resize;
+}
+
+.cursorSwResize {
+  cursor: sw-resize;
+}
+
+.cursorSeResize {
+  cursor: se-resize;
+}
+
+.cursorNwResize {
+  cursor: nw-resize;
+}
+
+.cursorNeResize {
+  cursor: ne-resize;
+}
+
+.cursorWResize {
+  cursor: w-resize;
+}
+
+.cursorSResize {
+  cursor: s-resize;
+}
+
+.cursorEResize {
+  cursor: e-resize;
+}
+
+.cursorNResize {
+  cursor: n-resize;
+}
+
+.cursorRowResize {
+  cursor: row-resize;
+}
+
+.cursorColResize {
+  cursor: col-resize;
+}
+
+.cursorProgress {
+  cursor: progress;
+}
+
+.cursorHelp {
+  cursor: help;
+}
+
+.cursorContextMenu {
+  cursor: context-menu;
+}
+
+.stepOn {
+  opacity: 1;
+}
+
+.stepOff {
+  opacity: 0;
+  pointer-events: none;
+}
