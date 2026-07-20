@@ -1,0 +1,15 @@
+.sizing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sizeM {
+  width: 20px;
+  height: 20px;
+}
+
+.sizeL {
+  width: 24px;
+  height: 24px;
+}
