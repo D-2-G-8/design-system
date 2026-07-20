@@ -1,0 +1,10 @@
+.rowResize {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  cursor: row-resize;
+  user-select: none;
+  z-index: 10;
+}
