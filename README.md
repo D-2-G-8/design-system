@@ -59,7 +59,7 @@ pnpm run lint
 
 ## Publishing
 
-Push to `main` (normally via a merged pull request from `ai-tools-app`'s
+Push to `master` (normally via a merged pull request from `ai-tools-app`'s
 sync) triggers `.github/workflows/publish.yml`: typecheck, lint, build,
 build Storybook, bump the patch version, and `npm publish` to GitHub
 Packages. Nothing to run by hand.
