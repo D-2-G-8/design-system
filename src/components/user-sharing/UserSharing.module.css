@@ -1,0 +1,135 @@
+.container {
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.header {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--Border/lightGray);
+  padding-bottom: 16px;
+}
+
+.title {
+  font: var(--Text/16|20 M);
+  color: var(--Text/Light/Primary);
+  margin: 0 0 4px 0;
+}
+
+.subtitle {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Secondary);
+  margin: 0;
+}
+
+.userList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--Background/Light/Secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Primary);
+  flex-shrink: 0;
+}
+
+.userName {
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Primary);
+  margin: 0;
+}
+
+.userEmail {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Secondary);
+  margin: 0;
+}
+
+.permissionBadge {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Secondary);
+  background: var(--Background/Light/Secondary);
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+.shareButton {
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Primary);
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inviteSection {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--Border/lightGray);
+}
+
+.inputWrapper {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.emailInput {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Primary);
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  padding: 10px 12px;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.roleSelector {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Primary);
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  padding: 10px 12px;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.removeButton {
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Secondary);
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: var(--Icons/Light/Primary);
+}
