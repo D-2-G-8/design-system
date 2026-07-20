@@ -1,0 +1,59 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+
+# Explicit, since GitHub's newer default token permissions are read-only --
+# this workflow needs to push a version-bump commit and publish a package.
+permissions:
+  contents: write
+  packages: write
+
+# A single sync session (ai-tools-app, see its src/lib/github/client.ts)
+# can land several commits on this branch in quick succession once a PR
+# merges. Without this, each push would kick off its own publish -- a
+# burst of noisy versions and registry-propagation races. Only the latest
+# push in a burst actually publishes.
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # Skip the commit this job itself makes (the version bump) so it
+    # doesn't retrigger itself.
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+          scope: "@d-2-g-8"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
+      - run: pnpm run lint
+      - run: pnpm run build
+      - run: pnpm run build-storybook
+
+      - name: Bump patch version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          npm version patch -m "chore: release %s [skip ci]"
+          git push --follow-tags
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Storybook is deployed separately as its own Vercel project (see
+      # ai-tools-app's README, DESIGN_SYSTEM_STORYBOOK_URL) -- Vercel's own
+      # GitHub integration handles that deploy on push, nothing to do here.
