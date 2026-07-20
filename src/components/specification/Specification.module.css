@@ -1,0 +1,31 @@
+.specification {
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: Roboto Flex;
+  color: var(--Text/Light/Primary);
+  box-shadow: var(--🖥️ Shadow/M ↓);
+}
+
+.specification dt {
+  font: var(--Text/14|16 M: Athu);
+  color: var(--Text/Light/Secondary);
+  margin-bottom: 4px;
+}
+
+.specification dd {
+  font: var(--Text/16|24 R: Krys);
+  color: var(--Text/Light/Primary);
+  margin: 0 0 12px 0;
+}
+
+.specification dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
