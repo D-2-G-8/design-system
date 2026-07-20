@@ -1,0 +1,28 @@
+.tr {
+  display: table-row;
+  font: var(--Table/Table data);
+  color: var(--Text/Light/Primary);
+  background-color: var(--Background/Light/Primary);
+}
+
+.default {
+  background-color: var(--Background/Light/Primary);
+}
+
+.variant2 {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.variant3 {
+  background-color: var(--Background/Light/Primary);
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.variant4 {
+  background-color: var(--Table row/144C-hsL94-active);
+  font: var(--Table/Table total);
+}
+
+.hover {
+  background-color: var(--Table row/144C-hsL94-hover);
+}
