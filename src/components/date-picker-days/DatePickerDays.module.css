@@ -1,0 +1,48 @@
+.day {
+  font: var(--Text/14|16 M);
+  color: var(--Main/Black);
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dayDisabled {
+  font: var(--Text/14|16 R);
+  color: var(--Text/Light/Secondary);
+  background-color: var(--Btn fill accent/428C-hsL96-disabled);
+  border: 1px solid var(--Border/lightGray);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.dayCurrent {
+  font: var(--Text/14|16 M);
+  color: var(--Background/Light/Primary);
+  background-color: var(--Check & Radio/blackOnyx-default);
+  border: 1px solid var(--Check & Radio/blackOnyx-default);
+}
+
+.dayActive {
+  font: var(--Text/14|16 M);
+  color: var(--Background/Light/Primary);
+  background-color: var(--Check & Radio/blackOnyx-active);
+  border: 1px solid var(--Check & Radio/blackOnyx-active);
+}
+
+.dayEmpty {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.dayHover {
+  font: var(--Text/14|16 M);
+  color: var(--Main/Black);
+  background-color: var(--Background/Light/Secondary);
+  border: 1px solid var(--Border/lightGray-hsL76-hover);
+}
