@@ -1,0 +1,121 @@
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.switchB2c {
+  --switch-track-color-inactive: var(--Border/lightGray);
+  --switch-track-color-active: var(--Check & Radio/blackOnyx-default);
+  --switch-track-color-hover: var(--Border/lightGray-hsL76-hover);
+  --switch-thumb-color: var(--Background/white);
+  --switch-focus-color: var(--Focus/orange-H28sL85-focus);
+}
+
+.switchB2b {
+  --switch-track-color-inactive: var(--Border/lightGray);
+  --switch-track-color-active: var(--Check & Radio/blackOnyx-default);
+  --switch-track-color-hover: var(--Check & Radio/blackOnyx-hsL20-hover);
+  --switch-thumb-color: var(--Background/white);
+  --switch-focus-color: var(--Focus/orange-H28sL85-focus);
+}
+
+.switchRadio {
+  --switch-type: radio;
+}
+
+.switchCheckbox {
+  --switch-type: checkbox;
+}
+
+.switchSmall {
+  --switch-height: 16px;
+  --switch-width: 28px;
+  --switch-thumb-size: 12px;
+  --switch-padding: 2px;
+}
+
+.switchMedium {
+  --switch-height: 20px;
+  --switch-width: 36px;
+  --switch-thumb-size: 16px;
+  --switch-padding: 2px;
+}
+
+.switchLarge {
+  --switch-height: 24px;
+  --switch-width: 44px;
+  --switch-thumb-size: 20px;
+  --switch-padding: 2px;
+}
+
+.switchActive {
+  --switch-state: active;
+}
+
+.switchInactive {
+  --switch-state: inactive;
+}
+
+.switchToggle {
+  display: inline-flex;
+  position: relative;
+}
+
+.switchTrack {
+  position: relative;
+  display: inline-block;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  background-color: var(--switch-track-color-inactive);
+  border-radius: calc(var(--switch-height) / 2);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.switchActive .switchTrack {
+  background-color: var(--switch-track-color-active);
+}
+
+.switchTrack:hover {
+  background-color: var(--switch-track-color-hover);
+}
+
+.switchActive .switchTrack:hover {
+  background-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
+
+.switchThumb {
+  position: absolute;
+  top: var(--switch-padding);
+  left: var(--switch-padding);
+  width: var(--switch-thumb-size);
+  height: var(--switch-thumb-size);
+  background-color: var(--switch-thumb-color);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.switchActive .switchThumb {
+  transform: translateX(calc(var(--switch-width) - var(--switch-thumb-size) - var(--switch-padding) * 2));
+}
+
+.switchInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.switchInput:focus-visible ~ .switchTrack {
+  outline: 2px solid var(--switch-focus-color);
+  outline-offset: 2px;
+}
+
+.switchInput:disabled ~ .switchTrack {
+  background-color: var(--Check & Radio/428C-hsL92-disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
