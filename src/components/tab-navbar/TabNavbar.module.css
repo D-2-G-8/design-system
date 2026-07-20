@@ -1,0 +1,75 @@
+.tabNavbar {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.tabNavbarDesktop {
+  background: var(--Background/Light/Primary);
+  border-bottom: 1px solid var(--Background/Light/Stroke);
+}
+
+.tabNavbarMobile {
+  background: var(--Background/Light/Primary);
+  border-bottom: 1px solid var(--Background/Light/Stroke);
+}
+
+.tabList {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.tab {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.tabActive {
+  color: var(--Text link/2728C-default);
+}
+
+.tabInactive {
+  color: var(--Grays/Gray-400);
+}
+
+.tabLabel {
+  font: var(--Desktop Text Styles/M2-16);
+  white-space: nowrap;
+}
+
+.tabNavbarMobile .tabLabel {
+  font: var(--Text/14|16 M);
+}
+
+.counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: var(--Background/Light/Secondary);
+  border-radius: 12px;
+  font: var(--Desktop Text Styles/M3-14);
+  color: var(--Text/Light/Primary);
+  min-width: 20px;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--Text link/2728C-default);
+  transition: all 0.3s ease;
+}
