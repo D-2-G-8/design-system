@@ -1,0 +1,173 @@
+.calendar {
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: var(--Accent);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.monthSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.monthButton {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font: var(--Text/16|20 M: Daze);
+  color: var(--Text/Light/Primary);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.monthButton:hover {
+  background: var(--Btn fill regular/428C-hsL96-hover);
+}
+
+.monthDropdown {
+  position: absolute;
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 4px;
+  box-shadow: var(--Small-Down);
+  margin-top: 4px;
+  padding: 4px 0;
+  z-index: 100;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.monthOption {
+  padding: 8px 16px;
+  cursor: pointer;
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Primary);
+}
+
+.monthOption:hover {
+  background: var(--Drop-down row/428C-hsL96-hover);
+}
+
+.yearDisplay {
+  font: var(--Text/16|20 M: Daze);
+  color: var(--Text/Light/Primary);
+}
+
+.navigationButton {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: var(--Icons/Light/Primary);
+}
+
+.navigationButton:hover {
+  background: var(--Btn fill regular/428C-hsL96-hover);
+}
+
+.navigationButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.prevButton {
+  composes: navigationButton;
+}
+
+.nextButton {
+  composes: navigationButton;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.weekday {
+  font: var(--Text/12|16 M: Zest);
+  color: var(--Text/Light/Secondary);
+  text-align: center;
+  padding: 8px 0;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.day {
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.dayButton {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Primary);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.dayButton:hover {
+  background: var(--Btn fill regular/428C-hsL96-hover);
+}
+
+.dayToday {
+  composes: dayButton;
+  border: 2px solid var(--Default /Light Colors /SystemBlue);
+  font: var(--text/Text  14 Bold);
+}
+
+.daySelected {
+  composes: dayButton;
+  background: var(--Check & Radio/blackOnyx-default);
+  color: var(--Text/white);
+}
+
+.daySelected:hover {
+  background: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
+
+.dayDisabled {
+  composes: dayButton;
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dayOtherMonth {
+  composes: dayButton;
+  color: var(--Text/Light/Secondary);
+  opacity: 0.5;
+}
