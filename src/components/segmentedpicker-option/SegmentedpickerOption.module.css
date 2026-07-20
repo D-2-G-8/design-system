@@ -1,0 +1,60 @@
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Primary);
+  position: relative;
+  flex: 1;
+  min-height: 44px;
+}
+
+.optionSelected {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Label/Light/primary);
+}
+
+.optionWithIcon {
+  gap: 8px;
+}
+
+.optionDark {
+  color: var(--Label/Dark/primary);
+  background-color: transparent;
+}
+
+.optionDark.optionSelected {
+  background-color: var(--Main/White);
+  color: var(--Label/Light/primary);
+}
+
+.optionLight {
+  color: var(--Text/Light/Primary);
+  background-color: transparent;
+}
+
+.optionLight.optionSelected {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Label/Light/primary);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.label {
+  font: var(--Text/14|16 M);
+  color: inherit;
+  white-space: nowrap;
+}
