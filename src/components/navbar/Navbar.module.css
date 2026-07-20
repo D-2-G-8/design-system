@@ -1,0 +1,153 @@
+.navbar {
+  width: 100%;
+  background-color: var(--Background/Light/Primary);
+  box-shadow: var(--🖥️ Shadow/M ↓);
+}
+
+.navbarDesktop {
+  display: none;
+}
+
+.navbarMobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .navbarDesktop {
+    display: block;
+  }
+  
+  .navbarMobile {
+    display: none;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.logo {
+  font: var(--Head/20|24 B: Virk);
+  color: var(--Text/Light/Primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 32px;
+}
+
+.navItem {
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  font: var(--text/Text  16 Regular);
+  color: var(--Text/Light/Primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navLink:hover {
+  color: var(--Secondary/Purple-200);
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--Text/Light/Primary);
+  transition: transform 0.3s;
+}
+
+.menuIcon::before {
+  transform: translateY(0);
+}
+
+.menuIcon::after {
+  transform: translateY(0);
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--Background/Light/Primary);
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.mobileMenuOpen {
+  transform: translateX(0);
+}
+
+.mobileMenu .navList {
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 16px;
+}
+
+.mobileMenu .navLink {
+  font: var(--text/Text  18 Regular);
+  display: block;
+  padding: 12px 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 99;
+}
+
+.mobileMenuOpen ~ .overlay {
+  opacity: 1;
+  visibility: visible;
+}
