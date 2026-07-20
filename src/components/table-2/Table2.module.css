@@ -1,0 +1,65 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
+
+.caption {
+  font: var(--Table/Table\ header);
+  color: var(--Text/Light/Primary);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.thead {
+  background-color: var(--Background/Light/Primary);
+}
+
+.tbody {
+  background-color: var(--Background/Light/Primary);
+}
+
+.tfoot {
+  background-color: var(--Background/Light/Primary);
+  border-top: 2px solid var(--Border/lightGray);
+}
+
+.row {
+  border-bottom: 1px solid var(--Border/lightGray);
+  transition: background-color 0.2s;
+}
+
+.row:hover {
+  background-color: var(--Table\ row/144C-hsL94-hover);
+}
+
+.row:active {
+  background-color: var(--Table\ row/144C-hsL94-active);
+}
+
+.cell {
+  font: var(--Table/Table\ data);
+  color: var(--Text/Light/Primary);
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.headerCell {
+  font: var(--Table/Table\ header);
+  color: var(--Text/Light/Secondary);
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.footerCell {
+  font: var(--Table/Table\ total);
+  color: var(--Text/Light/Primary);
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: middle;
+}
