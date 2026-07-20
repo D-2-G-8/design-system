@@ -1,0 +1,55 @@
+.accessoryBar {
+  background: var(--Background/Light/Secondary);
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.suggestionItem {
+  background: var(--Main/White);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 16px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.selectedItem {
+  background: var(--Main/Black);
+  border: 1px solid var(--Main/Black);
+  border-radius: 16px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.text {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Primary);
+}
+
+.selectedItem .text {
+  color: var(--Text/white);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  color: var(--Icons/Light/Primary);
+}
+
+.selectedItem .icon {
+  color: var(--Text/white);
+}
