@@ -1,0 +1,100 @@
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.checkboxBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--Border/lightGray);
+  background-color: var(--Background/white);
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.checkboxIcon {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.checkboxSize16 .checkboxBox {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.checkboxSize16 .checkboxIcon {
+  width: 12px;
+  height: 12px;
+}
+
+.checkboxChecked .checkboxBox {
+  background-color: var(--Check & Radio/blackOnyx-default);
+  border-color: var(--Check & Radio/blackOnyx-default);
+}
+
+.checkboxChecked .checkboxIcon {
+  display: block;
+}
+
+.checkbox:hover .checkboxChecked .checkboxBox {
+  background-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+  border-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
+
+.checkbox:active .checkboxChecked .checkboxBox {
+  background-color: var(--Check & Radio/blackOnyx-active);
+  border-color: var(--Check & Radio/blackOnyx-active);
+}
+
+.checkboxIndeterminate .checkboxBox {
+  background-color: var(--Check & Radio/blackOnyx-default);
+  border-color: var(--Check & Radio/blackOnyx-default);
+}
+
+.checkboxIndeterminate .checkboxIcon {
+  display: block;
+}
+
+.checkbox:hover .checkboxIndeterminate .checkboxBox {
+  background-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+  border-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
+
+.checkbox:active .checkboxIndeterminate .checkboxBox {
+  background-color: var(--Check & Radio/blackOnyx-active);
+  border-color: var(--Check & Radio/blackOnyx-active);
+}
+
+.checkboxDisabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.checkboxDisabled .checkboxBox {
+  background-color: var(--Check & Radio/428C-hsL92-disabled);
+  border-color: var(--Border/lightGray);
+}
+
+.checkboxDisabled.checkboxChecked .checkboxBox,
+.checkboxDisabled.checkboxIndeterminate .checkboxBox {
+  background-color: var(--Check & Radio/428C-hsL92-disabled);
+  border-color: var(--Check & Radio/428C-hsL92-disabled);
+}
+
+.checkboxDisabled .checkboxIcon {
+  color: var(--Icon/428C);
+}
