@@ -1,0 +1,28 @@
+.truck {
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+  position: relative;
+}
+
+.truck::before {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 4px;
+  width: 28px;
+  height: 20px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.truck::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 24px;
+  height: 28px;
+  background: currentColor;
+  border-radius: 2px;
+}
