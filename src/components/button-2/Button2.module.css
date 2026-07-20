@@ -1,0 +1,113 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+  text-decoration: none;
+  user-select: none;
+}
+
+.primary {
+  background-color: var(--Btn fill accent/orange-default);
+  color: var(--Text/white);
+}
+
+.primary:hover {
+  background-color: var(--Btn fill accent/orange-hsL59-hover);
+}
+
+.primary:active {
+  background-color: var(--Btn fill accent/orange-active);
+}
+
+.secondary {
+  background-color: var(--Btn fill regular/428C-hsL96-default);
+  color: var(--Main/Black);
+}
+
+.secondary:hover {
+  background-color: var(--Btn fill regular/428C-hsL92-hover);
+}
+
+.secondary:active {
+  background-color: var(--Btn fill regular/blackOnyx-active);
+  color: var(--White);
+}
+
+.blur {
+  background-color: var(--Btn fill accent/blackOnyx-default);
+  color: var(--White);
+}
+
+.blur:hover {
+  background-color: var(--Btn fill accent/blackOnyx-hsL20-hover);
+}
+
+.blur:active {
+  background-color: var(--Btn fill accent/blackOnyx-active);
+}
+
+.xsmall {
+  height: 24px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font: var(--button 24);
+  gap: 4px;
+}
+
+.small {
+  height: 32px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font: var(--text/Text  14 Medium);
+  gap: 6px;
+}
+
+.medium {
+  height: 40px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font: var(--button 40);
+  gap: 8px;
+}
+
+.large {
+  height: 52px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font: var(--text/Text  16 Bold);
+  gap: 8px;
+}
+
+.iconLeft {
+  flex-direction: row;
+}
+
+.iconNone {
+  gap: 0;
+}
+
+.themeLight {
+  color: var(--Main/Black);
+}
+
+.themeDefault {
+  color: var(--White);
+}
+
+.disabled {
+  background-color: var(--Btn fill accent/428C-hsL96-disabled);
+  color: var(--Main/Black);
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.disabled:hover,
+.disabled:active {
+  background-color: var(--Btn fill regular/428C-hsL96-disabled);
+}
