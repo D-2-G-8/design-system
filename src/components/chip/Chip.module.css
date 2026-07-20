@@ -1,0 +1,71 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.size40 {
+  height: 40px;
+  padding: 0 16px;
+  font: var(--Text/14|16 M);
+}
+
+.size32 {
+  height: 32px;
+  padding: 0 12px;
+  font: var(--Text/12|16 M);
+}
+
+.typeDefault {
+  border: 1px solid var(--Border/lightGray);
+  background: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
+
+.typeMenu {
+  border: 1px solid transparent;
+  background: var(--Background/Light/Secondary);
+  color: var(--Text/Light/Secondary);
+}
+
+.typeEditable {
+  border: 1px solid var(--Border/lightGray);
+  background: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
+
+.appearanceDefault {
+  /* Base appearance styles applied through type */
+}
+
+.active {
+  border-color: var(--Border/428C-active);
+  background: var(--Main/White);
+  color: var(--Text/Light/Primary);
+  box-shadow: var(--Accent);
+}
+
+.inactive {
+  /* Default inactive state - base styles */
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--Icons/Light/Primary);
+  flex-shrink: 0;
+}
