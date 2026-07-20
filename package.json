@@ -1,6 +1,6 @@
 {
   "name": "@d-2-g-8/design-system",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shared React component library, generated and kept in sync from Figma by ai-tools-app.",
   "license": "UNLICENSED",
   "private": false,
