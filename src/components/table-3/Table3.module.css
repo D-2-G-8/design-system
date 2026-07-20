@@ -1,0 +1,64 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--Background/Light/Primary);
+}
+
+.tableHeader {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.tableCell {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.tableHeaderCell {
+  padding: 12px 16px;
+  text-align: left;
+  font: var(--Table/Table header);
+  color: var(--Text/Light/Secondary);
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.tableDataCell {
+  padding: 12px 16px;
+  text-align: left;
+  font: var(--Table/Table data);
+  color: var(--Text/Light/Primary);
+}
+
+.tableTotalRow {
+  background-color: var(--Background/Light/Secondary);
+  border-top: 1px solid var(--Border/lightGray);
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.tableTotalCell {
+  padding: 12px 16px;
+  text-align: left;
+  font: var(--Table/Table total);
+  color: var(--Text/Light/Primary);
+}
+
+.tableHover .tableRow:hover {
+  background-color: var(--Table row/144C-hsL94-hover);
+  border-bottom-color: var(--Border/lightGray-hsL76-hover);
+}
+
+.tableActive .tableRow:active {
+  background-color: var(--Table row/144C-hsL94-active);
+  border-bottom-color: var(--Border/428C-active);
+}
+
+.tableMode1 {
+  background-color: var(--Background/Light/Primary);
+}
+
+.tableMode2 {
+  background-color: var(--Background/Light/Secondary);
+}
