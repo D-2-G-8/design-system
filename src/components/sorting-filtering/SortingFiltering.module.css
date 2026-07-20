@@ -1,0 +1,88 @@
+.sortingFiltering {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 4px;
+  background: var(--Background/Light/Primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chevron {
+  composes: sortingFiltering;
+}
+
+.sorting {
+  composes: sortingFiltering;
+}
+
+.filtering {
+  composes: sortingFiltering;
+}
+
+.ascend {
+  /* Applied with direction variants */
+}
+
+.descend {
+  /* Applied with direction variants */
+}
+
+.not {
+  /* Applied when no direction */
+}
+
+.default {
+  /* Base state styles already in sortingFiltering */
+}
+
+.hover {
+  border-color: var(--Border/lightGray-hsL76-hover);
+  background: var(--Background/Light/Primary);
+}
+
+.active {
+  border-color: var(--Border/428C-active);
+  background: var(--Btn toolbar/428C-hsL92-active);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--Icons/Light/Primary);
+  transition: transform 0.2s ease;
+}
+
+.text {
+  font: var(--Text/14|16 M: Athu);
+  color: var(--Text/Light/Primary);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ascend .icon {
+  transform: rotate(0deg);
+}
+
+.descend .icon {
+  transform: rotate(180deg);
+}
+
+.active .text {
+  color: var(--Text/blackOnix);
+}
+
+.active .icon {
+  color: var(--Icons/Light/Primary);
+}
