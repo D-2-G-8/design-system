@@ -1,0 +1,106 @@
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: var(--Shadows/Low);
+  position: relative;
+}
+
+.toastDesktop {
+  min-width: 343px;
+  max-width: 480px;
+}
+
+.toastMobile {
+  width: 100%;
+  max-width: 343px;
+}
+
+.toastLight {
+  background-color: var(--Background/Light/Primary);
+}
+
+.toastDark {
+  background-color: var(--Main/Black);
+}
+
+.toastMessage {
+  border-left: 4px solid var(--Border/lightGray);
+}
+
+.toastError {
+  border-left: 4px solid var(--Other/Red-200 MAIN);
+}
+
+.toastDone {
+  border-left: 4px solid var(--Other/Green-200);
+}
+
+.toastInfo {
+  border-left: 4px solid var(--Indication/2728C-hsL94-info);
+}
+
+.toastWarning {
+  border-left: 4px solid var(--Other/Yellow-300 MAIN);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font: var(--Text/14|16 M: Athu);
+  margin: 0;
+}
+
+.toastLight .title {
+  color: var(--Text/Light/Primary);
+}
+
+.toastDark .title {
+  color: var(--Main/White);
+}
+
+.subtitle {
+  font: var(--Text/12|16 M: Zest);
+  margin: 0;
+}
+
+.toastLight .subtitle {
+  color: var(--Text/Light/Secondary);
+}
+
+.toastDark .subtitle {
+  color: var(--Fill/Dark/secondary);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.toastLight .iconContainer {
+  color: var(--Icons/Light/Primary);
+}
+
+.toastDark .iconContainer {
+  color: var(--Icons/Dark/Primary);
+}
+
+.iconLeft {
+  order: -1;
+}
+
+.iconNone {
+  display: none;
+}
