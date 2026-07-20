@@ -1,0 +1,44 @@
+.activationControl {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.container {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.label {
+  font: var(--Text/14|16 M: Athu);
+  color: var(--Text/Light/Primary);
+  user-select: none;
+}
+
+.toggle {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--Icons/Light/Primary);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.toggle:checked ~ .slider {
+  transform: translateX(20px);
+}
