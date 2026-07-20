@@ -1,0 +1,36 @@
+.dataCell {
+  font: var(--Table/Table data);
+  color: var(--Text/Light/Primary);
+  background: var(--Background/Light/Primary);
+  padding: 8px 12px;
+  border: 1px solid var(--Border/lightGray);
+  box-sizing: border-box;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.typeString {
+  font: var(--Table/Table data);
+}
+
+.typeSelect {
+  font: var(--Table/Table data);
+}
+
+.singleValue {
+  color: var(--Text/Light/Primary);
+}
+
+.multipleValues {
+  color: var(--Text/Light/Secondary);
+}
