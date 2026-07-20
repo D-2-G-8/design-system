@@ -1,0 +1,17 @@
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chevronDefault {
+  color: var(--icon);
+}
+
+.chevronVariant2 {
+  color: var(--Icons/Light/Primary);
+}
+
+.chevronVariant3 {
+  color: var(--Icons/Dark/Primary);
+}
