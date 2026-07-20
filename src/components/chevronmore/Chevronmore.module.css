@@ -1,0 +1,23 @@
+.chevronMore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  color: var(--icon);
+}
+
+.stateOpen {
+  transform: rotate(180deg);
+}
+
+.stateClose {
+  transform: rotate(0deg);
+}
+
+.stateNone {
+  color: var(--Icons/Light/Primary);
+}
+
+.stateIncluded {
+  color: var(--Icons/Dark/Primary);
+}
