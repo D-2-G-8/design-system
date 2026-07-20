@@ -1,0 +1,61 @@
+.menu {
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  box-shadow: var(--Shadows/Low);
+  padding: 8px 0;
+  min-width: 200px;
+}
+
+.menuItem {
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Primary);
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease;
+}
+
+.menuItem:hover {
+  background: var(--Background/Light/Secondary);
+}
+
+.menuItemActive {
+  font: var(--text/Text  14 Medium);
+  color: var(--Text/Light/Primary);
+  background: var(--Background/Light/Secondary);
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.menuItemDisabled {
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Secondary);
+  padding: 10px 16px;
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+}
+
+.menuDivider {
+  height: 1px;
+  background: var(--Border/lightGray);
+  margin: 8px 0;
+}
+
+.menuGroup {
+  padding: 8px 0;
+}
+
+.menuGroupLabel {
+  font: var(--text/Text  14 Medium);
+  color: var(--Text/Light/Secondary);
+  padding: 8px 16px 4px 16px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
