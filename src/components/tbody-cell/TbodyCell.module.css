@@ -1,0 +1,80 @@
+.cell {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--Border/lightGray);
+  background-color: var(--Background/Light/Primary);
+  font: var(--Table/Table-data);
+  color: var(--Text/Light/Primary);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.cellRowControl {
+  composes: cell;
+  width: 48px;
+  padding: 8px;
+  text-align: center;
+}
+
+.cellStringFilled {
+  composes: cell;
+}
+
+.cellControl {
+  composes: cell;
+  width: 48px;
+  padding: 8px;
+  text-align: center;
+}
+
+.cellLinkString {
+  composes: cell;
+  color: var(--Text-link/2728C-default);
+  cursor: pointer;
+}
+
+.cellNumberEmpty {
+  composes: cell;
+  text-align: right;
+}
+
+.cellSelectorStringFilled {
+  composes: cell;
+}
+
+.cellImage {
+  composes: cell;
+  padding: 8px 16px;
+}
+
+.cellNumberFilled {
+  composes: cell;
+  text-align: right;
+}
+
+.cellLinkNumber {
+  composes: cell;
+  color: var(--Text-link/2728C-default);
+  text-align: right;
+  cursor: pointer;
+}
+
+.cellVisitedNumber {
+  composes: cell;
+  color: var(--Text-link/2757C-H264sL43-visited);
+  text-align: right;
+  cursor: pointer;
+}
+
+.cellVisitedString {
+  composes: cell;
+  color: var(--Text-link/2757C-H264sL43-visited);
+  cursor: pointer;
+}
+
+.cellTableHeader {
+  composes: cell;
+  font: var(--Table/Table-header);
+  color: var(--Text/Light/Primary);
+  background-color: var(--Background/Light/Primary);
+  border-bottom: 2px solid var(--Border/lightGray);
+}
