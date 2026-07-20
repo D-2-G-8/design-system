@@ -1,0 +1,113 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.monthYear {
+  font: var(--text/Text  16 Medium);
+  color: var(--Text/Light/Primary);
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--Btn fill regular/428C-hsL96-default);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--Btn toolbar/text-blackOnyx-Generic);
+  transition: background 0.2s ease;
+}
+
+.navButton:hover {
+  background: var(--Btn toolbar/428C-hsL96-hover);
+}
+
+.navButton:active {
+  background: var(--Btn toolbar/428C-hsL92-active);
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.weekdayHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  font: var(--text/Text  12 Medium);
+  color: var(--Text/Light/Secondary);
+  text-transform: uppercase;
+}
+
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.day:hover {
+  background: var(--Btn fill regular/428C-hsL96-default);
+}
+
+.dayNumber {
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Primary);
+}
+
+.today .dayNumber {
+  color: var(--Default /Light Colors /SystemBlue);
+  font: var(--text/Text  14 Bold);
+}
+
+.selected {
+  background: var(--Default /Light Colors /SystemBlue);
+}
+
+.selected .dayNumber {
+  color: var(--Background/Light/Primary);
+  font: var(--text/Text  14 Bold);
+}
+
+.selected:hover {
+  background: var(--Default /Light Colors /SystemBlue);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.disabled:hover {
+  background: transparent;
+}
+
+.otherMonth .dayNumber {
+  color: var(--Text/Light/Secondary);
+}
