@@ -1,0 +1,17 @@
+.day {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
+
+.dayContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dayText {
+  font: var(--Text/14|16 M: Athu);
+  color: var(--Text/Light/Primary);
+}
