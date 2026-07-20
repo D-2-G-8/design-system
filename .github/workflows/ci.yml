@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+
+# Runs on every pull request (including the sync-session PRs ai-tools-app's
+# design-system codegen opens, see that repo's src/lib/github/client.ts) --
+# this is the real safety gate for generated code: ai-tools-app itself only
+# does a cheap deterministic class-name cross-check before committing (see
+# its src/lib/design-system-codegen/component.ts), since running a full
+# typecheck/lint/build inside a Vercel serverless function isn't practical.
+# A person reviews this status before clicking "Confirm & merge" in
+# ai-tools-app's design-system settings page.
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
+      - run: pnpm run lint
+      - run: pnpm run build
+      - run: pnpm run build-storybook
