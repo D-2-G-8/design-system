@@ -1,0 +1,59 @@
+.checkmarkSquare {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--Border/428C-active);
+  background-color: var(--Background/Light/Primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
+  color: var(--Icons/Dark/Primary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.checked {
+  background-color: var(--Check & Radio/blackOnyx-default);
+  border-color: var(--Check & Radio/blackOnyx-default);
+}
+
+.checked .icon {
+  opacity: 1;
+}
+
+.unchecked {
+  background-color: var(--Background/Light/Primary);
+  border-color: var(--Border/428C-active);
+}
+
+.unchecked .icon {
+  opacity: 0;
+}
+
+.disabled {
+  cursor: not-allowed;
+  background-color: var(--Check & Radio/428C-hsL92-disabled);
+  border-color: var(--Check & Radio/428C-hsL92-disabled);
+  pointer-events: none;
+}
+
+.disabled .icon {
+  color: var(--icon);
+}
+
+.hover:hover {
+  border-color: var(--Check & Radio/blackOnyx-hover);
+}
+
+.hover.checked:hover {
+  background-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+  border-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
