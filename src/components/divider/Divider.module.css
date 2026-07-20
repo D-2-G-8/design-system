@@ -1,0 +1,14 @@
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--Separator-Color-Light-With-Transparency);
+  margin: 0;
+}
+
+.sizeS {
+  height: 1px;
+}
+
+.sizeM {
+  height: 1px;
+}
