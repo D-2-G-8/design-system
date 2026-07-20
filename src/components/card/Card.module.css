@@ -1,0 +1,71 @@
+.card {
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  box-shadow: var(--🖥️ Shadow/M ↓);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.cardSizeM {
+  padding: 24px;
+  gap: 16px;
+}
+
+.cardSizeS {
+  padding: 16px;
+  gap: 12px;
+}
+
+.cardTextMin {
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Primary);
+}
+
+.cardTextMax {
+  font: var(--text/Text  16 Regular);
+  color: var(--Text/Light/Primary);
+}
+
+.cardThemeLight {
+  background: var(--Background/Light/Primary Elevated);
+  box-shadow: var(--Shadows/Low);
+}
+
+.cardPressed {
+  border-color: var(--Border/428C-active);
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.cardDefault {
+  border-color: var(--Border/lightGray);
+}
+
+.cardDefault:hover {
+  border-color: var(--Border/lightGray-hsL76-hover);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: inherit;
+}
+
+.cardHeader {
+  font: var(--text/Text  16 Bold);
+  color: var(--Text/Light/Primary);
+}
+
+.cardBody {
+  font: inherit;
+  color: inherit;
+  flex: 1;
+}
+
+.cardFooter {
+  font: var(--text/Text  12 Medium);
+  color: var(--Text/Light/Secondary);
+}
