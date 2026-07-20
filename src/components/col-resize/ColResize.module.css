@@ -1,0 +1,37 @@
+.colResize {
+  width: 24px;
+  height: 24px;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.colResize::before {
+  content: '';
+  width: 2px;
+  height: 16px;
+  background-color: var(--Icons/Light/Primary);
+  border-radius: 1px;
+}
+
+.colResizeHover {
+  width: 24px;
+  height: 24px;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--Background/Light/Secondary);
+  border-radius: 4px;
+}
+
+.colResizeHover::before {
+  content: '';
+  width: 2px;
+  height: 16px;
+  background-color: var(--Icons/Light/Primary);
+  border-radius: 1px;
+}
