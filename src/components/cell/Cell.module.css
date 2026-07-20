@@ -1,0 +1,30 @@
+.cell {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+.cellHeader {
+  font: var(--Table/Table header);
+}
+
+.cellDefault {
+  font: var(--Table/Table data);
+}
+
+.themeLight {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
+
+.sizeS {
+  padding: 8px 12px;
+  font: var(--Text/12|16 M: Zest);
+}
+
+.sizeM {
+  padding: 12px 16px;
+  font: var(--Text/14|16 M: Athu);
+}
