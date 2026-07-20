@@ -1,0 +1,84 @@
+.segmentControl {
+  display: inline-flex;
+  background-color: var(--Background/Light/Secondary);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 0;
+  box-sizing: border-box;
+}
+
+.segmentControlM {
+  height: 32px;
+}
+
+.segmentControlL {
+  height: 40px;
+}
+
+.segmentControlResizable {
+  width: 100%;
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border-radius: 6px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  gap: 6px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  color: var(--Text/Light/Secondary);
+}
+
+.segmentControlResizable .segment {
+  flex: 1;
+  min-width: 0;
+}
+
+.segmentActive {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.segmentHover:hover:not(.segmentActive) {
+  background-color: var(--Btn toolbar/428C-hsL96-hover);
+}
+
+.segmentLabel {
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.segmentControlM .segmentLabel {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.segmentControlL .segmentLabel {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.segmentIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+.segmentControlL .segmentIcon {
+  width: 20px;
+  height: 20px;
+}
