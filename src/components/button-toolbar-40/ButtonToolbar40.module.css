@@ -1,0 +1,42 @@
+.buttonToolbar {
+  font: var(--button-40);
+  color: var(--Btn-toolbar-text-blackOnyx-Generic);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.buttonToolbar:hover {
+  background-color: var(--Btn-toolbar-428C-hsL96-hover);
+}
+
+.captionOn {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.captionOff {
+  display: inline-flex;
+}
+
+.stateDefault {
+  color: var(--Btn-toolbar-text-blackOnyx-Generic);
+  background-color: transparent;
+}
+
+.stateActive {
+  color: var(--Btn-toolbar-text-blackOnyx-Generic);
+  background-color: var(--Btn-toolbar-428C-hsL92-active);
+}
+
+.stateDisabled {
+  color: var(--Btn-toolbar-text-428C-Disable);
+  background-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
