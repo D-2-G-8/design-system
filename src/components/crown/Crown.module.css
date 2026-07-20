@@ -1,0 +1,35 @@
+.crown {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+}
+
+.crown::before {
+  content: '';
+  position: absolute;
+  bottom: 25%;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: var(--icon);
+  clip-path: polygon(
+    0% 100%,
+    0% 40%,
+    20% 60%,
+    50% 0%,
+    80% 60%,
+    100% 40%,
+    100% 100%
+  );
+}
+
+.crown::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  right: 10%;
+  height: 10%;
+  background: var(--icon);
+}
