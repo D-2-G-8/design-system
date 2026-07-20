@@ -1,0 +1,124 @@
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 0;
+  background: none;
+  border-radius: 50%;
+}
+
+.size24 {
+  width: 24px;
+  height: 24px;
+}
+
+.size32 {
+  width: 32px;
+  height: 32px;
+}
+
+.size40 {
+  width: 40px;
+  height: 40px;
+}
+
+.size52 {
+  width: 52px;
+  height: 52px;
+}
+
+.appearancePrimary {
+  background-color: var(--Btn-fill-accent/blackOnyx-default);
+  color: var(--Main/White);
+}
+
+.appearancePrimary.hover {
+  background-color: var(--Btn-fill-accent/blackOnyx-hsL20-hover);
+}
+
+.appearancePrimary.active {
+  background-color: var(--Btn-fill-accent/blackOnyx-active);
+}
+
+.appearanceSecondary {
+  background-color: var(--Btn-fill-regular/428C-hsL96-default);
+  color: var(--Icons/Light/Primary);
+}
+
+.appearanceSecondary.hover {
+  background-color: var(--Btn-fill-regular/428C-hsL92-hover);
+}
+
+.appearanceSecondary.active {
+  background-color: var(--Btn-fill-regular/blackOnyx-active);
+  color: var(--Main/White);
+}
+
+.appearanceTertiary {
+  background-color: transparent;
+  color: var(--Icons/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+}
+
+.appearanceTertiary.hover {
+  border-color: var(--Border/lightGray-hsL76-hover);
+  background-color: var(--Background/Light/Secondary);
+}
+
+.appearanceTertiary.active {
+  border-color: var(--Border/428C-active);
+  background-color: var(--Background/Light/Primary);
+}
+
+.appearanceBlur {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: var(--Main/White);
+}
+
+.appearanceBlur.hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.appearanceBlur.active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.themeLight {
+  color: var(--Icons/Light/Primary);
+}
+
+.themeDark {
+  color: var(--Icons/Dark/Primary);
+}
+
+.default {
+  opacity: 1;
+}
+
+.hover:hover {
+  opacity: 1;
+}
+
+.active:active {
+  opacity: 1;
+}
+
+.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.appearanceSecondary.disabled {
+  background-color: var(--Btn-fill-regular/428C-hsL96-disabled);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 2px;
+}
