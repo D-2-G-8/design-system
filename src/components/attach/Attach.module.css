@@ -1,0 +1,171 @@
+.attach {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.attachDesktop {
+  composes: attach;
+}
+
+.attachMobile {
+  composes: attach;
+}
+
+.attachLight {
+  composes: attach;
+}
+
+.attachDark {
+  composes: attach;
+}
+
+.attachPassive {
+  composes: attach;
+}
+
+.attachFilled {
+  composes: attach;
+}
+
+.attachLimit {
+  composes: attach;
+}
+
+.attachError {
+  composes: attach;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px dashed var(--Border/lightGray);
+  background: var(--Background/Light/Primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.attachLight .container {
+  background: var(--Background/Light/Primary);
+  border-color: var(--Border/lightGray);
+}
+
+.attachDark .container {
+  background: var(--Main/Black);
+  border-color: var(--Border/428C-active);
+}
+
+.attachDesktop .container {
+  padding: 12px 16px;
+}
+
+.attachMobile .container {
+  padding: 10px 12px;
+}
+
+.attachFilled .container {
+  background: var(--Background/Light/Secondary);
+  border-style: solid;
+  border-color: var(--Border/428C-active);
+}
+
+.attachLimit .container {
+  border-color: var(--Other/Yellow-300 MAIN);
+  background: var(--Indication/144C-warning);
+}
+
+.attachError .container {
+  border-color: var(--Other/Red-200 MAIN);
+  background: var(--Indication/485C-H0sl-negative);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.attachLight .icon {
+  color: var(--Icons/Light/Primary);
+}
+
+.attachDark .icon {
+  color: var(--Icons/Dark/Primary);
+}
+
+.label {
+  font: var(--Text/14|16 R);
+  flex: 1;
+}
+
+.attachLight .label {
+  color: var(--Text/Light/Primary);
+}
+
+.attachDark .label {
+  color: var(--Text/Light/Inverted);
+}
+
+.attachDesktop .label {
+  font: var(--Text/16|20 R);
+}
+
+.attachMobile .label {
+  font: var(--Text/14|16 R);
+}
+
+.counter {
+  font: var(--Text/12|16 R);
+  flex-shrink: 0;
+}
+
+.attachLight .counter {
+  color: var(--Text/Light/Secondary);
+}
+
+.attachDark .counter {
+  color: var(--Text/Light/Inverted);
+}
+
+.attachDesktop .counter {
+  font: var(--Text/14|16 R);
+}
+
+.attachMobile .counter {
+  font: var(--Text/12|16 R);
+}
+
+.errorMessage {
+  font: var(--Text/12|16 R);
+  color: var(--Other/Red-200 MAIN);
+  padding: 0 4px;
+}
+
+.attachDesktop .errorMessage {
+  font: var(--Text/14|16 R);
+}
+
+.attachMobile .errorMessage {
+  font: var(--Text/12|16 R);
+}
+
+.limitMessage {
+  font: var(--Text/12|16 R);
+  color: var(--Other/Yellow-300 MAIN);
+  padding: 0 4px;
+}
+
+.attachDesktop .limitMessage {
+  font: var(--Text/14|16 R);
+}
+
+.attachMobile .limitMessage {
+  font: var(--Text/12|16 R);
+}
