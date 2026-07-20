@@ -1,0 +1,115 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.textareaWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.textarea {
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Text/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 4px;
+  padding: 12px;
+  resize: vertical;
+  min-height: 80px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
+  transition: border-color 0.2s ease;
+}
+
+.textarea::placeholder {
+  color: var(--Text/Light/Secondary);
+}
+
+.textarea:hover {
+  border-color: var(--Border/lightGray-hsL76-hover);
+}
+
+.textarea:active {
+  border-color: var(--Border/428C-active);
+}
+
+.textareaFocus {
+  border-color: var(--Check & Radio/blackOnyx-default);
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 0;
+}
+
+.textareaError {
+  border-color: var(--Other/Red-200 MAIN);
+}
+
+.textareaError:hover {
+  border-color: var(--Other/Red-200 MAIN);
+}
+
+.textareaFocus.textareaError {
+  border-color: var(--Other/Red-200 MAIN);
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+}
+
+.textareaDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.textareaFilled {
+  background-color: var(--Background/Light/Primary);
+  border-color: var(--Background/Light/Stroke);
+}
+
+.textareaFilled:hover {
+  border-color: var(--Border/lightGray-hsL76-hover);
+}
+
+.textareaFilled:active {
+  border-color: var(--Border/428C-active);
+}
+
+.textareaFilled.textareaFocus {
+  border-color: var(--Check & Radio/blackOnyx-default);
+}
+
+.label {
+  font: var(--Text/14|16 M: Athu);
+  color: var(--Label/Light/primary);
+  margin-bottom: 4px;
+}
+
+.labelOutside {
+  font: var(--Text/14|16 M: Athu);
+  color: var(--Label/Light/primary);
+  margin-bottom: 8px;
+}
+
+.labelInside {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font: var(--Text/12|16 M: Zest);
+  color: var(--Label/Light/secondary);
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.textarea:focus ~ .labelInside,
+.textarea:not(:placeholder-shown) ~ .labelInside {
+  top: 4px;
+  font: var(--Text/12|16 M: Zest);
+}
+
+.errorMessage {
+  font: var(--Text/12|16 M: Zest);
+  color: var(--Other/Red-200 MAIN);
+  margin-top: 4px;
+}
