@@ -1,0 +1,9 @@
+.key {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
+
+.keyBlue {
+  background-color: var(--Default /Light Colors /SystemBlue);
+  color: var(--Background/Light/Primary);
+}
