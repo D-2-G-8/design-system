@@ -1,0 +1,142 @@
+.footer {
+  background-color: var(--Main/Black);
+  color: var(--Main/White);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footerMini {
+  padding: 24px 0;
+}
+
+.footerMaxi {
+  padding: 48px 0 24px;
+}
+
+.footerMobile {
+  padding: 32px 16px 24px;
+}
+
+.footerTablet {
+  padding: 40px 32px 24px;
+}
+
+.footerDesktop {
+  padding: 48px 64px 24px;
+}
+
+.footerOpen {
+  max-height: none;
+  overflow: visible;
+}
+
+.footerClosed {
+  max-height: 80px;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  font: var(--text/Text\ \ 16\ Regular);
+  color: var(--Main/White);
+  font-weight: 600;
+  margin: 0;
+}
+
+.sectionLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.link {
+  font: var(--text/Text\ \ 14\ Regular);
+  color: var(--Main/White);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.linkItem {
+  display: flex;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--Separator\ Color/Light/With\ Transparency);
+  width: 100%;
+  margin: 24px 0;
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+}
+
+.copyright {
+  font: var(--Desktop\ Text\ Styles/R4-12);
+  color: var(--Main/White);
+  opacity: 0.6;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.iconButton {
+  background: transparent;
+  border: none;
+  color: var(--Main/White);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.iconButton:hover {
+  opacity: 0.7;
+}
