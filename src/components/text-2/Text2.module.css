@@ -1,0 +1,8 @@
+.text {
+  color: var(--Text/Light/Primary);
+  font: var(--text/Text  14 Regular);
+}
+
+.textWrapper {
+  display: inline-block;
+}
