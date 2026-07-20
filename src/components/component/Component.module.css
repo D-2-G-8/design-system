@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  padding: 24px;
+  gap: 16px;
+}
+
+.mini {
+  padding: 16px;
+  gap: 12px;
+}
+
+.title {
+  font: var(--Text/16|20 M);
+  color: var(--Text/Light/Primary);
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Secondary);
+  margin: 0;
+}
