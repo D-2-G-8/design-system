@@ -1,0 +1,39 @@
+.alert {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  box-shadow: var(--Shadows/Low);
+}
+
+.alertIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--Text/Light/Primary);
+}
+
+.alertContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.alertTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--Text/Light/Primary);
+  margin: 0;
+}
+
+.alertMessage {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--Text/Light/Secondary);
+  margin: 0;
+}
