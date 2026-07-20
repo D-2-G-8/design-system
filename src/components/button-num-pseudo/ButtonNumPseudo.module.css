@@ -1,0 +1,69 @@
+.button {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font: var(--button 40);
+  padding: 12px 24px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  user-select: none;
+}
+
+.buttonActive {
+  background-color: var(--Btn fill accent/orange-active);
+  color: var(--Text/white);
+  border: 1px solid transparent;
+}
+
+.buttonActive:hover {
+  background-color: var(--Btn fill accent/orange-hsL59-hover);
+}
+
+.buttonActive:focus-visible {
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 2px;
+}
+
+.buttonInactive {
+  background-color: var(--Btn fill regular/428C-hsL96-default);
+  color: var(--Btn toolbar/text-blackOnyx-Generic);
+  border: 1px solid var(--Border/lightGray);
+}
+
+.buttonInactive:hover {
+  background-color: var(--Btn fill regular/428C-hsL92-hover);
+  border-color: var(--Border/lightGray-hsL76-hover);
+}
+
+.buttonInactive:active {
+  background-color: var(--Btn fill regular/blackOnyx-active);
+  color: var(--Text/white);
+  border-color: var(--Border/428C-active);
+}
+
+.buttonInactive:focus-visible {
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 2px;
+}
+
+.buttonDefault {
+  background-color: var(--Btn fill accent/blackOnyx-default);
+  color: var(--Text/white);
+  border: 1px solid transparent;
+}
+
+.buttonDefault:hover {
+  background-color: var(--Btn fill accent/blackOnyx-hsL20-hover);
+}
+
+.buttonDefault:active {
+  background-color: var(--Btn fill accent/blackOnyx-active);
+}
+
+.buttonDefault:focus-visible {
+  outline: 2px solid var(--Focus/orange-H28sL85-focus);
+  outline-offset: 2px;
+}
