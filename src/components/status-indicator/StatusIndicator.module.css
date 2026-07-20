@@ -1,0 +1,71 @@
+.statusIndicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.sizeXs {
+  width: 8px;
+  height: 8px;
+}
+
+.appearanceNegative {
+  background-color: var(--Indication/485C-H0sl-negative);
+}
+
+.appearancePositive {
+  background-color: var(--Indication/576C-positive);
+}
+
+.appearanceWarning {
+  background-color: var(--Indication/144C-warning);
+}
+
+.appearanceActive {
+  background-color: var(--Border/428C-active);
+}
+
+.appearancePassive {
+  background-color: var(--Grays/Gray-400);
+}
+
+.typeStatus1 {
+  border: none;
+}
+
+.typeStatus2 {
+  border: 2px solid var(--Background/Light/Primary);
+  box-shadow: 0 0 0 1px var(--Icon/428C);
+}
+
+.typeStatus3 {
+  background-color: var(--Background/Light/Primary);
+  border: 2px solid currentColor;
+}
+
+.typeStatus3.appearanceNegative {
+  color: var(--Indication/485C-H0sl-negative);
+  background-color: var(--Background/Light/Primary);
+}
+
+.typeStatus3.appearancePositive {
+  color: var(--Indication/576C-positive);
+  background-color: var(--Background/Light/Primary);
+}
+
+.typeStatus3.appearanceWarning {
+  color: var(--Indication/144C-warning);
+  background-color: var(--Background/Light/Primary);
+}
+
+.typeStatus3.appearanceActive {
+  color: var(--Border/428C-active);
+  background-color: var(--Background/Light/Primary);
+}
+
+.typeStatus3.appearancePassive {
+  color: var(--Grays/Gray-400);
+  background-color: var(--Background/Light/Primary);
+}
