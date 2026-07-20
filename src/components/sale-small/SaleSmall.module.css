@@ -1,0 +1,20 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--Other/Red-200);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.saleLabel {
+  font: var(--Text/14|16 M);
+  color: var(--Main/White);
+  margin: 0;
+}
+
+.saleText {
+  font: var(--Text/14|16 M);
+  color: var(--Main/White);
+  margin: 0;
+}
