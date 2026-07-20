@@ -1,0 +1,9 @@
+.zoomOut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  color: var(--icon);
+}
