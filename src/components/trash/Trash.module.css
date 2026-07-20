@@ -1,0 +1,17 @@
+.trash {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  color: var(--Icons/Light/Primary);
+}
+
+.basic {
+  /* Basic variant styling */
+}
