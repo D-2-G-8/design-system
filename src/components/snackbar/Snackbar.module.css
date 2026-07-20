@@ -1,0 +1,74 @@
+.snackbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: var(--🖥️ Shadow/M ↓);
+  position: relative;
+}
+
+.snackbarLight {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+}
+
+.snackbarDark {
+  background-color: var(--Main/Black);
+  color: var(--Main/White);
+}
+
+.snackbarDesktop {
+  min-width: 320px;
+  max-width: 568px;
+}
+
+.snackbarMobile {
+  width: 100%;
+  max-width: 100%;
+}
+
+.message {
+  font: var(--Text/16|20 M);
+  flex: 1;
+  margin: 0;
+}
+
+.subtitle {
+  font: var(--Text/14|16 R);
+  color: var(--Text/Light/Secondary);
+  margin-top: 4px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconLeft {
+  order: -1;
+}
+
+.stateMessage {
+  border-left: 4px solid var(--Indication/neutral);
+}
+
+.stateError {
+  border-left: 4px solid var(--Indication/485C-H0sl-negative);
+}
+
+.stateDone {
+  border-left: 4px solid var(--Indication/576C-positive);
+}
+
+.stateInfo {
+  border-left: 4px solid var(--Indication/2728C-info);
+}
+
+.stateWarning {
+  border-left: 4px solid var(--Indication/144C-warning);
+}
