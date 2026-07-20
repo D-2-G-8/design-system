@@ -1,0 +1,30 @@
+.tr {
+  display: table-row;
+}
+
+.default {
+  background-color: var(--Background/Light/Primary);
+  color: var(--Text/Light/Primary);
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.default:hover {
+  background-color: var(--Table row/144C-hsL94-hover);
+}
+
+.variant2 {
+  background-color: var(--Background/Light/Secondary);
+  color: var(--Text/Light/Primary);
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.variant2:hover {
+  background-color: var(--Table row/144C-hsL94-hover);
+}
+
+.variant3 {
+  background-color: var(--Table row/144C-hsL94-active);
+  color: var(--Text/Light/Primary);
+  border-bottom: 1px solid var(--Border/lightGray);
+  font: var(--Table/Table total);
+}
