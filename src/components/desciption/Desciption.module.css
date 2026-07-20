@@ -1,0 +1,23 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: var(--Background/Light/Secondary);
+  border-radius: 8px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.text {
+  font: var(--Text/14|20 R: Quel);
+  color: var(--Text/Light/Secondary);
+  text-align: center;
+  margin: 0;
+}
