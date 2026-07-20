@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.navigationParent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: var(--Background/Light/Primary);
+  border-bottom: 1px solid var(--Border/lightGray);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.navigationParent:hover {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.navigationParentOpen {
+  background-color: var(--Background/Light/Primary);
+}
+
+.navigationParentClose {
+  background-color: var(--Background/Light/Primary);
+}
+
+.label {
+  font: var(--Text/16|20 M: Daze);
+  color: var(--Text/Light/Primary);
+  flex: 1;
+  margin-left: 12px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: var(--Icons/Light/Primary);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.navigationParentOpen .icon {
+  transform: rotate(180deg);
+}
+
+.navigationParentClose .icon {
+  transform: rotate(0deg);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--Background/Light/Primary);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.navigationParentOpen ~ .content {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.navigationParentClose ~ .content {
+  max-height: 0;
+  opacity: 0;
+}
