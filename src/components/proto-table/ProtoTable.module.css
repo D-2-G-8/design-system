@@ -1,0 +1,36 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--Background/white);
+}
+
+.tableHeader {
+  font: var(--Table/Table header);
+  color: var(--Text/blackOnix);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--Border/lightGray);
+  transition: background-color 0.2s ease;
+}
+
+.tableCell {
+  font: var(--Table/Table data);
+  color: var(--Text/blackOnix);
+  padding: 12px 16px;
+}
+
+.tableRowHover {
+  background-color: var(--Table row/144C-hsL94-hover);
+  border-bottom: 1px solid var(--Border/lightGray-hsL76-hover);
+}
+
+.tableTotal {
+  font: var(--Table/Table total);
+  color: var(--Text/blackOnix);
+  padding: 12px 16px;
+  border-top: 2px solid var(--Border/lightGray);
+}
