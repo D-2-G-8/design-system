@@ -1,0 +1,51 @@
+.iconDataCell {
+  font: var(--Table/Table data);
+  color: var(--Text/Light/Primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link {
+  font: var(--Table/Table data);
+  color: var(--Text link/2728C-default);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: var(--Text link/2728C-hsL72-hover);
+}
+
+.link:active {
+  color: var(--Text link/link-2728C-active);
+}
+
+.visited {
+  font: var(--Table/Table data);
+  color: var(--Text link/2757C-H264sL43-visited);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.visited:hover {
+  color: var(--Text link/2728C-hsL72-hover);
+}
+
+.visited:active {
+  color: var(--Text link/link-2728C-active);
+}
+
+.default {
+  font: var(--Table/Table data);
+  color: var(--Text/Light/Primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
