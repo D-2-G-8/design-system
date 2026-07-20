@@ -1,0 +1,24 @@
+.iconCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--Border/lightGray);
+  background-color: var(--Background/Light/Primary);
+}
+
+.iconCellOff {
+  background-color: var(--Background/Light/Primary);
+}
+
+.iconCellOn {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: var(--Icons/Light/Primary);
+}
