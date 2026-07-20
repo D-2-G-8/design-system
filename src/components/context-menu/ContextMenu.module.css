@@ -1,0 +1,64 @@
+.contextMenu {
+  background: var(--Background/Light/Primary Elevated);
+  border: 1px solid var(--Background/Light/Stroke);
+  border-radius: 8px;
+  box-shadow: var(--Shadows/Low);
+  padding: 4px;
+  min-width: 200px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--Text/Light/Primary);
+  transition: background-color 0.15s ease;
+}
+
+.menuItemHover {
+  background: var(--Border/lightGray);
+}
+
+.menuItemActive {
+  background: var(--Border/lightGray-hsL76-hover);
+  color: var(--Text/blackOnix);
+}
+
+.menuItemDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: var(--Text/Light/Secondary);
+}
+
+.separator {
+  height: 1px;
+  background: var(--Background/Light/Stroke);
+  margin: 4px 8px;
+}
+
+.menuItemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  color: var(--Text/graphite);
+}
+
+.menuItemLabel {
+  flex: 1;
+  font-size: 14px;
+  line-height: 20px;
+  color: inherit;
+}
+
+.menuItemShortcut {
+  margin-left: 24px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--Text/Light/Secondary);
+}
