@@ -1,0 +1,15 @@
+.background {
+  background-color: var(--Background/Light/Primary);
+}
+
+.light {
+  background-color: var(--Background/Light/Primary);
+}
+
+.dark {
+  background-color: var(--Main/Black);
+}
+
+.default {
+  background-color: var(--Background/Light/Primary);
+}
