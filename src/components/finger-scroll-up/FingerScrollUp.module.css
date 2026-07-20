@@ -1,0 +1,19 @@
+.fingerScrollUp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  color: var(--Icons/Light/Primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background-color: var(--Background/Light/Primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
