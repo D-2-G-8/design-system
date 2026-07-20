@@ -1,0 +1,46 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: var(--Background/Light/Secondary);
+  border-bottom: 1px solid var(--Border/lightGray);
+  font: var(--Table/Table header);
+  color: var(--Text/Light/Primary);
+}
+
+.headerLeft {
+  justify-content: flex-start;
+}
+
+.headerCenter {
+  justify-content: center;
+}
+
+.headerRight {
+  justify-content: flex-end;
+}
+
+.headerHovered {
+  background-color: var(--Background/Light/Primary);
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  color: var(--Icons/Light/Primary);
+  flex-shrink: 0;
+}
+
+.text {
+  font: var(--Table/Table header);
+  color: var(--Text/Light/Primary);
+  white-space: nowrap;
+}
