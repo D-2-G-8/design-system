@@ -1,0 +1,83 @@
+.dateDayButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Primary);
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.dateDayButton:hover {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.dateDayButton:active {
+  background-color: var(--Border/428C-active);
+}
+
+.checked {
+  background-color: var(--Btn fill accent/blackOnyx-default);
+  color: var(--Main/White);
+}
+
+.checked:hover {
+  background-color: var(--Btn fill accent/blackOnyx-hsL20-hover);
+}
+
+.checked:active {
+  background-color: var(--Btn fill accent/blackOnyx-active);
+}
+
+.intervalStart {
+  background-color: var(--Check & Radio/blackOnyx-default);
+  color: var(--Main/White);
+  border-radius: 4px 0 0 4px;
+}
+
+.intervalStart:hover {
+  background-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
+
+.intervalStart:active {
+  background-color: var(--Check & Radio/blackOnyx-active);
+}
+
+.intervalBetween {
+  background-color: var(--Background/Light/Secondary);
+  color: var(--Text/Light/Primary);
+  border-radius: 0;
+}
+
+.intervalBetween:hover {
+  background-color: var(--Border/428C-active);
+}
+
+.intervalEnd {
+  background-color: var(--Check & Radio/blackOnyx-default);
+  color: var(--Main/White);
+  border-radius: 0 4px 4px 0;
+}
+
+.intervalEnd:hover {
+  background-color: var(--Check & Radio/blackOnyx-hsL20-hover);
+}
+
+.intervalEnd:active {
+  background-color: var(--Check & Radio/blackOnyx-active);
+}
+
+.nextMonth {
+  color: var(--Text/Light/Secondary);
+}
+
+.disabled {
+  color: var(--Check & Radio/428C-hsL92-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
