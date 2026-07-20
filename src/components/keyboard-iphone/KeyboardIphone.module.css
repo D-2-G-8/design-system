@@ -1,0 +1,127 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background-color: var(--Background/Light/Secondary);
+  width: 100%;
+}
+
+.keyRow {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  width: 100%;
+}
+
+.key {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  background-color: var(--Main/White);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--Shadows/Low);
+  cursor: pointer;
+  user-select: none;
+  font-size: 24px;
+  color: var(--Text/Light/Primary);
+  font-weight: 400;
+}
+
+.keyLabel {
+  color: var(--Text/Light/Primary);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.spaceBar {
+  flex: 5;
+  min-width: 0;
+  height: 42px;
+  background-color: var(--Main/White);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--Shadows/Low);
+  cursor: pointer;
+  user-select: none;
+}
+
+.functionKey {
+  flex: 1.5;
+  min-width: 0;
+  height: 42px;
+  background-color: var(--Grays/Gray-200);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--Shadows/Low);
+  cursor: pointer;
+  user-select: none;
+  color: var(--Text/Light/Primary);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.deleteKey {
+  flex: 1.5;
+  min-width: 0;
+  height: 42px;
+  background-color: var(--Grays/Gray-200);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--Shadows/Low);
+  cursor: pointer;
+  user-select: none;
+  color: var(--Text/Light/Primary);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.shiftKey {
+  flex: 1.5;
+  min-width: 0;
+  height: 42px;
+  background-color: var(--Grays/Gray-200);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--Shadows/Low);
+  cursor: pointer;
+  user-select: none;
+  color: var(--Text/Light/Primary);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.returnKey {
+  flex: 1.5;
+  min-width: 0;
+  height: 42px;
+  background-color: var(--Grays/Gray-200);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--Shadows/Low);
+  cursor: pointer;
+  user-select: none;
+  color: var(--Text/Light/Primary);
+  font-size: 16px;
+  font-weight: 400;
+}
