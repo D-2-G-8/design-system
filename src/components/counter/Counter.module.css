@@ -1,0 +1,93 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+.counterLight {
+  background-color: var(--Background/Light/Secondary);
+  border: 1px solid var(--Border/lightGray);
+}
+
+.counterDark {
+  background-color: var(--Main/Black);
+  border: 1px solid var(--Main/Black);
+}
+
+.counterSizeS {
+  min-width: 64px;
+  padding: 8px 12px;
+}
+
+.counterSizeM {
+  min-width: 80px;
+  padding: 12px 16px;
+}
+
+.counterSizeL {
+  min-width: 96px;
+  padding: 16px 20px;
+}
+
+.counterMax {
+  width: 100%;
+}
+
+.counterValue {
+  font: var(--Text/16|20 M);
+  color: var(--Text/Light/Primary);
+  line-height: 1;
+  margin: 0;
+}
+
+.counterLight .counterValue {
+  color: var(--Text/Light/Primary);
+}
+
+.counterDark .counterValue {
+  color: var(--Main/White);
+}
+
+.counterSizeS .counterValue {
+  font: var(--Text/12|16 M);
+}
+
+.counterSizeM .counterValue {
+  font: var(--Text/14|16 M);
+}
+
+.counterSizeL .counterValue {
+  font: var(--Text/16|20 M);
+}
+
+.counterLabel {
+  font: var(--Text/12|16 M);
+  color: var(--Text/Light/Secondary);
+  line-height: 1;
+  margin: 0;
+}
+
+.counterLight .counterLabel {
+  color: var(--Text/Light/Secondary);
+}
+
+.counterDark .counterLabel {
+  color: var(--Grays/Gray-400);
+}
+
+.counterSizeS .counterLabel {
+  font: var(--Desktop Text Styles/M4-12);
+}
+
+.counterSizeM .counterLabel {
+  font: var(--Text/12|16 M);
+}
+
+.counterSizeL .counterLabel {
+  font: var(--Desktop Text Styles/M3-14);
+}
