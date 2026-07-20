@@ -1,0 +1,119 @@
+.tooltip {
+  position: relative;
+  display: inline-block;
+  background: var(--Tooltip/blackOnix);
+  color: var(--Text/white);
+  border-radius: 8px;
+  padding: 8px 12px;
+  max-width: 280px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.tooltipUp {
+  margin-bottom: 8px;
+}
+
+.tooltipDown {
+  margin-top: 8px;
+}
+
+.tooltipLeft {
+  margin-right: 8px;
+}
+
+.tooltipRight {
+  margin-left: 8px;
+}
+
+.tooltipLight {
+  background: var(--Main/White);
+  color: var(--Text/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  box-shadow: var(--Shadows/Low);
+}
+
+.tooltipDark {
+  background: var(--Tooltip/blackOnix);
+  color: var(--Text/white);
+}
+
+.tooltipMobile {
+  font: var(--Mobile Text Styles / M4-12);
+  padding: 6px 10px;
+  max-width: 240px;
+}
+
+.tooltipDesktop {
+  font: var(--Desktop Text Styles/R3-14);
+  padding: 8px 12px;
+  max-width: 280px;
+}
+
+.tooltipLeftAligned {
+  text-align: left;
+}
+
+.tooltipRightAligned {
+  text-align: right;
+}
+
+.arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.arrow.tooltipUp {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0 6px;
+  border-color: var(--Tooltip/blackOnix) transparent transparent transparent;
+}
+
+.arrow.tooltipDown {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent var(--Tooltip/blackOnix) transparent;
+}
+
+.arrow.tooltipLeft {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 6px;
+  border-color: transparent transparent transparent var(--Tooltip/blackOnix);
+}
+
+.arrow.tooltipRight {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 6px 6px 0;
+  border-color: transparent var(--Tooltip/blackOnix) transparent transparent;
+}
+
+.arrow.tooltipLight.tooltipUp {
+  border-color: var(--Main/White) transparent transparent transparent;
+}
+
+.arrow.tooltipLight.tooltipDown {
+  border-color: transparent transparent var(--Main/White) transparent;
+}
+
+.arrow.tooltipLight.tooltipLeft {
+  border-color: transparent transparent transparent var(--Main/White);
+}
+
+.arrow.tooltipLight.tooltipRight {
+  border-color: transparent var(--Main/White) transparent transparent;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
