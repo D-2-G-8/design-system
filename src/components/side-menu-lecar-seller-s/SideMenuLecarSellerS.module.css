@@ -1,0 +1,80 @@
+.sideMenu {
+  background: var(--Background/Light/Primary);
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  height: 100vh;
+  box-shadow: var(--Shadows/Low);
+}
+
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.menuSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+}
+
+.menuHeader {
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Secondary);
+  padding: 12px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-decoration: none;
+  color: var(--Text/Light/Primary);
+}
+
+.menuItemDefault {
+  composes: menuItem;
+  font: var(--Text/14|20 R);
+}
+
+.menuItemVariant2 {
+  composes: menuItem;
+  font: var(--Text/16|20 M);
+}
+
+.menuItemActive {
+  background: var(--Background/Light/Secondary);
+  color: var(--Text/Light/Primary);
+}
+
+.menuItemHover {
+  background: var(--Grays/Gray-100);
+}
+
+.menuIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--Icons/Light/Primary);
+  flex-shrink: 0;
+}
+
+.menuText {
+  font: var(--Text/14|20 R);
+  color: inherit;
+  flex: 1;
+}
+
+.menuDivider {
+  height: 1px;
+  background: var(--Border/lightGray);
+  margin: 8px 16px;
+}
