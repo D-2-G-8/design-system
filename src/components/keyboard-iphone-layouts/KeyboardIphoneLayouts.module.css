@@ -1,0 +1,98 @@
+.keyboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+  background: var(--Background/Light/Secondary);
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 414px;
+  padding: 0 3px;
+}
+
+.keyRow {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 42px;
+  border-radius: 5px;
+  background: var(--Main/White);
+  border: none;
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  user-select: none;
+  font-family: TT Norms;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  color: var(--Text/Light/Primary);
+  flex: 1;
+  max-width: 36px;
+}
+
+.keyLetter {
+  composes: key;
+  composes: letterKey;
+}
+
+.letterKey {
+  background: var(--Main/White);
+  color: var(--Text/Light/Primary);
+}
+
+.functionKey {
+  background: var(--Fill/Light/secondary);
+  color: var(--Text/Light/Primary);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.keyShift {
+  composes: key;
+  composes: functionKey;
+  composes: wideKey;
+  max-width: 42px;
+  flex: 1.5;
+}
+
+.keyBackspace {
+  composes: key;
+  composes: functionKey;
+  composes: wideKey;
+  max-width: 42px;
+  flex: 1.5;
+}
+
+.keyReturn {
+  composes: key;
+  composes: functionKey;
+  composes: wideKey;
+  max-width: 87px;
+  flex: 2.5;
+}
+
+.keySpace {
+  composes: key;
+  composes: wideKey;
+  max-width: 203px;
+  flex: 5;
+  background: var(--Main/White);
+}
+
+.wideKey {
+  min-width: unset;
+}
