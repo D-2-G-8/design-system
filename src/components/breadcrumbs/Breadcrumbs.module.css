@@ -1,0 +1,48 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbsList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbLink {
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Text link/2728C-default);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.breadcrumbLinkActive {
+  font: var(--Text/14|16 M: Athu);
+  color: var(--Text/Light/Primary);
+  text-decoration: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.breadcrumbLinkHover {
+  color: var(--Text link/2728C-hsL72-hover);
+}
+
+.breadcrumbSeparator {
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Icons / Light / Secondary);
+  margin: 0 8px;
+  user-select: none;
+}
+
+.breadcrumbText {
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Text/Light/Primary);
+}
