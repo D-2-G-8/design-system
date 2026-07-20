@@ -1,0 +1,34 @@
+.container {
+  background-color: var(--Background/Light/Primary);
+  padding: 48px 24px;
+}
+
+.title {
+  font: var(--text/heading-2);
+  color: var(--Text/Light/Primary);
+  margin-bottom: 32px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section {
+  background-color: var(--Main/White);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.item {
+  font: var(--text/Text  16 Regular);
+  color: var(--Main/Black);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--Grays/Gray-100);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
