@@ -1,0 +1,65 @@
+.changelog {
+  background-color: var(--Background/Light/Primary);
+  padding: 32px;
+}
+
+.changelogHeader {
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--Border/lightGray);
+  padding-bottom: 16px;
+}
+
+.changelogTitle {
+  font: var(--text/heading-1);
+  color: var(--Text/Light/Primary);
+  margin: 0;
+}
+
+.changelogList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.changelogItem {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.changelogItem:last-child {
+  margin-bottom: 0;
+}
+
+.changelogDate {
+  font: var(--text/heading-3);
+  color: var(--Text/Light/Primary);
+  margin-bottom: 16px;
+}
+
+.changelogContent {
+  padding-left: 24px;
+  border-left: 2px solid var(--Border/lightGray);
+}
+
+.changelogEntry {
+  margin-bottom: 16px;
+}
+
+.changelogEntry:last-child {
+  margin-bottom: 0;
+}
+
+.changelogCategory {
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.changelogDescription {
+  font: var(--text/Text  16 Regular);
+  color: var(--Text/Light/Primary);
+  margin: 0;
+}
