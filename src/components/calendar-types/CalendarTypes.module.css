@@ -1,0 +1,127 @@
+.calendar {
+  display: inline-flex;
+  flex-direction: column;
+  background: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'Roboto Flex', sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.monthYear {
+  font: var(--Head/20|24 B);
+  color: var(--Text/Light/Primary);
+}
+
+.navigation {
+  display: flex;
+  gap: 8px;
+}
+
+.navButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--Icons/Light/Primary);
+}
+
+.navButton:hover {
+  border-color: var(--Border/lightGray-hsL76-hover);
+  background: var(--Background/Light/Secondary);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.weekday {
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Secondary);
+  text-align: center;
+  padding: 8px;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.day {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dayContent {
+  font: var(--Text/14|20 R);
+  color: var(--Text/Light/Primary);
+}
+
+.today .dayContent {
+  font: var(--Text/14|16 M);
+  color: var(--Text/Light/Primary);
+}
+
+.today {
+  background: var(--Background/Light/Secondary);
+  border: 1px solid var(--Border/428C-active);
+}
+
+.selected {
+  background: var(--Btn fill accent/blackOnyx-default);
+}
+
+.selected .dayContent {
+  color: var(--Text/428C);
+  font: var(--Text/14|16 M);
+}
+
+.selected:hover {
+  background: var(--Btn fill accent/blackOnyx-hsL20-hover);
+}
+
+.selected:active {
+  background: var(--Btn fill accent/blackOnyx-active);
+}
+
+.otherMonth .dayContent {
+  color: var(--Text/Light/Secondary);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.disabled .dayContent {
+  color: var(--Text/Light/Secondary);
+}
+
+.weekend .dayContent {
+  color: var(--Text/Light/Primary);
+}
+
+.day:not(.selected):not(.disabled):hover {
+  background: var(--Background/Light/Secondary);
+}
