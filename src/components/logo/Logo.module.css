@@ -1,0 +1,23 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoLecar {
+  color: var(--Main/Black);
+}
+
+.typeProduct {
+  color: var(--Text/Light/Primary);
+}
+
+.typeService {
+  color: var(--Icons/Light/Primary);
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
