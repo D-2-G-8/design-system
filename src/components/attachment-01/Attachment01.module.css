@@ -1,0 +1,55 @@
+.attachment {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+}
+
+.attachmentIcon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--Icons/Light/Primary);
+}
+
+.attachmentName {
+  flex: 1;
+  font: var(--text/Text  14 Regular);
+  color: var(--Text/Light/Primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.attachmentSize {
+  flex-shrink: 0;
+  font: var(--text/Text  12 Regular);
+  color: var(--Text/Light/Primary);
+  opacity: 0.6;
+}
+
+.attachmentActions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.attachmentButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--Icons/Light/Primary);
+}
