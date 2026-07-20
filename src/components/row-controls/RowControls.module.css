@@ -1,0 +1,27 @@
+.rowControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 4px;
+}
+
+.default {
+  background-color: var(--Background/Light/Primary);
+  border-color: var(--Border/lightGray);
+  color: var(--Icons/Light/Primary);
+}
+
+.hover {
+  background-color: var(--Background/Light/Secondary);
+  border-color: var(--Border/lightGray-hsL76-hover);
+  color: var(--Icons/Light/Primary);
+}
+
+.active {
+  background-color: var(--Background/Light/Secondary);
+  border-color: var(--Border/428C-active);
+  color: var(--Icons/Light/Primary);
+}
