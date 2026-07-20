@@ -1,0 +1,44 @@
+.scrollBar {
+  position: absolute;
+  z-index: 1;
+}
+
+.scrollBarX {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  overflow: hidden;
+}
+
+.scrollBarY {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  overflow: hidden;
+}
+
+.thumb {
+  background-color: var(--Scroll/428C-hsL92-default);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.thumb:hover {
+  background-color: var(--Scroll/428C-hsL92-hover);
+}
+
+.thumb:active {
+  background-color: var(--Scroll/428C-hsL92-active);
+}
+
+.scrollBarX .thumb {
+  height: 100%;
+  min-width: 24px;
+}
+
+.scrollBarY .thumb {
+  width: 100%;
+  min-height: 24px;
+}
