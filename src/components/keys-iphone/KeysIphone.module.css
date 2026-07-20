@@ -1,0 +1,105 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background: var(--Background/Light/Secondary);
+}
+
+.keyRow {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 42px;
+  padding: 0 8px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: var(--Shadows/Low);
+}
+
+.keyNormal {
+  background: var(--Main/White);
+}
+
+.keySecondary {
+  background: var(--Fill/Light/secondary);
+}
+
+.keyEmphasized {
+  background: var(--Main/Black);
+}
+
+.keyLight.keyNormal {
+  background: var(--Main/White);
+}
+
+.keyLight.keySecondary {
+  background: var(--Fill/Light/secondary);
+}
+
+.keyLight.keyEmphasized {
+  background: var(--Main/Black);
+}
+
+.keyDark.keyNormal {
+  background: var(--Fill/Dark/secondary);
+}
+
+.keyDark.keySecondary {
+  background: var(--Fill/Dark/secondary);
+}
+
+.keyDark.keyEmphasized {
+  background: var(--Main/White);
+}
+
+.keyDark {
+  background: var(--Dark);
+}
+
+.keyLight {
+  background: var(--Background/Light/Secondary);
+}
+
+.keyboard.keyDark {
+  background: var(--Dark);
+}
+
+.keyLowercase .keyLabel {
+  text-transform: lowercase;
+}
+
+.keyUppercase .keyLabel {
+  text-transform: uppercase;
+}
+
+.keyLabel {
+  font: var(--Text/16|20 M: Daze);
+  color: var(--Label/Light/primary);
+  user-select: none;
+}
+
+.keyLight .keyLabel {
+  color: var(--Label/Light/primary);
+}
+
+.keyDark .keyLabel {
+  color: var(--Label/Dark/primary);
+}
+
+.keyLight.keyEmphasized .keyLabel {
+  color: var(--Label/Dark/primary);
+}
+
+.keyDark.keyEmphasized .keyLabel {
+  color: var(--Label/Light/primary);
+}
