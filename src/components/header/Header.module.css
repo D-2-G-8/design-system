@@ -1,0 +1,49 @@
+.header {
+  background-color: var(--Main/White);
+  border-bottom: 1px solid var(--Border/lightGray);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+}
+
+.logo {
+  font: var(--text/heading-3);
+  color: var(--Main/Black);
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navList {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  color: var(--Text/Light/Primary);
+  text-decoration: none;
+  font: var(--text/heading-4);
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
