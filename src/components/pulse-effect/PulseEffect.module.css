@@ -1,0 +1,51 @@
+.pulseEffect {
+  position: relative;
+  display: inline-block;
+}
+
+.pulseEffect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+.variantDefault {
+  /* Default pulse effect styling */
+}
+
+.variantDefault::before {
+  animation-duration: 2s;
+}
+
+.variantVariant2 {
+  /* Variant2 pulse effect styling */
+}
+
+.variantVariant2::before {
+  animation-duration: 1.5s;
+}
+
+.variantVariant3 {
+  /* Variant3 pulse effect styling */
+}
+
+.variantVariant3::before {
+  animation-duration: 2.5s;
+  animation-timing-function: ease-in-out;
+}
