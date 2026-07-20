@@ -1,0 +1,16 @@
+.homeIndicator {
+  width: 134px;
+  height: 5px;
+  background-color: var(--Fill/Dark/secondary);
+  border-radius: 100px;
+}
+
+.iPhone {
+  width: 134px;
+  height: 5px;
+}
+
+.portrait {
+  width: 134px;
+  height: 5px;
+}
