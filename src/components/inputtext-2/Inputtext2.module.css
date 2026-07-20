@@ -1,0 +1,121 @@
+.inputText {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  font-family: 'Roboto Flex', sans-serif;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--Background/Light/Primary);
+  border: 1px solid var(--Border/lightGray);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.inputWrapper:hover {
+  border-color: var(--Border/lightGray-hsL76-hover);
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--Text/Light/Primary);
+  font: var(--Text/14|20 R: Quel);
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: var(--Text/Light/Secondary);
+}
+
+.label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--Text/Light/Secondary);
+  font: var(--Text/14|20 R: Quel);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background-color: var(--Background/Light/Primary);
+  padding: 0 4px;
+}
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: 0;
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Text/Light/Secondary);
+}
+
+.labelOutside {
+  position: static;
+  transform: none;
+  margin-bottom: 4px;
+  padding: 0;
+  font: var(--Text/14|16 R: Sost);
+  color: var(--Text/Light/Primary);
+}
+
+.filled .inputWrapper {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.filled .label {
+  background-color: var(--Background/Light/Secondary);
+}
+
+.size40 .inputWrapper {
+  height: 40px;
+}
+
+.size40 .input {
+  padding: 8px 12px;
+  font: var(--Text/14|20 R: Quel);
+}
+
+.disabled .inputWrapper {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.disabled .input {
+  cursor: not-allowed;
+}
+
+.error .inputWrapper {
+  border-color: var(--Indication/485C-H0sl-negative);
+}
+
+.error .label {
+  color: var(--Indication/485C-H0sl-negative);
+}
+
+.focused .inputWrapper {
+  border-color: var(--Border/428C-active);
+  box-shadow: 0 0 0 3px var(--Focus/orange-H28sL85-focus);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--Icons/Light/Primary);
+  flex-shrink: 0;
+}
+
+.iconLeft {
+  margin-left: 12px;
+  margin-right: -4px;
+}
+
+.iconRight {
+  margin-right: 12px;
+  margin-left: -4px;
+}
