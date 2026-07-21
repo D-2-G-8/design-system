@@ -1,43 +1,42 @@
 import React from "react";
 import styles from "./N24OutlineOrders.module.scss";
 
-export interface N24OutlineOrdersProps
-  extends React.SVGAttributes<SVGSVGElement> {}
+export interface N24OutlineOrdersProps extends React.SVGAttributes<SVGSVGElement> {}
 
-export function N24OutlineOrders(props: N24OutlineOrdersProps) {
+export function N24OutlineOrders({ ...props }: N24OutlineOrdersProps) {
   return (
     <svg
-      {...props}
-      className={`${styles.icon} ${props.className || ""}`}
+      className={styles.root}
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
-        d="M9 3H4C3.44772 3 3 3.44772 3 4V9C3 9.55228 3.44772 10 4 10H9C9.55228 10 10 9.55228 10 9V4C10 3.44772 9.55228 3 9 3Z"
+        d="M9 7H5C4.44772 7 4 7.44772 4 8V10C4 10.5523 4.44772 11 5 11H9C9.55228 11 10 10.5523 10 10V8C10 7.44772 9.55228 7 9 7Z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M20 3H15C14.4477 3 14 3.44772 14 4V9C14 9.55228 14.4477 10 15 10H20C20.5523 10 21 9.55228 21 9V4C21 3.44772 20.5523 3 20 3Z"
+        d="M9 13H5C4.44772 13 4 13.4477 4 14V16C4 16.5523 4.44772 17 5 17H9C9.55228 17 10 16.5523 10 16V14C10 13.4477 9.55228 13 9 13Z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M9 14H4C3.44772 14 3 14.4477 3 15V20C3 20.5523 3.44772 21 4 21H9C9.55228 21 10 20.5523 10 20V15C10 14.4477 9.55228 14 9 14Z"
+        d="M13 8.5H20"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M20 14H15C14.4477 14 14 14.4477 14 15V20C14 20.5523 14.4477 21 15 21H20C20.5523 21 21 20.5523 21 20V15C21 14.4477 20.5523 14 20 14Z"
+        d="M13 15H20"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
