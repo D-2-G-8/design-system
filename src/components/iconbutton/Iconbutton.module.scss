@@ -6,97 +6,128 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  flex-shrink: 0;
 
   &:disabled {
     cursor: not-allowed;
   }
 }
 
-.size52px {
+.size52 {
   width: 52px;
   height: 52px;
   border-radius: var(--radius-16);
 }
 
-.size40px {
+.size40 {
   width: 40px;
   height: 40px;
   border-radius: var(--radius-12);
 }
 
-.size32px {
+.size32 {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-8);
 }
 
-.size24px {
+.size24 {
   width: 24px;
   height: 24px;
   border-radius: var(--radius-8);
 }
 
-.appearancePrimary {
-  background-color: #000000;
-  color: #ffffff;
+.icon24 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
 
-  &:hover:not(.disabled) {
+.icon16 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.appearancePrimary {
+  background-color: var(--label-light-primary);
+  color: var(--white);
+
+  &:hover:not(:disabled):not(.active) {
     background-color: var(--color-292929);
   }
 
-  &:active:not(.disabled) {
-    background-color: #000000;
+  &:active:not(:disabled):not(.active) {
+    background-color: var(--label-light-primary);
+  }
+
+  &.active {
+    background-color: var(--label-light-primary);
   }
 
   &.disabled {
-    background-color: #f5f5f5;
-    color: #cccccc;
+    background-color: var(--new-style-base-1);
   }
 }
 
 .appearanceSecondary {
-  background-color: #f5f5f5;
-  color: #000000;
+  background-color: var(--new-style-base-1);
+  color: var(--label-light-primary);
 
-  &:hover:not(.disabled) {
+  &:hover:not(:disabled):not(.active) {
     background-color: var(--color-ebebeb);
   }
 
-  &:active:not(.disabled) {
-    background-color: #000000;
-    color: #ffffff;
+  &:active:not(:disabled):not(.active),
+  &.active {
+    background-color: var(--label-light-primary);
+    color: var(--white);
   }
 
   &.disabled {
-    background-color: #f5f5f5;
-    color: #cccccc;
+    background-color: var(--new-style-base-1);
   }
 }
 
 .appearanceTertiary {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--white);
+  color: var(--label-light-primary);
 
-  &:hover:not(.disabled) {
-    background-color: #f5f5f5;
+  &:hover:not(:disabled):not(.active) {
+    background-color: var(--new-style-base-1);
   }
 
-  &:active:not(.disabled) {
-    background-color: #000000;
-    color: #ffffff;
+  &:active:not(:disabled):not(.active),
+  &.active {
+    background-color: var(--label-light-primary);
+    color: var(--white);
   }
 
   &.disabled {
-    background-color: #ffffff;
-    color: #cccccc;
-    opacity: 0.5;
+    background-color: var(--white);
   }
 }
 
 .disabled {
+  opacity: 0.4;
   pointer-events: none;
-  opacity: 0.6;
+}
+
+.active {
+  /* Active state handled by appearance-specific rules */
 }
 
 .withBadge {
@@ -107,16 +138,17 @@
   position: relative;
 }
 
-.tooltipWrapper {
+.tooltipContainer {
   position: absolute;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .badgeContainer {
   position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(25%, -25%);
+  top: -4px;
+  right: -4px;
   pointer-events: none;
 }
