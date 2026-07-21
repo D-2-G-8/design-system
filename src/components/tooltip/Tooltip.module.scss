@@ -1,36 +1,35 @@
 .tooltip {
-  position: relative;
-  display: inline-flex;
-  visibility: hidden;
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
   opacity: 0;
-  transition: opacity 0.2s, visibility 0.2s;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
 
-  &.open {
-    visibility: visible;
+  &.visible {
     opacity: 1;
+    visibility: visible;
   }
+}
 
-  &.placementTop,
-  &.placementTopStart,
-  &.placementTopEnd {
+.tooltipFrame {
+  display: inline-flex;
+
+  .placementTop &,
+  .placementTopStart &,
+  .placementTopEnd &,
+  .placementBottom &,
+  .placementBottomStart &,
+  .placementBottomEnd & {
     flex-direction: column;
   }
 
-  &.placementBottom,
-  &.placementBottomStart,
-  &.placementBottomEnd {
-    flex-direction: column;
-  }
-
-  &.placementLeft,
-  &.placementLeftStart,
-  &.placementLeftEnd {
-    flex-direction: row;
-  }
-
-  &.placementRight,
-  &.placementRightStart,
-  &.placementRightEnd {
+  .placementLeft &,
+  .placementLeftStart &,
+  .placementLeftEnd &,
+  .placementRight &,
+  .placementRightStart &,
+  .placementRightEnd & {
     flex-direction: row;
   }
 }
@@ -40,79 +39,63 @@
   flex-direction: row;
   align-items: center;
   padding: 8px 12px;
-  background-color: var(--label-light-primary);
+  background: var(--label-light-primary);
   border-radius: var(--radius-10);
-  width: 93px;
-  box-sizing: border-box;
-
-  color: var(--label-dark-primary);
-  font-family: 'Roboto Flex', sans-serif;
+  color: var(--white);
+  font-family: 'Roboto Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  white-space: nowrap;
+  min-height: 40px;
+  box-sizing: border-box;
 
-  .placementRight:not(.placementRightStart):not(.placementRightEnd) & {
+  // Non-resizable: fixed width 93px (content frame width)
+  .tooltip:not(.resizable) & {
+    width: 93px;
+  }
+
+  // Exception: right placement non-resizable uses radius-12
+  .placementRight:not(.resizable) & {
     border-radius: var(--radius-12);
   }
 
-  .mobile & {
-    padding: 10px 12px;
-    font-family: 'TT Norms', sans-serif;
-    font-size: 16px;
-    line-height: 22px;
-    width: 107px;
-  }
-
-  .resizable.placementLeft &,
-  .resizable.placementLeftStart &,
-  .resizable.placementLeftEnd &,
-  .resizable.placementRight &,
-  .resizable.placementRightStart &,
-  .resizable.placementRightEnd & {
-    width: 132px;
-  }
-
-  .resizable.placementTop &,
-  .resizable.placementTopStart &,
-  .resizable.placementTopEnd &,
-  .resizable.placementBottom &,
-  .resizable.placementBottomStart &,
-  .resizable.placementBottomEnd & {
+  // Resizable vertical (top/bottom): fixed width 140px
+  .tooltip.resizable.placementTop &,
+  .tooltip.resizable.placementTopStart &,
+  .tooltip.resizable.placementTopEnd &,
+  .tooltip.resizable.placementBottom &,
+  .tooltip.resizable.placementBottomStart &,
+  .tooltip.resizable.placementBottomEnd & {
     width: 140px;
+  }
+
+  // Resizable horizontal (left/right): fixed width 132px
+  .tooltip.resizable.placementLeft &,
+  .tooltip.resizable.placementLeftStart &,
+  .tooltip.resizable.placementLeftEnd &,
+  .tooltip.resizable.placementRight &,
+  .tooltip.resizable.placementRightStart &,
+  .tooltip.resizable.placementRightEnd & {
+    width: 132px;
   }
 }
 
-.arrow {
+.arrowFrame {
   display: flex;
-  width: 93px;
-  height: 8px;
-  align-items: center;
 
-  .placementTop & {
-    justify-content: center;
-  }
-
-  .placementTopStart & {
-    padding-left: 10px;
-  }
-
-  .placementTopEnd & {
-    padding-right: 10px;
-  }
-
-  .placementBottom & {
-    justify-content: center;
-  }
-
-  .placementBottomStart & {
-    padding-left: 10px;
-  }
-
+  // Vertical placements: width 100%, height 8px
+  .placementTop &,
+  .placementTopStart &,
+  .placementTopEnd &,
+  .placementBottom &,
+  .placementBottomStart &,
   .placementBottomEnd & {
-    padding-right: 10px;
+    width: 100%;
+    height: 8px;
+    flex-direction: column;
   }
 
+  // Horizontal placements: width 8px, height 40px
   .placementLeft &,
   .placementLeftStart &,
   .placementLeftEnd &,
@@ -121,91 +104,95 @@
   .placementRightEnd & {
     width: 8px;
     height: 40px;
-    flex-direction: column;
+    flex-direction: row;
+  }
+
+  // Top/bottom center: center arrow horizontally
+  .placementTop &,
+  .placementBottom & {
     justify-content: center;
   }
 
-  .placementLeftStart &,
+  // Top-start/bottom-start: pad:0 0 0 10
+  .placementTopStart & {
+    padding-left: 10px;
+    justify-content: flex-start;
+  }
+
+  .placementBottomStart & {
+    padding-left: 10px;
+    justify-content: flex-start;
+  }
+
+  // Top-end/bottom-end: pad:0 10 0 0
+  .placementTopEnd & {
+    padding-right: 10px;
+    justify-content: flex-end;
+  }
+
+  .placementBottomEnd & {
+    padding-right: 10px;
+    justify-content: flex-end;
+  }
+
+  // Left/right center: center arrow vertically
+  .placementLeft &,
+  .placementRight & {
+    justify-content: center;
+    align-items: center;
+  }
+
+  // Left-start/right-start: pad:8 0 0 0
+  .placementLeftStart & {
+    padding-top: 8px;
+    align-items: flex-start;
+  }
+
   .placementRightStart & {
     padding-top: 8px;
+    align-items: flex-start;
   }
 
-  .placementLeftEnd &,
+  // Left-end/right-end: pad:0 0 8 0
+  .placementLeftEnd & {
+    padding-bottom: 8px;
+    align-items: flex-end;
+  }
+
   .placementRightEnd & {
     padding-bottom: 8px;
+    align-items: flex-end;
   }
+}
 
-  .resizable.placementTop &,
-  .resizable.placementTopStart &,
-  .resizable.placementTopEnd &,
-  .resizable.placementBottom &,
-  .resizable.placementBottomStart &,
-  .resizable.placementBottomEnd & {
-    width: 140px;
-  }
+.arrow {
+  display: flex;
+  color: var(--label-light-primary);
+  flex-shrink: 0;
 
   svg {
-    width: 28px;
-    height: 8px;
-    fill: var(--label-light-primary);
-  }
-
-  .placementLeft & svg,
-  .placementLeftStart & svg,
-  .placementLeftEnd & svg,
-  .placementRight & svg,
-  .placementRightStart & svg,
-  .placementRightEnd & svg {
-    width: 8px;
-    height: 28px;
-  }
-
-  .mobile & {
-    width: 8px;
-    height: 40px;
-
-    svg {
-      width: 9px;
-      height: 27px;
-    }
+    display: block;
   }
 }
 
-.placementTop {
-}
-
-.placementTopStart {
-}
-
-.placementTopEnd {
-}
-
-.placementBottom {
-}
-
-.placementBottomStart {
-}
-
+.placementTop,
+.placementTopStart,
+.placementTopEnd,
+.placementBottom,
+.placementBottomStart,
 .placementBottomEnd {
+  // Column direction handled by tooltipFrame
 }
 
-.placementLeft {
-}
-
-.placementLeftStart {
-}
-
-.placementLeftEnd {
-}
-
-.placementRight {
-}
-
-.placementRightStart {
-}
-
+.placementLeft,
+.placementLeftStart,
+.placementLeftEnd,
+.placementRight,
+.placementRightStart,
 .placementRightEnd {
+  // Row direction handled by tooltipFrame
 }
 
-.open {
+.resizable {
+  // Width handled by content
 }
