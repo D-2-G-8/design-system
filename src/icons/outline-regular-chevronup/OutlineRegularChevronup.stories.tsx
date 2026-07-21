@@ -4,10 +4,11 @@ import { OutlineRegularChevronup as Component } from "./OutlineRegularChevronup"
 const meta: Meta<typeof Component> = {
   title: "Icons/OutlineRegularChevronup",
   component: Component,
-  args: {},
+  args: { size: 24 },
 };
 export default meta;
 
 type Story = StoryObj<typeof Component>;
 
 export const Default: Story = {};
+export const Large: Story = { args: { size: 48 } };
