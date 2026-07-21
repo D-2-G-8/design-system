@@ -3,16 +3,14 @@
   flex-direction: row;
   width: 115px;
   height: 42px;
-  padding: 12px 16px;
-  background: var(--tooltip-blackonix);
+  padding: 8px 12px;
+  background: var(--background-light-primary);
   border-radius: var(--radius-8);
-  box-shadow: var(--shadows-low);
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.12);
 }
 
-.text {
-  font: var(--text-14-16-r-sost);
-  color: #FFFFFF;
-  white-space: nowrap;
+.content {
+  font: var(--text-14-20-r-patricia);
+  color: var(--color-000000);
+  flex: 1;
 }

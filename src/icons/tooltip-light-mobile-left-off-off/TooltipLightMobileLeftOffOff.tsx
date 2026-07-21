@@ -2,15 +2,16 @@ import React from "react";
 import styles from "./TooltipLightMobileLeftOffOff.module.scss";
 
 export interface TooltipLightMobileLeftOffOffProps {
+  /** The text content displayed inside the tooltip; pass the message you want to show to the user when the tooltip appears. */
   text: string;
 }
 
-export function TooltipLightMobileLeftOffOff({
-  text,
-}: TooltipLightMobileLeftOffOffProps) {
+export const TooltipLightMobileLeftOffOff: React.FC<
+  TooltipLightMobileLeftOffOffProps
+> = ({ text }) => {
   return (
     <div className={styles.tooltip}>
-      <div className={styles.text}>{text}</div>
+      <div className={styles.content}>{text}</div>
     </div>
   );
-}
+};
