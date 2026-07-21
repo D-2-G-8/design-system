@@ -1,286 +1,211 @@
 .tooltip {
-  display: inline-flex;
   position: relative;
+  display: inline-flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &.placementTop,
+  &.placementTopStart,
+  &.placementTopEnd {
+    flex-direction: column;
+  }
+
+  &.placementBottom,
+  &.placementBottomStart,
+  &.placementBottomEnd {
+    flex-direction: column;
+  }
+
+  &.placementLeft,
+  &.placementLeftStart,
+  &.placementLeftEnd {
+    flex-direction: row;
+  }
+
+  &.placementRight,
+  &.placementRightStart,
+  &.placementRightEnd {
+    flex-direction: row;
+  }
 }
 
 .content {
-  background: #000000;
-  border-radius: var(--radius-10);
-  padding: 8px 12px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  color: #ffffff;
+  padding: 8px 12px;
+  background-color: var(--label-light-primary);
+  border-radius: var(--radius-10);
+  width: 93px;
+  box-sizing: border-box;
+
+  color: var(--label-dark-primary);
   font-family: 'Roboto Flex', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
   white-space: nowrap;
+
+  .placementRight:not(.placementRightStart):not(.placementRightEnd) & {
+    border-radius: var(--radius-12);
+  }
+
+  .mobile & {
+    padding: 10px 12px;
+    font-family: 'TT Norms', sans-serif;
+    font-size: 16px;
+    line-height: 22px;
+    width: 107px;
+  }
+
+  .resizable.placementLeft &,
+  .resizable.placementLeftStart &,
+  .resizable.placementLeftEnd &,
+  .resizable.placementRight &,
+  .resizable.placementRightStart &,
+  .resizable.placementRightEnd & {
+    width: 132px;
+  }
+
+  .resizable.placementTop &,
+  .resizable.placementTopStart &,
+  .resizable.placementTopEnd &,
+  .resizable.placementBottom &,
+  .resizable.placementBottomStart &,
+  .resizable.placementBottomEnd & {
+    width: 140px;
+  }
 }
 
 .arrow {
-  width: 8px;
-  height: 28px;
-  position: relative;
-  
-  &::before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #000000;
-    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  display: flex;
+  width: 93px;
+  height: 8px;
+  align-items: center;
+
+  .placementTop & {
+    justify-content: center;
+  }
+
+  .placementTopStart & {
+    padding-left: 10px;
+  }
+
+  .placementTopEnd & {
+    padding-right: 10px;
+  }
+
+  .placementBottom & {
+    justify-content: center;
+  }
+
+  .placementBottomStart & {
+    padding-left: 10px;
+  }
+
+  .placementBottomEnd & {
+    padding-right: 10px;
+  }
+
+  .placementLeft &,
+  .placementLeftStart &,
+  .placementLeftEnd &,
+  .placementRight &,
+  .placementRightStart &,
+  .placementRightEnd & {
+    width: 8px;
+    height: 40px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .placementLeftStart &,
+  .placementRightStart & {
+    padding-top: 8px;
+  }
+
+  .placementLeftEnd &,
+  .placementRightEnd & {
+    padding-bottom: 8px;
+  }
+
+  .resizable.placementTop &,
+  .resizable.placementTopStart &,
+  .resizable.placementTopEnd &,
+  .resizable.placementBottom &,
+  .resizable.placementBottomStart &,
+  .resizable.placementBottomEnd & {
+    width: 140px;
+  }
+
+  svg {
+    width: 28px;
+    height: 8px;
+    fill: var(--label-light-primary);
+  }
+
+  .placementLeft & svg,
+  .placementLeftStart & svg,
+  .placementLeftEnd & svg,
+  .placementRight & svg,
+  .placementRightStart & svg,
+  .placementRightEnd & svg {
+    width: 8px;
+    height: 28px;
+  }
+
+  .mobile & {
+    width: 8px;
+    height: 40px;
+
+    svg {
+      width: 9px;
+      height: 27px;
+    }
   }
 }
 
 .placementTop {
-  flex-direction: column;
-  
-  .content {
-    order: 1;
-  }
-  
-  .arrow {
-    order: 2;
-    width: 28px;
-    height: 8px;
-    align-self: center;
-    
-    &::before {
-      clip-path: polygon(50% 100%, 0 0, 100% 0);
-    }
-  }
 }
 
 .placementTopStart {
-  flex-direction: column;
-  
-  .content {
-    order: 1;
-  }
-  
-  .arrow {
-    order: 2;
-    width: 28px;
-    height: 8px;
-    align-self: flex-start;
-    margin-left: 10px;
-    
-    &::before {
-      clip-path: polygon(50% 100%, 0 0, 100% 0);
-    }
-  }
 }
 
 .placementTopEnd {
-  flex-direction: column;
-  
-  .content {
-    order: 1;
-  }
-  
-  .arrow {
-    order: 2;
-    width: 28px;
-    height: 8px;
-    align-self: flex-end;
-    margin-right: 10px;
-    
-    &::before {
-      clip-path: polygon(50% 100%, 0 0, 100% 0);
-    }
-  }
 }
 
 .placementBottom {
-  flex-direction: column;
-  
-  .content {
-    order: 2;
-  }
-  
-  .arrow {
-    order: 1;
-    width: 28px;
-    height: 8px;
-    align-self: center;
-    
-    &::before {
-      clip-path: polygon(50% 0, 0 100%, 100% 100%);
-    }
-  }
 }
 
 .placementBottomStart {
-  flex-direction: column;
-  
-  .content {
-    order: 2;
-  }
-  
-  .arrow {
-    order: 1;
-    width: 28px;
-    height: 8px;
-    align-self: flex-start;
-    margin-left: 10px;
-    
-    &::before {
-      clip-path: polygon(50% 0, 0 100%, 100% 100%);
-    }
-  }
 }
 
 .placementBottomEnd {
-  flex-direction: column;
-  
-  .content {
-    order: 2;
-  }
-  
-  .arrow {
-    order: 1;
-    width: 28px;
-    height: 8px;
-    align-self: flex-end;
-    margin-right: 10px;
-    
-    &::before {
-      clip-path: polygon(50% 0, 0 100%, 100% 100%);
-    }
-  }
 }
 
 .placementLeft {
-  flex-direction: row;
-  
-  .content {
-    order: 1;
-  }
-  
-  .arrow {
-    order: 2;
-    width: 8px;
-    height: 28px;
-    align-self: center;
-    
-    &::before {
-      clip-path: polygon(0 50%, 100% 0, 100% 100%);
-    }
-  }
 }
 
 .placementLeftStart {
-  flex-direction: row;
-  
-  .content {
-    order: 1;
-  }
-  
-  .arrow {
-    order: 2;
-    width: 8px;
-    height: 28px;
-    align-self: flex-start;
-    margin-top: 8px;
-    
-    &::before {
-      clip-path: polygon(0 50%, 100% 0, 100% 100%);
-    }
-  }
 }
 
 .placementLeftEnd {
-  flex-direction: row;
-  
-  .content {
-    order: 1;
-  }
-  
-  .arrow {
-    order: 2;
-    width: 8px;
-    height: 28px;
-    align-self: flex-end;
-    margin-bottom: 8px;
-    
-    &::before {
-      clip-path: polygon(0 50%, 100% 0, 100% 100%);
-    }
-  }
 }
 
 .placementRight {
-  flex-direction: row;
-  
-  .content {
-    order: 2;
-    border-radius: var(--radius-12);
-  }
-  
-  .arrow {
-    order: 1;
-    width: 8px;
-    height: 28px;
-    align-self: center;
-    
-    &::before {
-      clip-path: polygon(100% 50%, 0 0, 0 100%);
-    }
-  }
 }
 
 .placementRightStart {
-  flex-direction: row;
-  
-  .content {
-    order: 2;
-  }
-  
-  .arrow {
-    order: 1;
-    width: 8px;
-    height: 28px;
-    align-self: flex-start;
-    margin-top: 8px;
-    
-    &::before {
-      clip-path: polygon(100% 50%, 0 0, 0 100%);
-    }
-  }
 }
 
 .placementRightEnd {
-  flex-direction: row;
-  
-  .content {
-    order: 2;
-  }
-  
-  .arrow {
-    order: 1;
-    width: 8px;
-    height: 28px;
-    align-self: flex-end;
-    margin-bottom: 8px;
-    
-    &::before {
-      clip-path: polygon(100% 50%, 0 0, 0 100%);
-    }
-  }
 }
 
-.resizable {
-  .content {
-    width: auto;
-    min-width: 132px;
-  }
-  
-  &.placementTop .content,
-  &.placementTopStart .content,
-  &.placementTopEnd .content,
-  &.placementBottom .content,
-  &.placementBottomStart .content,
-  &.placementBottomEnd .content {
-    min-width: 140px;
-  }
+.open {
 }
