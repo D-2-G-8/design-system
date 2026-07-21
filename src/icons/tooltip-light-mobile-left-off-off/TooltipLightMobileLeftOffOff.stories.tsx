@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TooltipLightMobileLeftOffOff as Component } from "./TooltipLightMobileLeftOffOff";
 
 const meta: Meta<typeof Component> = {
-  title: "Components/TooltipLightMobileLeftOffOff",
+  title: "Icons/TooltipLightMobileLeftOffOff",
   component: Component,
   args: {
-    text: "Tooltip message",
+    text: "Tooltip text",
   },
   argTypes: {
     text: {
-      description: "The text content displayed inside the tooltip; pass the message you want to show to the user when the tooltip appears.",
+      description: "The text content to display inside the tooltip; pass the string you want shown to the user.",
       control: "text",
     },
   },
