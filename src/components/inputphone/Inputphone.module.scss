@@ -1,0 +1,252 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid var(--color-d6d6d6);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.fieldSm {
+  height: 40px;
+  border-radius: var(--radius-10);
+  padding: 0 14px;
+}
+
+.fieldLg {
+  height: 52px;
+  border-radius: var(--radius-12);
+  padding: 0 16px;
+}
+
+.fieldDefault {
+  border-color: var(--color-d6d6d6);
+}
+
+.fieldFocus {
+  border-color: var(--color-b8b8b8);
+}
+
+.fieldError {
+  border-color: var(--color-ff5d2a);
+}
+
+.fieldErrorFocus {
+  border-color: var(--color-ff5d2a);
+}
+
+.fieldDisabled {
+  background-color: var(--new-style-base-1);
+  border: none;
+}
+
+.fieldReadOnly {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  
+  &.fieldSm {
+    height: 40px;
+  }
+  
+  &.fieldLg {
+    height: 40px;
+  }
+}
+
+.fieldReadOnlyLowProfile {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  height: 22px;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  height: 20px;
+}
+
+.labelText {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-757575);
+}
+
+.labelInside {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--color-757575);
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: transparent;
+  caret-color: var(--label-light-primary);
+  outline: none;
+  box-sizing: border-box;
+  
+  &::placeholder {
+    color: transparent;
+  }
+  
+  .fieldDisabled & {
+    cursor: not-allowed;
+  }
+}
+
+.inputDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 22px;
+  flex: 1;
+  gap: 2px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  
+  .fieldSm & {
+    padding: 0 14px;
+  }
+  
+  .fieldLg & {
+    padding: 0 16px;
+  }
+}
+
+.value {
+  color: var(--label-light-primary);
+  
+  .fieldDisabled & {
+    color: var(--label-light-primary);
+  }
+  
+  .fieldDisabled.fieldSm & {
+    color: var(--color-757575);
+  }
+}
+
+.placeholder {
+  color: var(--color-b8b8b8);
+  
+  .fieldReadOnly &,
+  .fieldReadOnlyLowProfile & {
+    color: var(--label-light-primary);
+  }
+}
+
+.placeholderPart {
+  color: var(--color-b8b8b8);
+}
+
+.cursor {
+  display: flex;
+  width: 1px;
+  height: 22px;
+  align-items: center;
+  
+  span {
+    display: block;
+    width: 1px;
+    height: 20px;
+    background-color: var(--label-light-primary);
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.iconCont {
+  display: flex;
+  flex-direction: row;
+  width: 28px;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 2;
+  position: relative;
+  cursor: pointer;
+  pointer-events: auto;
+  
+  .fieldSm & {
+    height: 40px;
+  }
+  
+  .fieldLg & {
+    height: 52px;
+  }
+}
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.tooltipPortal {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  min-height: 20px;
+  
+  span {
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-757575);
+  }
+}
