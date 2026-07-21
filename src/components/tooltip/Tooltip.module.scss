@@ -1,0 +1,286 @@
+.tooltip {
+  display: inline-flex;
+  position: relative;
+}
+
+.content {
+  background: #000000;
+  border-radius: var(--radius-10);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.arrow {
+  width: 8px;
+  height: 28px;
+  position: relative;
+  
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  }
+}
+
+.placementTop {
+  flex-direction: column;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 28px;
+    height: 8px;
+    align-self: center;
+    
+    &::before {
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+  }
+}
+
+.placementTopStart {
+  flex-direction: column;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 28px;
+    height: 8px;
+    align-self: flex-start;
+    margin-left: 10px;
+    
+    &::before {
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+  }
+}
+
+.placementTopEnd {
+  flex-direction: column;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 28px;
+    height: 8px;
+    align-self: flex-end;
+    margin-right: 10px;
+    
+    &::before {
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+  }
+}
+
+.placementBottom {
+  flex-direction: column;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    width: 28px;
+    height: 8px;
+    align-self: center;
+    
+    &::before {
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+  }
+}
+
+.placementBottomStart {
+  flex-direction: column;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    width: 28px;
+    height: 8px;
+    align-self: flex-start;
+    margin-left: 10px;
+    
+    &::before {
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+  }
+}
+
+.placementBottomEnd {
+  flex-direction: column;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    width: 28px;
+    height: 8px;
+    align-self: flex-end;
+    margin-right: 10px;
+    
+    &::before {
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+  }
+}
+
+.placementLeft {
+  flex-direction: row;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 8px;
+    height: 28px;
+    align-self: center;
+    
+    &::before {
+      clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    }
+  }
+}
+
+.placementLeftStart {
+  flex-direction: row;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 8px;
+    height: 28px;
+    align-self: flex-start;
+    margin-top: 8px;
+    
+    &::before {
+      clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    }
+  }
+}
+
+.placementLeftEnd {
+  flex-direction: row;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 8px;
+    height: 28px;
+    align-self: flex-end;
+    margin-bottom: 8px;
+    
+    &::before {
+      clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    }
+  }
+}
+
+.placementRight {
+  flex-direction: row;
+  
+  .content {
+    order: 2;
+    border-radius: var(--radius-12);
+  }
+  
+  .arrow {
+    order: 1;
+    width: 8px;
+    height: 28px;
+    align-self: center;
+    
+    &::before {
+      clip-path: polygon(100% 50%, 0 0, 0 100%);
+    }
+  }
+}
+
+.placementRightStart {
+  flex-direction: row;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    width: 8px;
+    height: 28px;
+    align-self: flex-start;
+    margin-top: 8px;
+    
+    &::before {
+      clip-path: polygon(100% 50%, 0 0, 0 100%);
+    }
+  }
+}
+
+.placementRightEnd {
+  flex-direction: row;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    width: 8px;
+    height: 28px;
+    align-self: flex-end;
+    margin-bottom: 8px;
+    
+    &::before {
+      clip-path: polygon(100% 50%, 0 0, 0 100%);
+    }
+  }
+}
+
+.resizable {
+  .content {
+    width: auto;
+    min-width: 132px;
+  }
+  
+  &.placementTop .content,
+  &.placementTopStart .content,
+  &.placementTopEnd .content,
+  &.placementBottom .content,
+  &.placementBottomStart .content,
+  &.placementBottomEnd .content {
+    min-width: 140px;
+  }
+}
