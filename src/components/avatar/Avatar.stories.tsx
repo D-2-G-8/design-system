@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Avatar as Component } from "./Avatar";
+import { FillProfile2 } from "../../icons/fill-profile2";
 
 const meta: Meta<typeof Component> = {
   title: "Components/Avatar",
@@ -7,69 +8,50 @@ const meta: Meta<typeof Component> = {
   args: {
     size: "48",
     type: "img",
-    squared: false,
-    src: "https://i.pravatar.cc/96",
-    alt: "User avatar",
+    square: false,
     badge: false,
     editButton: false,
-    badgeValue: 5,
   },
   argTypes: {
     size: {
-      description:
-        "Avatar size in pixels; controls container dimensions, text/icon scaling, and badge/edit-button sizing. Defaults to '48' when omitted.",
+      description: "Size of the avatar in pixels; defaults to '48' if omitted.",
       control: { type: "select" },
       options: ["24", "32", "40", "48", "64", "96"],
     },
     type: {
-      description:
-        "Content type: 'img' for an image source, 'text' for initials/letters, or 'icon' for a custom icon. Determines which content is rendered and which fallback background applies.",
+      description: "Display mode: 'img' renders an image, 'text' shows initials or custom text, 'icon' renders a fallback icon; defaults to 'img' if omitted.",
       control: { type: "select" },
       options: ["img", "text", "icon"],
     },
-    squared: {
-      description:
-        "When true, uses rounded-square corners (radius-6 to radius-32 depending on size); when false or omitted, uses fully circular (radius-1000) shape.",
+    square: {
+      description: "Whether the avatar uses a rounded square shape instead of a circle; pass true for square corners, omit or pass false for fully rounded circle.",
       control: "boolean",
     },
     src: {
-      description:
-        "Image URL when type='img'; rendered as the avatar's background or img element. Only used when type='img'.",
+      description: "Image source URL when type is 'img'; required for type='img', ignored for other types.",
     },
     alt: {
-      description:
-        "Alt text for the image when type='img'; required for accessibility when src is provided. Only used when type='img'.",
+      description: "Accessible alt text for the image when type is 'img'; recommended for accessibility, ignored for other types.",
     },
-    textValue: {
-      description:
-        "Initials or short text (e.g. 'ВМ') when type='text'; displayed centered on the new-style-base-1 background. Only used when type='text'.",
+    text: {
+      description: "Text content (typically initials) when type is 'text'; required for type='text', ignored for other types.",
     },
     icon: {
-      description:
-        "Custom icon component when type='icon'; if omitted, falls back to FillProfile2. Only used when type='icon'.",
+      description: "Icon element to render when type is 'icon'; pass a design-system icon component instance, ignored for other types.",
     },
     badge: {
-      description:
-        "When true, displays a badge in the bottom-right corner. Defaults to false.",
+      description: "Whether to show a badge overlay in the bottom-right corner; pass true to render the badge, omit or pass false to hide it.",
       control: "boolean",
     },
-    badgeValue: {
-      description:
-        "Badge value to display; passed to the Badgecount component. Only used when badge is true. Defaults to 5 if omitted.",
-      control: "number",
+    badgeCount: {
+      description: "Count value to display in the badge when badge is true; passed to the Badgecount component, ignored if badge is false.",
     },
     editButton: {
-      description:
-        "When true, displays an edit button in the bottom-right corner (only for sizes 48px and above). Defaults to false.",
+      description: "Whether to show an edit icon button overlay (sizes 48px and above); pass true to render the button, omit or pass false to hide it.",
       control: "boolean",
     },
     onEditClick: {
-      description:
-        "Click handler for the edit button when present; called when the user clicks the edit icon.",
-    },
-    className: {
-      description:
-        "Additional CSS class name(s) appended to the root container for custom styling. Merged with internal size/type/squared classes.",
+      description: "Callback fired when the edit button is clicked; only relevant when editButton is true.",
     },
   },
 };
@@ -77,106 +59,125 @@ export default meta;
 
 type Story = StoryObj<typeof Component>;
 
-export const Default: Story = {};
-
-export const TextInitials: Story = {
+export const Default: Story = {
   args: {
-    type: "text",
-    textValue: "ВМ",
-    src: undefined,
-  },
-};
-
-export const IconType: Story = {
-  args: {
-    type: "icon",
-    src: undefined,
-  },
-};
-
-export const WithBadge: Story = {
-  args: {
-    badge: true,
-    badgeValue: 3,
-  },
-};
-
-export const WithEditButton: Story = {
-  args: {
-    size: "64",
-    editButton: true,
-    onEditClick: () => console.log("Edit clicked"),
-  },
-};
-
-export const Squared: Story = {
-  args: {
-    squared: true,
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop",
+    alt: "User avatar",
   },
 };
 
 export const Size24: Story = {
   args: {
     size: "24",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop",
+    alt: "User avatar",
   },
 };
 
 export const Size32: Story = {
   args: {
     size: "32",
-  },
-};
-
-export const Size40: Story = {
-  args: {
-    size: "40",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop",
+    alt: "User avatar",
   },
 };
 
 export const Size64: Story = {
   args: {
     size: "64",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop",
+    alt: "User avatar",
   },
 };
 
 export const Size96: Story = {
   args: {
     size: "96",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop",
+    alt: "User avatar",
   },
 };
 
-export const TextSquared: Story = {
+export const TextInitials: Story = {
   args: {
     type: "text",
-    textValue: "ВМ",
-    squared: true,
-    src: undefined,
+    text: "ВМ",
+    size: "48",
   },
 };
 
-export const IconSquared: Story = {
+export const TextInitialsSquare: Story = {
+  args: {
+    type: "text",
+    text: "ВМ",
+    size: "48",
+    square: true,
+  },
+};
+
+export const Icon: Story = {
   args: {
     type: "icon",
-    squared: true,
-    src: undefined,
+    size: "48",
+    icon: <FillProfile2 />,
   },
 };
 
-export const LargeWithAllFeatures: Story = {
+export const IconSquare: Story = {
   args: {
-    size: "96",
+    type: "icon",
+    size: "48",
+    square: true,
+    icon: <FillProfile2 />,
+  },
+};
+
+export const Square: Story = {
+  args: {
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop",
+    alt: "User avatar",
+    square: true,
+  },
+};
+
+export const WithBadge: Story = {
+  args: {
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop",
+    alt: "User avatar",
     badge: true,
+    badgeCount: 5,
+  },
+};
+
+export const WithEditButton: Story = {
+  args: {
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop",
+    alt: "User avatar",
     editButton: true,
-    badgeValue: 9,
     onEditClick: () => console.log("Edit clicked"),
   },
 };
 
-export const TextLarge: Story = {
+export const WithBadgeAndEdit: Story = {
   args: {
-    type: "text",
-    textValue: "ВМ",
     size: "64",
-    src: undefined,
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop",
+    alt: "User avatar",
+    badge: true,
+    badgeCount: 5,
+    editButton: true,
+    onEditClick: () => console.log("Edit clicked"),
+  },
+};
+
+export const Large96Square: Story = {
+  args: {
+    size: "96",
+    type: "text",
+    text: "ВМ",
+    square: true,
+    badge: true,
+    badgeCount: 5,
+    editButton: true,
   },
 };

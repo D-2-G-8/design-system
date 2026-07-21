@@ -1,7 +1,6 @@
 .root {
   position: relative;
-  display: inline-flex;
-  flex-shrink: 0;
+  display: inline-block;
 }
 
 .container {
@@ -12,20 +11,247 @@
   position: relative;
 }
 
+.size24 {
+  width: 24px;
+  height: 24px;
+
+  &.squared {
+    .container {
+      border-radius: var(--radius-6);
+    }
+  }
+
+  &.rounded {
+    .container {
+      border-radius: var(--radius-1000);
+    }
+  }
+
+  .badgeCont {
+    padding: 1px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .textContent {
+    font-family: 'Roboto Flex', sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--gray-900);
+  }
+}
+
+.size32 {
+  width: 32px;
+  height: 32px;
+
+  &.squared {
+    .container {
+      border-radius: var(--radius-8);
+    }
+  }
+
+  &.rounded {
+    .container {
+      border-radius: var(--radius-1000);
+    }
+  }
+
+  .badgeCont {
+    padding: 1px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .textContent {
+    font-family: 'Roboto Flex', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--gray-900);
+  }
+}
+
+.size40 {
+  width: 40px;
+  height: 40px;
+
+  &.squared {
+    .container {
+      border-radius: var(--radius-10);
+    }
+  }
+
+  &.rounded {
+    .container {
+      border-radius: var(--radius-1000);
+    }
+  }
+
+  .badgeCont {
+    padding: 1px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .textContent {
+    font-family: 'Roboto Flex', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--gray-900);
+  }
+}
+
+.size48 {
+  width: 48px;
+  height: 48px;
+
+  &.squared {
+    .container {
+      border-radius: var(--radius-12);
+    }
+  }
+
+  &.rounded {
+    .container {
+      border-radius: var(--radius-1000);
+    }
+  }
+
+  .badgeCont {
+    padding: 1px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .textContent {
+    font-family: 'Roboto Flex', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--gray-900);
+  }
+}
+
+.size64 {
+  width: 64px;
+  height: 64px;
+
+  &.squared {
+    .container {
+      border-radius: var(--radius-16);
+    }
+  }
+
+  &.rounded {
+    .container {
+      border-radius: var(--radius-1000);
+    }
+  }
+
+  .badgeCont {
+    padding: 2px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .textContent {
+    font-family: 'Roboto Flex', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    color: var(--gray-900);
+  }
+}
+
+.size96 {
+  width: 96px;
+  height: 96px;
+
+  &.squared {
+    .container {
+      border-radius: var(--radius-32);
+    }
+  }
+
+  &.rounded {
+    .container {
+      border-radius: var(--radius-1000);
+    }
+  }
+
+  .badgeCont {
+    padding: 2px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .textContent {
+    font-family: 'Roboto Flex', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.05em;
+    color: var(--gray-900);
+  }
+}
+
+.typeImg {
+  .container {
+    background: transparent;
+  }
+
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.typeText {
+  .container {
+    background-color: var(--new-style-base-1);
+    flex-direction: column;
+  }
+
+  .textContent {
+    text-align: center;
+    user-select: none;
+  }
+}
+
+.typeIcon {
+  .container {
+    background-color: var(--new-style-base-1);
+    flex-direction: column;
+  }
+}
+
+.squared {
+  // radius is applied per size variant
+}
+
+.rounded {
+  // radius is applied per size variant
+}
+
 .img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.text {
-  color: var(--gray-900);
-  font-family: 'Roboto Flex', sans-serif;
-  font-weight: 500;
-  text-align: center;
+.textContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.icon {
+.iconContent {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,246 +261,31 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  border-radius: var(--radius-1000);
-  background: var(--white);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-1000);
+  background-color: var(--white);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.editButton {
+.editButtonCont {
   position: absolute;
   bottom: 0;
   right: 0;
-}
-
-.size24 {
-  width: 24px;
-  height: 24px;
-
-  .container {
-    width: 24px;
-    height: 24px;
-  }
-
-  .text {
-    font-size: 10px;
-    line-height: 12px;
-  }
-
-  .icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .badgeCont {
-    width: 10px;
-    height: 10px;
-    padding: 1px;
-  }
-}
-
-.size32 {
-  width: 32px;
-  height: 32px;
-
-  .container {
-    width: 32px;
-    height: 32px;
-  }
-
-  .text {
-    font-size: 14px;
-    line-height: 16px;
-  }
-
-  .icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .badgeCont {
-    width: 18px;
-    height: 18px;
-    padding: 1px;
-  }
-}
-
-.size40 {
-  width: 40px;
-  height: 40px;
-
-  .container {
-    width: 40px;
-    height: 40px;
-  }
-
-  .text {
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  .icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .badgeCont {
-    width: 18px;
-    height: 18px;
-    padding: 1px;
-  }
-}
-
-.size48 {
-  width: 48px;
-  height: 48px;
-
-  .container {
-    width: 48px;
-    height: 48px;
-  }
-
-  .text {
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  .icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .badgeCont {
-    width: 18px;
-    height: 18px;
-    padding: 1px;
-  }
-
-  .editButton {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-.size64 {
-  width: 64px;
-  height: 64px;
-
-  .container {
-    width: 64px;
-    height: 64px;
-  }
-
-  .text {
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: -0.04px;
-  }
-
-  .icon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .badgeCont {
-    width: 28px;
-    height: 28px;
-    padding: 2px;
-  }
-
-  .editButton {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-.size96 {
-  width: 96px;
-  height: 96px;
-
-  .container {
-    width: 96px;
-    height: 96px;
-  }
-
-  .text {
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -0.05px;
-  }
-
-  .icon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .badgeCont {
-    width: 36px;
-    height: 36px;
-    padding: 2px;
-  }
-
-  .editButton {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-.typeImg {
-  .container {
-    background: transparent;
-  }
-}
-
-.typeText {
-  .container {
-    background: var(--new-style-base-1);
-  }
-}
-
-.typeIcon {
-  .container {
-    background: var(--new-style-base-1);
-  }
-}
-
-.squared {
-  &.size24 .container {
-    border-radius: var(--radius-6);
-  }
-
-  &.size32 .container {
-    border-radius: var(--radius-8);
-  }
-
-  &.size40 .container {
-    border-radius: var(--radius-10);
-  }
-
-  &.size48 .container {
-    border-radius: var(--radius-12);
-  }
-
-  &.size64 .container {
-    border-radius: var(--radius-16);
-  }
-
-  &.size96 .container {
-    border-radius: var(--radius-32);
-  }
-}
-
-.circular {
-  .container {
-    border-radius: var(--radius-1000);
-  }
+  display: none;
+  z-index: 2;
 }
 
 .withBadge {
-  /* Badge is present */
+  .badgeCont {
+    display: flex;
+  }
 }
 
 .withEditButton {
-  /* Edit button is present */
+  .editButtonCont {
+    display: block;
+  }
 }

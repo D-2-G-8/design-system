@@ -3,94 +3,89 @@ import styles from './Avatar.module.scss';
 import { Badgecount } from '../badgecount';
 import { FillProfile2 } from '../../icons/fill-profile2';
 import { Iconbutton } from '../iconbutton';
-import { Edit } from '../../icons/edit';
 
-export interface AvatarProps {
+export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Avatar size in pixels; controls container dimensions, text/icon scaling, and badge/edit-button sizing.
-   * Defaults to '48' when omitted.
+   * Size of the avatar in pixels.
+   * Defaults to '48' if omitted.
    */
   size?: '24' | '32' | '40' | '48' | '64' | '96';
   
   /**
-   * Content type: 'img' for an image source, 'text' for initials/letters, or 'icon' for a custom icon.
-   * Determines which content is rendered and which fallback background applies.
+   * Display mode: 'img' renders an image, 'text' shows initials or custom text, 'icon' renders a fallback icon.
+   * Defaults to 'img' if omitted.
    */
-  type: 'img' | 'text' | 'icon';
+  type?: 'img' | 'text' | 'icon';
   
   /**
-   * When true, uses rounded-square corners (radius-6 to radius-32 depending on size);
-   * when false or omitted, uses fully circular (radius-1000) shape.
+   * Whether the avatar uses a rounded square shape instead of a circle.
+   * Pass true for square corners, omit or pass false for fully rounded circle.
    */
-  squared?: boolean;
+  square?: boolean;
   
   /**
-   * Image URL when type='img'; rendered as the avatar's background or img element.
-   * Only used when type='img'.
+   * Image source URL when type is 'img'.
+   * Required for type='img', ignored for other types.
    */
   src?: string;
   
   /**
-   * Alt text for the image when type='img'; required for accessibility when src is provided.
-   * Only used when type='img'.
+   * Accessible alt text for the image when type is 'img'.
+   * Recommended for accessibility, ignored for other types.
    */
   alt?: string;
   
   /**
-   * Initials or short text (e.g. 'ВМ') when type='text'; displayed centered on the new-style-base-1 background.
-   * Only used when type='text'.
+   * Text content (typically initials) when type is 'text'.
+   * Required for type='text', ignored for other types.
    */
-  textValue?: string;
+  text?: string;
   
   /**
-   * Custom icon component when type='icon'; if omitted, falls back to FillProfile2.
-   * Only used when type='icon'.
+   * Icon element to render when type is 'icon'.
+   * Pass a design-system icon component instance, ignored for other types.
    */
   icon?: React.ReactNode;
   
   /**
-   * When true, displays a badge in the bottom-right corner. Defaults to false.
+   * Whether to show a badge overlay in the bottom-right corner.
+   * Pass true to render the badge, omit or pass false to hide it.
    */
   badge?: boolean;
   
   /**
-   * Badge value to display; passed to the Badgecount component.
-   * Only used when badge is true. Defaults to 5 if omitted.
+   * Count value to display in the badge when badge is true.
+   * Defaults to undefined; typically set to a meaningful count when badge is true.
    */
-  badgeValue?: number;
+  badgeCount?: number;
   
   /**
-   * When true, displays an edit button in the bottom-right corner (only for sizes 48px and above).
-   * Defaults to false.
+   * Whether to show an edit icon button overlay (sizes 48px and above).
+   * Pass true to render the button, omit or pass false to hide it.
    */
   editButton?: boolean;
   
   /**
-   * Click handler for the edit button when present;
-   * called when the user clicks the edit icon.
+   * Callback fired when the edit button is clicked.
+   * Only relevant when editButton is true.
    */
-  onEditClick?: (event: React.MouseEvent) => void;
-  
-  /**
-   * Additional CSS class name(s) appended to the root container for custom styling.
-   * Merged with internal size/type/squared classes.
-   */
-  className?: string;
+  onEditClick?: () => void;
 }
 
 export const Avatar: React.FC<AvatarProps> = ({
   size = '48',
-  type,
-  squared = false,
+  type = 'img',
+  square = false,
   src,
-  alt,
-  textValue,
+  alt = '',
+  text,
   icon,
   badge = false,
-  badgeValue = 5,
+  badgeCount,
   editButton = false,
   onEditClick,
   className,
+  ...rest
 }) => {
   const sizeClass = {
     '24': styles.size24,
@@ -107,7 +102,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     icon: styles.typeIcon,
   }[type];
 
-  const shapeClass = squared ? styles.squared : styles.circular;
+  const shapeClass = square ? styles.squared : styles.rounded;
 
   const badgeSize = {
     '24': 'xs' as const,
@@ -116,6 +111,12 @@ export const Avatar: React.FC<AvatarProps> = ({
     '48': '16' as const,
     '64': '24' as const,
     '96': '32' as const,
+  }[size];
+
+  const editButtonSize = {
+    '48': '24' as const,
+    '64': '32' as const,
+    '96': '40' as const,
   }[size];
 
   const iconSize = {
@@ -127,58 +128,42 @@ export const Avatar: React.FC<AvatarProps> = ({
     '96': 48,
   }[size];
 
-  const editButtonSize = {
-    '48': '24' as const,
-    '64': '32' as const,
-    '96': '40' as const,
-  }[size];
-
-  const hasEditButton = editButton && (size === '48' || size === '64' || size === '96');
-  const hasBadge = badge;
+  const showEditButton = editButton && editButtonSize !== undefined;
 
   return (
     <div
-      className={[
-        styles.root,
-        sizeClass,
-        typeClass,
-        shapeClass,
-        hasBadge && styles.withBadge,
-        hasEditButton && styles.withEditButton,
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      className={`${styles.root} ${sizeClass} ${typeClass} ${shapeClass} ${badge ? styles.withBadge : ''} ${showEditButton ? styles.withEditButton : ''} ${className || ''}`.trim()}
+      {...rest}
     >
       <div className={styles.container}>
-        {type === 'img' && src && (
-          <img src={src} alt={alt || ''} className={styles.img} />
+        {type === 'img' && (
+          <img src={src} alt={alt} className={styles.img} />
         )}
-        {type === 'text' && textValue && (
-          <span className={styles.text}>{textValue}</span>
+        {type === 'text' && (
+          <span className={styles.textContent}>
+            {text}
+          </span>
         )}
         {type === 'icon' && (
-          <span className={styles.icon}>
-            {icon || <FillProfile2 width={iconSize} height={iconSize} />}
-          </span>
+          <div className={styles.iconContent} style={{ width: iconSize, height: iconSize }}>
+            {icon || <FillProfile2 style={{ width: iconSize, height: iconSize }} />}
+          </div>
         )}
       </div>
 
-      {hasEditButton && (
-        <div className={styles.editButton}>
+      {showEditButton && (
+        <div className={styles.editButtonCont}>
           <Iconbutton
-            icon={<Edit />}
             size={editButtonSize}
             appearance="primary"
-            onClick={onEditClick}
           />
         </div>
       )}
 
-      {hasBadge && (
+      {badge && (
         <div className={styles.badgeCont}>
           <Badgecount
-            value={badgeValue}
+            value={badgeCount ?? 5}
             size={badgeSize}
             appearance="negative"
             square={false}
