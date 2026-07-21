@@ -3,17 +3,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .container {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 .img {
@@ -26,36 +24,41 @@
   font-family: 'Roboto Flex', sans-serif;
   font-weight: 500;
   color: var(--label-light-primary);
-  user-select: none;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .badgeCont {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius-1000);
-  background: var(--label-dark-primary);
+  background-color: var(--label-dark-primary);
+  box-sizing: border-box;
+}
+
+.editButtonWrapper {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.editButton {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
 .size24 {
   width: 24px;
   height: 24px;
+
+  .container {
+    width: 24px;
+    height: 24px;
+  }
 
   .text {
     font-size: 10px;
@@ -71,12 +74,27 @@
     width: 10px;
     height: 10px;
     padding: 1px;
+    bottom: -2px;
+    right: -2px;
+  }
+
+  &.squared .container {
+    border-radius: var(--radius-6);
+  }
+
+  &.circular .container {
+    border-radius: var(--radius-1000);
   }
 }
 
 .size32 {
   width: 32px;
   height: 32px;
+
+  .container {
+    width: 32px;
+    height: 32px;
+  }
 
   .text {
     font-size: 14px;
@@ -92,12 +110,27 @@
     width: 18px;
     height: 18px;
     padding: 1px;
+    bottom: -4px;
+    right: -4px;
+  }
+
+  &.squared .container {
+    border-radius: var(--radius-8);
+  }
+
+  &.circular .container {
+    border-radius: var(--radius-1000);
   }
 }
 
 .size40 {
   width: 40px;
   height: 40px;
+
+  .container {
+    width: 40px;
+    height: 40px;
+  }
 
   .text {
     font-size: 16px;
@@ -113,12 +146,27 @@
     width: 18px;
     height: 18px;
     padding: 1px;
+    bottom: -4px;
+    right: -4px;
+  }
+
+  &.squared .container {
+    border-radius: var(--radius-10);
+  }
+
+  &.circular .container {
+    border-radius: var(--radius-1000);
   }
 }
 
 .size48 {
   width: 48px;
   height: 48px;
+
+  .container {
+    width: 48px;
+    height: 48px;
+  }
 
   .text {
     font-size: 16px;
@@ -134,17 +182,34 @@
     width: 18px;
     height: 18px;
     padding: 1px;
+    bottom: -4px;
+    right: -4px;
   }
 
-  .editButton {
+  .editButtonWrapper {
     width: 24px;
     height: 24px;
+    bottom: 0;
+    right: 0;
+  }
+
+  &.squared .container {
+    border-radius: var(--radius-12);
+  }
+
+  &.circular .container {
+    border-radius: var(--radius-1000);
   }
 }
 
 .size64 {
   width: 64px;
   height: 64px;
+
+  .container {
+    width: 64px;
+    height: 64px;
+  }
 
   .text {
     font-size: 20px;
@@ -161,17 +226,34 @@
     width: 28px;
     height: 28px;
     padding: 2px;
+    bottom: -6px;
+    right: -6px;
   }
 
-  .editButton {
+  .editButtonWrapper {
     width: 32px;
     height: 32px;
+    bottom: 0;
+    right: 0;
+  }
+
+  &.squared .container {
+    border-radius: var(--radius-16);
+  }
+
+  &.circular .container {
+    border-radius: var(--radius-1000);
   }
 }
 
 .size96 {
   width: 96px;
   height: 96px;
+
+  .container {
+    width: 96px;
+    height: 96px;
+  }
 
   .text {
     font-size: 24px;
@@ -188,59 +270,51 @@
     width: 36px;
     height: 36px;
     padding: 2px;
+    bottom: -8px;
+    right: -8px;
   }
 
-  .editButton {
+  .editButtonWrapper {
     width: 40px;
     height: 40px;
+    bottom: 0;
+    right: 0;
+  }
+
+  &.squared .container {
+    border-radius: var(--radius-32);
+  }
+
+  &.circular .container {
+    border-radius: var(--radius-1000);
   }
 }
 
 .typeImg {
   .container {
-    background: transparent;
+    background-color: transparent;
   }
 }
 
 .typeText {
   .container {
-    background: var(--new-style-base-1);
+    background-color: var(--new-style-base-1);
   }
 }
 
 .typeIcon {
   .container {
-    background: var(--new-style-base-1);
+    background-color: var(--new-style-base-1);
   }
 }
 
 .squared {
-  &.size24 .container {
+  .container {
     border-radius: var(--radius-6);
-  }
-
-  &.size32 .container {
-    border-radius: var(--radius-8);
-  }
-
-  &.size40 .container {
-    border-radius: var(--radius-10);
-  }
-
-  &.size48 .container {
-    border-radius: var(--radius-12);
-  }
-
-  &.size64 .container {
-    border-radius: var(--radius-16);
-  }
-
-  &.size96 .container {
-    border-radius: var(--radius-32);
   }
 }
 
-.avatar:not(.squared) {
+.circular {
   .container {
     border-radius: var(--radius-1000);
   }
@@ -252,20 +326,8 @@
   }
 }
 
-.avatar:not(.withBadge) {
-  .badgeCont {
-    display: none;
-  }
-}
-
 .withEditButton {
-  .editButton {
+  .editButtonWrapper {
     display: flex;
-  }
-}
-
-.avatar:not(.withEditButton) {
-  .editButton {
-    display: none;
   }
 }
