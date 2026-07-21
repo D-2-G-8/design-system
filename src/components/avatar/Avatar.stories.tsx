@@ -7,57 +7,50 @@ const meta: Meta<typeof Component> = {
   args: {
     size: 48,
     type: "text",
+    text: "BM",
     squared: false,
-    text: "VM",
-    badge: false,
-    editButton: false,
+    withBadge: false,
+    badgeValue: 5,
+    withEditButton: false,
   },
   argTypes: {
     size: {
-      description: "Avatar size in pixels; controls both the container dimensions and internal text/icon scaling, with 24 as the smallest and 96 as the largest.",
+      description: "Avatar size in pixels; determines container dimensions, corner radius, and icon/text scale. Defaults to 48.",
       control: { type: "select" },
       options: [24, 32, 40, 48, 64, 96],
     },
     type: {
-      description: "Avatar content type: 'img' displays an image via the `src` prop, 'text' displays initials via the `text` prop, 'icon' displays an icon via the `icon` prop.",
+      description: "Content type: 'img' for image URLs, 'text' for initials/letters, 'icon' for icon components. Pass together with the corresponding content prop (src/alt for img, text for text, icon for icon).",
       control: { type: "select" },
       options: ["img", "text", "icon"],
     },
-    squared: {
-      description: "When true, renders the avatar with squared corners (border-radius scales with size); when false or omitted, renders fully circular (border-radius 1000px).",
-      control: "boolean",
-    },
     src: {
-      description: "Image URL to display when `type` is 'img'; ignored for text/icon types.",
-      control: "text",
+      description: "Image URL when type='img'; required for img avatars, ignored otherwise.",
     },
     alt: {
-      description: "Alt text for the image when `type` is 'img'; improves accessibility.",
-      control: "text",
+      description: "Alt text for the image when type='img'; required for accessibility when using img avatars.",
     },
     text: {
-      description: "Initials or short text to display when `type` is 'text' (typically 1-2 uppercase characters); ignored for img/icon types.",
-      control: "text",
+      description: "Text content (typically initials like 'BM') when type='text'; required for text avatars, ignored otherwise.",
     },
     icon: {
-      description: "Icon component to render when `type` is 'icon'; pass a design-system icon instance; ignored for img/text types.",
-      control: false,
+      description: "Icon component to render when type='icon'; swaps out the default FillProfile2 icon when provided.",
     },
-    badge: {
-      description: "When true, renders a BadgeCount component in the bottom-right corner of the avatar; omit or pass false to hide the badge.",
+    squared: {
+      description: "Whether to use squared corners (radius-6/8/10/12/16/32 depending on size) instead of fully rounded (radius-1000). Defaults to false (rounded).",
+      control: "boolean",
+    },
+    withBadge: {
+      description: "Whether to show the notification badge in the bottom-right corner; controls badge visibility. Use badgeValue prop to set the badge number. Defaults to false.",
       control: "boolean",
     },
     badgeValue: {
-      description: "Numeric value to display in the badge when `badge` is true; ignored if badge is false or omitted.",
+      description: "Numeric value to display in the badge; only visible when withBadge is true.",
       control: "number",
     },
-    editButton: {
-      description: "When true (and size >= 48px), renders an IconButton overlay in the bottom-right corner for editing; omit or pass false to hide the edit button. Note: Only renders when size is 48px or larger.",
+    withEditButton: {
+      description: "Whether to show the edit icon button overlay (48px+ sizes only); pass true to display the button, false or omit to hide it. Defaults to false.",
       control: "boolean",
-    },
-    className: {
-      description: "Additional CSS class name(s) to apply to the outermost avatar container for custom styling or layout integration.",
-      control: "text",
     },
   },
 };
@@ -67,147 +60,135 @@ type Story = StoryObj<typeof Component>;
 
 export const Default: Story = {};
 
-export const Size24Text: Story = {
+export const TextInitials: Story = {
   args: {
-    size: 24,
     type: "text",
-    text: "VM",
-    squared: false,
+    text: "BM",
+    size: 48,
   },
 };
 
-export const Size24TextSquared: Story = {
+export const TextInitialsSquared: Story = {
   args: {
-    size: 24,
     type: "text",
-    text: "VM",
-    squared: true,
-  },
-};
-
-export const Size32Text: Story = {
-  args: {
-    size: 32,
-    type: "text",
-    text: "VM",
-    squared: false,
-  },
-};
-
-export const Size64Text: Story = {
-  args: {
-    size: 64,
-    type: "text",
-    text: "VM",
-    squared: false,
-  },
-};
-
-export const Size96Text: Story = {
-  args: {
-    size: 96,
-    type: "text",
-    text: "VM",
-    squared: false,
-  },
-};
-
-export const Size96TextSquared: Story = {
-  args: {
-    size: 96,
-    type: "text",
-    text: "VM",
+    text: "BM",
+    size: 48,
     squared: true,
   },
 };
 
 export const ImageAvatar: Story = {
   args: {
-    size: 64,
     type: "img",
-    src: "https://i.pravatar.cc/150?img=1",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop",
     alt: "User avatar",
-    squared: false,
+    size: 48,
   },
 };
 
 export const ImageAvatarSquared: Story = {
   args: {
-    size: 64,
     type: "img",
-    src: "https://i.pravatar.cc/150?img=2",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop",
     alt: "User avatar",
+    size: 48,
     squared: true,
   },
 };
 
 export const IconAvatar: Story = {
   args: {
-    size: 48,
     type: "icon",
-    squared: false,
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
       </svg>
     ),
+    size: 48,
   },
 };
 
 export const IconAvatarSquared: Story = {
   args: {
-    size: 48,
     type: "icon",
-    squared: true,
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
       </svg>
     ),
+    size: 48,
+    squared: true,
   },
 };
 
 export const WithBadge: Story = {
   args: {
-    size: 48,
     type: "text",
-    text: "VM",
-    squared: false,
-    badge: true,
+    text: "BM",
+    size: 48,
+    withBadge: true,
     badgeValue: 5,
   },
 };
 
 export const WithEditButton: Story = {
   args: {
-    size: 96,
     type: "img",
-    src: "https://i.pravatar.cc/150?img=3",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop",
     alt: "User avatar",
-    squared: false,
-    editButton: true,
-  },
-};
-
-export const WithEditButtonSquared: Story = {
-  args: {
     size: 64,
-    type: "text",
-    text: "VM",
-    squared: true,
-    editButton: true,
+    withEditButton: true,
   },
 };
 
-export const AllFeatures: Story = {
+export const WithBadgeAndEditButton: Story = {
   args: {
-    size: 96,
     type: "img",
-    src: "https://i.pravatar.cc/150?img=4",
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop",
     alt: "User avatar",
-    squared: false,
-    badge: true,
+    size: 96,
+    withBadge: true,
     badgeValue: 5,
-    editButton: true,
+    withEditButton: true,
+  },
+};
+
+export const Size24: Story = {
+  args: {
+    type: "text",
+    text: "BM",
+    size: 24,
+  },
+};
+
+export const Size32: Story = {
+  args: {
+    type: "text",
+    text: "BM",
+    size: 32,
+  },
+};
+
+export const Size40: Story = {
+  args: {
+    type: "text",
+    text: "BM",
+    size: 40,
+  },
+};
+
+export const Size64: Story = {
+  args: {
+    type: "text",
+    text: "BM",
+    size: 64,
+  },
+};
+
+export const Size96: Story = {
+  args: {
+    type: "text",
+    text: "BM",
+    size: 96,
   },
 };
