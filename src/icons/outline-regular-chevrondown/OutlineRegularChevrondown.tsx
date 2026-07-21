@@ -1,29 +1,22 @@
 import React from "react";
 import styles from "./OutlineRegularChevrondown.module.scss";
 
-export interface OutlineRegularChevrondownProps
-  extends React.SVGAttributes<SVGSVGElement> {}
-
-export function OutlineRegularChevrondown({
-  ...props
-}: OutlineRegularChevrondownProps) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        className={styles.icon}
-        d="M5 8L12 15L19 8"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+export interface OutlineRegularChevrondownProps extends React.SVGProps<SVGSVGElement> {
+  /** Width and height in px (icons are square). Defaults to 24. */
+  size?: number | string;
 }
+
+/** Auto-generated from Figma -- the real exported SVG, colored via `currentColor`. */
+export const OutlineRegularChevrondown: React.FC<OutlineRegularChevrondownProps> = ({ size = 24, className, ...props }) => (
+  <svg
+    className={[styles.icon, className].filter(Boolean).join(" ")}
+    width={size}
+    height={size}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+      <path d="M13.61 18.8141C12.955 17.9247 11.703 17.7347 10.8136 18.3897C9.92421 19.0448 9.735 20.2978 10.39 21.1872L10.3972 21.197L10.4179 21.225L10.496 21.33C10.5639 21.4211 10.6629 21.5535 10.7896 21.7212C11.0428 22.0564 11.4069 22.5336 11.8532 23.1056C12.7442 24.2473 13.9708 25.7764 15.3035 27.3114C16.6276 28.8364 18.0956 30.4129 19.4662 31.6239C20.1492 32.2274 20.8551 32.7824 21.5434 33.1973C22.1769 33.5792 23.0473 34.0001 23.9995 34.0001C24.9518 34.0001 25.8226 33.5792 26.4561 33.1973C27.1444 32.7824 27.8503 32.2274 28.5333 31.6239C29.9039 30.4129 31.3719 28.8364 32.696 27.3114C34.0287 25.7764 35.2553 24.2473 36.1463 23.1056C36.5926 22.5336 36.9567 22.0564 37.2099 21.7212C37.3366 21.5535 37.4356 21.4211 37.5035 21.33L37.5816 21.225L37.6023 21.197L37.6095 21.1872C38.2645 20.2978 38.0753 19.0448 37.1859 18.3897C36.2965 17.7347 35.0445 17.9247 34.3895 18.8141L34.3847 18.8206L34.3673 18.8441L34.2962 18.9398C34.2331 19.0245 34.1392 19.1499 34.018 19.3104C33.7756 19.6313 33.4245 20.0916 32.9929 20.6447C32.128 21.7529 30.9476 23.2239 29.6756 24.6889C28.3949 26.1639 27.0606 27.5874 25.8848 28.6264C25.2945 29.1479 24.7912 29.5304 24.3909 29.7717C24.2003 29.8866 24.0719 29.9454 23.9995 29.9748C23.9271 29.9454 23.7992 29.8866 23.6086 29.7717C23.2083 29.5304 22.705 29.1479 22.1148 28.6264C20.9389 27.5874 19.6046 26.1639 18.3239 24.6889C17.0519 23.2239 15.8715 21.7529 15.0066 20.6447C14.575 20.0916 14.2239 19.6313 13.9815 19.3104C13.8603 19.1499 13.7664 19.0245 13.7033 18.9398L13.6322 18.8441L13.6148 18.8206L13.61 18.8141Z" fill="currentColor"/>
+  </svg>
+);
