@@ -7,27 +7,31 @@ const meta: Meta<typeof Component> = {
   args: {
     opened: false,
     chevronPosition: "right",
-    title: "Accordion Title",
-    description: "",
     icon: (
       <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-        <rect x={3} y={6} width={18} height={3} fill="currentColor" />
-        <rect x={3} y={11} width={18} height={3} fill="currentColor" />
-        <rect x={3} y={16} width={18} height={3} fill="currentColor" />
+        <rect x="3" y="6" width="18" height="4" rx="1" fill="currentColor" />
+        <rect x="3" y="14" width="18" height="4" rx="1" fill="currentColor" />
       </svg>
     ),
-    content: (
-      <div style={{ padding: "0", display: "flex", flexDirection: "column", gap: "16px" }}>
+    title: "Accordion Title",
+    description: "",
+    children: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
         <p style={{ margin: 0, fontFamily: "Roboto Flex", fontWeight: 400, fontSize: "16px", lineHeight: "24px" }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
-        <div style={{ display: "flex", flexDirection: "row", gap: "8px", padding: "20px", backgroundColor: "#f5f5f5" }}>
-          <div style={{ width: "24px", height: "24px", backgroundColor: "#ddd" }} />
+        <div style={{ display: "flex", gap: "8px", alignItems: "center", padding: "20px", backgroundColor: "#f5f5f5", borderRadius: "4px" }}>
+          <div style={{ width: "24px", height: "24px", backgroundColor: "#ddd", borderRadius: "4px" }} />
           <span style={{ fontFamily: "Roboto", fontWeight: 500, fontSize: "18px", lineHeight: "24px" }}>Swap me</span>
         </div>
       </div>
     ),
-    onToggle: () => {},
+  },
+  argTypes: {
+    chevronPosition: {
+      control: "select",
+      options: ["left", "right"],
+    },
   },
 };
 export default meta;
