@@ -1,146 +1,141 @@
-.badgeCount {
-  display: inline-flex;
+.root {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .sizeXs {
-  width: 8px;
+  min-width: 8px;
   height: 8px;
   padding: 0 4px;
-  
-  &:not(.squared) {
-    border-radius: var(--radius-1000);
-  }
-  
-  &.squared {
+  border-radius: var(--radius-1000);
+
+  &.square {
     border-radius: var(--radius-4);
+  }
+
+  .value {
+    display: none;
   }
 }
 
 .size16 {
-  width: 16px;
+  min-width: 16px;
   height: 16px;
   padding: 0 4px;
-  
-  &:not(.squared) {
-    border-radius: var(--radius-1000);
-  }
-  
-  &.squared {
+  border-radius: var(--radius-1000);
+
+  &.square {
     border-radius: var(--radius-4);
   }
-  
-  .valueText {
+
+  .value {
     font-family: 'Roboto Flex', sans-serif;
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
+    height: 16px;
   }
 }
 
 .size20 {
-  width: 20px;
+  min-width: 20px;
   height: 20px;
-  padding: 2px 2px;
-  
-  &:not(.squared) {
-    border-radius: var(--radius-1000);
-  }
-  
-  &.squared {
+  padding: 2px;
+  border-radius: var(--radius-1000);
+
+  &.square {
     border-radius: var(--radius-8);
-    padding: 2px 2px;
+    padding: 2px 0;
   }
-  
-  .valueText {
+
+  .value {
     font-family: 'Roboto Flex', sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
+    height: 16px;
   }
 }
 
 .size24 {
-  width: 24px;
+  min-width: 24px;
   height: 24px;
   padding: 0 6px;
-  
-  &:not(.squared) {
-    border-radius: var(--radius-1000);
-  }
-  
-  &.squared {
+  border-radius: var(--radius-1000);
+
+  &.square {
     border-radius: var(--radius-8);
-    padding: 4px 4px;
+    padding: 4px;
   }
-  
-  .valueText {
+
+  .value {
     font-family: 'Roboto Flex', sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
+    height: 16px;
   }
 }
 
 .size32 {
-  width: 32px;
+  min-width: 32px;
   height: 32px;
-  padding: 8px 8px;
-  
-  &:not(.squared) {
-    border-radius: var(--radius-16);
-  }
-  
-  &.squared {
+  padding: 8px;
+  border-radius: var(--radius-16);
+
+  &.square {
     border-radius: var(--radius-12);
   }
-  
-  .valueText {
+
+  .value {
     font-family: 'Roboto Flex', sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 16px;
+    height: 16px;
   }
 }
 
 .appearanceDefault {
-  background-color: var(--color-ffffff);
-  
-  .valueText {
+  background-color: var(--white);
+
+  .value {
     color: var(--label-light-primary);
   }
 }
 
 .appearanceNegative {
   background-color: var(--color-ff5d2a);
-  
-  .valueText {
-    color: var(--label-dark-primary);
+
+  .value {
+    color: var(--white);
   }
 }
 
 .appearanceNeutral {
   background-color: var(--color-757575);
-  
-  .valueText {
+
+  .value {
     color: var(--label-light-primary);
   }
 }
 
 .appearanceAccent {
-  background-color: var(--color-000000);
-  
-  .valueText {
-    color: var(--label-dark-primary);
+  background-color: var(--label-light-primary);
+
+  .value {
+    color: var(--white);
   }
 }
 
-.squared {
-  /* Modifier class for squared variants, specific rules in size classes */
+.square {
+  /* Applied via size-specific nested selectors above */
 }
 
-.valueText {
-  /* Text element for displaying the badge count value */
+.value {
+  /* Styled via size-specific nested selectors above */
 }

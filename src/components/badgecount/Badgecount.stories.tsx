@@ -5,31 +5,32 @@ const meta: Meta<typeof Component> = {
   title: "Components/Badgecount",
   component: Component,
   args: {
-    value: 5,
+    value: "5",
     size: "24",
     appearance: "default",
-    squared: false,
+    square: false,
   },
   argTypes: {
     value: {
       description:
-        "The numeric or text value displayed inside the badge; pass a number for counts (e.g. 5) or a short string (e.g. \"99+\"), or omit to render the XS dot-only variant.",
+        "The count or label to display inside the badge; can be a number like 5 or 99+, or a short string.",
+      control: "text",
     },
     size: {
       description:
-        "Visual size of the badge; defaults to '24' for typical notification counts, use 'xs' for a small indicator dot without text, and '32' for prominent counters.",
+        "Badge size in pixels or 'xs' for an 8×8 dot with no text; defaults to '24' for a standard numeric badge.",
       control: { type: "select" },
       options: ["xs", "16", "20", "24", "32"],
     },
     appearance: {
       description:
-        "Color theme of the badge; 'default' is white background, 'negative' is red for errors/alerts, 'neutral' is gray, and 'accent' is black; defaults to 'default'.",
+        "Visual style of the badge: 'default' for white background, 'negative' for red (errors/alerts), 'neutral' for gray, or 'accent' for black emphasis; defaults to 'default'.",
       control: { type: "select" },
       options: ["default", "negative", "neutral", "accent"],
     },
-    squared: {
+    square: {
       description:
-        "Whether to use squared corners (8px/12px radius depending on size) instead of fully rounded pill shape; defaults to false for the standard pill appearance.",
+        "When true, uses a rounded-square shape instead of fully circular; defaults to false for circular badges.",
       control: "boolean",
     },
   },
@@ -61,66 +62,61 @@ export const Accent: Story = {
 export const Size32: Story = {
   args: {
     size: "32",
-    appearance: "negative",
   },
 };
 
 export const Size20: Story = {
   args: {
     size: "20",
-    appearance: "negative",
   },
 };
 
 export const Size16: Story = {
   args: {
     size: "16",
-    appearance: "negative",
   },
 };
 
-export const XSDot: Story = {
+export const ExtraSmall: Story = {
   args: {
     size: "xs",
-    appearance: "negative",
-    value: undefined,
+    value: "",
   },
 };
 
-export const Squared: Story = {
+export const SquareShape: Story = {
   args: {
-    squared: true,
+    square: true,
+  },
+};
+
+export const SquareNegative: Story = {
+  args: {
+    square: true,
     appearance: "negative",
   },
 };
 
-export const SquaredSize32: Story = {
-  args: {
-    size: "32",
-    squared: true,
-    appearance: "accent",
-  },
-};
-
-export const HighCount: Story = {
+export const LargeCount: Story = {
   args: {
     value: "99+",
+    size: "32",
     appearance: "negative",
   },
 };
 
-export const NeutralSquared: Story = {
+export const AccentSquare32: Story = {
   args: {
-    appearance: "neutral",
-    squared: true,
-    size: "24",
+    size: "32",
+    appearance: "accent",
+    square: true,
   },
 };
 
-export const DefaultSquared: Story = {
+export const NeutralSquare24: Story = {
   args: {
-    appearance: "default",
-    squared: true,
-    size: "20",
+    size: "24",
+    appearance: "neutral",
+    square: true,
   },
 };
