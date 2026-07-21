@@ -1,30 +1,6 @@
-.orders {
+.icon {
   width: 24px;
   height: 24px;
   display: inline-block;
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 18px;
-    left: 2px;
-    top: 3px;
-    border: 2px solid currentColor;
-    border-radius: 2px;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 0;
-    left: 6px;
-    top: 8px;
-    border-top: 2px solid currentColor;
-    box-shadow: 
-      0 4px 0 0 currentColor,
-      0 8px 0 0 currentColor;
-  }
 }

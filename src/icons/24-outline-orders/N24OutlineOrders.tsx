@@ -1,35 +1,43 @@
 import React from "react";
 import styles from "./N24OutlineOrders.module.scss";
 
-export interface N24OutlineOrdersProps extends React.SVGAttributes<SVGSVGElement> {}
+export interface N24OutlineOrdersProps
+  extends React.SVGAttributes<SVGSVGElement> {}
 
-export const N24OutlineOrders: React.FC<N24OutlineOrdersProps> = (props) => {
+export function N24OutlineOrders(props: N24OutlineOrdersProps) {
   return (
     <svg
-      className={styles.orders}
+      {...props}
+      className={`${styles.icon} ${props.className || ""}`}
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
       <path
-        d="M9 7H5C3.89543 7 3 7.89543 3 9V19C3 20.1046 3.89543 21 5 21H15C16.1046 21 17 20.1046 17 19V18"
+        d="M9 3H4C3.44772 3 3 3.44772 3 4V9C3 9.55228 3.44772 10 4 10H9C9.55228 10 10 9.55228 10 9V4C10 3.44772 9.55228 3 9 3Z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M14 3H19C20.1046 3 21 3.89543 21 5V15C21 16.1046 20.1046 17 19 17H9C7.89543 17 7 16.1046 7 15V5C7 3.89543 7.89543 3 9 3H10"
+        d="M20 3H15C14.4477 3 14 3.44772 14 4V9C14 9.55228 14.4477 10 15 10H20C20.5523 10 21 9.55228 21 9V4C21 3.44772 20.5523 3 20 3Z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M10 3C10 2.44772 10.4477 2 11 2H13C13.5523 2 14 2.44772 14 3V4C14 4.55228 13.5523 5 13 5H11C10.4477 5 10 4.55228 10 4V3Z"
+        d="M9 14H4C3.44772 14 3 14.4477 3 15V20C3 20.5523 3.44772 21 4 21H9C9.55228 21 10 20.5523 10 20V15C10 14.4477 9.55228 14 9 14Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M20 14H15C14.4477 14 14 14.4477 14 15V20C14 20.5523 14.4477 21 15 21H20C20.5523 21 21 20.5523 21 20V15C21 14.4477 20.5523 14 20 14Z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
@@ -37,4 +45,4 @@ export const N24OutlineOrders: React.FC<N24OutlineOrdersProps> = (props) => {
       />
     </svg>
   );
-};
+}
