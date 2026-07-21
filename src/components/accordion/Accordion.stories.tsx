@@ -15,24 +15,15 @@ type Story = StoryObj<typeof Component>;
 
 export const Default: Story = {};
 
-export const ChevronRight: Story = {
-  args: {
-    opened: false,
-    chevronPosition: "right",
-  },
-};
-
 export const ChevronLeft: Story = {
   args: {
-    opened: false,
     chevronPosition: "left",
   },
 };
 
-export const OpenedChevronRight: Story = {
+export const Opened: Story = {
   args: {
     opened: true,
-    chevronPosition: "right",
   },
 };
 
