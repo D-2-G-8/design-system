@@ -1,0 +1,18 @@
+.tooltip {
+  display: flex;
+  flex-direction: row;
+  width: 115px;
+  height: 42px;
+  padding: 12px 16px;
+  background: var(--tooltip-blackonix);
+  border-radius: var(--radius-8);
+  box-shadow: var(--shadows-low);
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  font: var(--text-14-16-r-sost);
+  color: #FFFFFF;
+  white-space: nowrap;
+}
