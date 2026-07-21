@@ -1,0 +1,335 @@
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  display: inline-flex;
+  position: absolute;
+  z-index: 1000;
+}
+
+.content {
+  --background-tooltip: #000000;
+  --text-inverse: #ffffff;
+  --font-family-base: 'Roboto Flex', sans-serif;
+  --font-family-mobile: 'TT Norms', sans-serif;
+  --font-weight-regular: 400;
+  --font-size-body: 14px;
+  --font-size-mobile: 16px;
+  --line-height-base: 24px;
+  --line-height-mobile: 22px;
+  --border-radius-tooltip: 10px;
+  
+  background-color: var(--background-tooltip);
+  border-radius: var(--border-radius-tooltip);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--text-inverse);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-base);
+  width: 93px;
+  
+  &.resizable {
+    width: 132px;
+  }
+  
+  &.mobile {
+    font-family: var(--font-family-mobile);
+    font-size: var(--font-size-mobile);
+    line-height: var(--line-height-mobile);
+    padding: 10px 12px;
+    width: 107px;
+  }
+}
+
+.arrow {
+  width: 28px;
+  height: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  
+  svg {
+    display: block;
+  }
+}
+
+.placementTop {
+  flex-direction: column;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    align-self: stretch;
+  }
+  
+  &:has(.content:not(.resizable)) .arrow {
+    width: 93px;
+  }
+  
+  &:has(.content.resizable) .arrow {
+    width: 140px;
+  }
+}
+
+.placementTopStart {
+  flex-direction: column;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 0;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    align-self: stretch;
+    padding-left: 10px;
+  }
+  
+  &:has(.content:not(.resizable)) .arrow {
+    width: 93px;
+  }
+  
+  &:has(.content.resizable) .arrow {
+    width: 140px;
+  }
+}
+
+.placementTopEnd {
+  flex-direction: column;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 0;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    align-self: stretch;
+    padding-right: 10px;
+    justify-content: flex-end;
+  }
+  
+  &:has(.content:not(.resizable)) .arrow {
+    width: 93px;
+  }
+  
+  &:has(.content.resizable) .arrow {
+    width: 140px;
+  }
+}
+
+.placementBottom {
+  flex-direction: column;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    align-self: stretch;
+  }
+  
+  &:has(.content:not(.resizable)) .arrow {
+    width: 93px;
+  }
+  
+  &:has(.content.resizable) .arrow {
+    width: 140px;
+  }
+}
+
+.placementBottomStart {
+  flex-direction: column;
+  top: 100%;
+  left: 0;
+  margin-top: 0;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    align-self: stretch;
+    padding-left: 10px;
+  }
+  
+  &:has(.content:not(.resizable)) .arrow {
+    width: 93px;
+  }
+  
+  &:has(.content.resizable) .arrow {
+    width: 140px;
+  }
+}
+
+.placementBottomEnd {
+  flex-direction: column;
+  top: 100%;
+  right: 0;
+  margin-top: 0;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    align-self: stretch;
+    padding-right: 10px;
+    justify-content: flex-end;
+  }
+  
+  &:has(.content:not(.resizable)) .arrow {
+    width: 93px;
+  }
+  
+  &:has(.content.resizable) .arrow {
+    width: 140px;
+  }
+}
+
+.placementLeft {
+  flex-direction: row;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 0;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 8px;
+    height: 40px;
+    align-self: stretch;
+  }
+}
+
+.placementLeftStart {
+  flex-direction: row;
+  right: 100%;
+  top: 0;
+  margin-right: 0;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 8px;
+    height: 40px;
+    align-self: stretch;
+    padding-top: 8px;
+  }
+}
+
+.placementLeftEnd {
+  flex-direction: row;
+  right: 100%;
+  bottom: 0;
+  margin-right: 0;
+  
+  .content {
+    order: 1;
+  }
+  
+  .arrow {
+    order: 2;
+    width: 8px;
+    height: 40px;
+    align-self: stretch;
+    padding-bottom: 8px;
+    align-items: flex-end;
+  }
+}
+
+.placementRight {
+  flex-direction: row;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0;
+  
+  .content {
+    order: 2;
+    border-radius: 12px;
+    
+    &.resizable {
+      border-radius: 10px;
+    }
+  }
+  
+  .arrow {
+    order: 1;
+    width: 8px;
+    height: 40px;
+    align-self: stretch;
+  }
+}
+
+.placementRightStart {
+  flex-direction: row;
+  left: 100%;
+  top: 0;
+  margin-left: 0;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    width: 8px;
+    height: 40px;
+    align-self: stretch;
+    padding-top: 8px;
+  }
+}
+
+.placementRightEnd {
+  flex-direction: row;
+  left: 100%;
+  bottom: 0;
+  margin-left: 0;
+  
+  .content {
+    order: 2;
+  }
+  
+  .arrow {
+    order: 1;
+    width: 8px;
+    height: 40px;
+    align-self: stretch;
+    padding-bottom: 8px;
+    align-items: flex-end;
+  }
+}
