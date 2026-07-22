@@ -6,6 +6,11 @@
     "build:lib": "pnpm -F @d-2-g-8/design-system build",
     "build:storybook": "pnpm -F @d-2-g-8/design-system build-storybook",
     "typecheck": "pnpm -r typecheck",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "test:visual": "playwright test -c tests/visual/playwright.config.ts",
+    "test:visual:update": "playwright test -c tests/visual/playwright.config.ts --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
   }
 }
