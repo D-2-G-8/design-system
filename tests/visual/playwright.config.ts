@@ -28,10 +28,11 @@ export default defineConfig({
   // 0 retries: a snapshot is either stable or it's a determinism bug to fix,
   // not something to paper over with a retry.
   retries: 0,
-  // Baselines are only WRITTEN when the worker passes --update-snapshots
-  // (=> 'all'); otherwise ('none') a missing baseline makes the per-component
-  // test skip (see components.spec.ts) so CI stays green for not-yet-generated
-  // components, while a PRESENT baseline is compared (the regression gate).
+  // Baselines are only WRITTEN when the worker passes --update-snapshots (which
+  // resolves to 'changed' in Playwright 1.61 -- i.e. anything but 'none'); with
+  // 'none' a missing baseline makes the per-component test skip (see
+  // components.spec.ts) so CI stays green for not-yet-generated components, while
+  // a PRESENT baseline is compared (the regression gate).
   updateSnapshots: 'none',
   reporter: [['html', { open: 'never' }], ['list']],
 

@@ -38,7 +38,15 @@ export async function runVisualReview(args: RunVisualReviewArgs): Promise<Visual
   if (!args.nodeId) return nil();
   const rendered = args.readRendered();
   if (!rendered) return nil();
-  const figma = await args.fetchImage(args.fileKey, args.nodeId, args.token);
+  // A transient Figma render/rate-limit error degrades to an advisory skip
+  // (ran:false) rather than crashing the CLI -- getFileImages throws on a
+  // non-200/err, and visual review must never fail the run on its own.
+  let figma: RenderedImage | null;
+  try {
+    figma = await args.fetchImage(args.fileKey, args.nodeId, args.token);
+  } catch {
+    return nil();
+  }
   if (!figma) return nil();
   const { findings } = await args.reviewDiff(args.model, figma, rendered, args.componentName, args.spec);
   return { slug: args.slug, ran: true, findings, model: args.model };

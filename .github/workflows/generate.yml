@@ -66,8 +66,9 @@ jobs:
         continue-on-error: true
         env:
           SLUG: ${{ inputs.slug }}
-        # webServer (in playwright.config.ts) builds + serves Storybook; --update-snapshots
-        # (=> 'all') writes the committed baseline for just this component (anchored grep).
+        # webServer (in playwright.config.ts) builds + serves Storybook; a bare
+        # --update-snapshots resolves to 'changed' (Playwright 1.61) -- i.e. anything
+        # but 'none' -- so it writes/refreshes this component's baseline (anchored grep).
         run: |
           corepack pnpm exec playwright test -c tests/visual/playwright.config.ts --update-snapshots -g "^visual: $SLUG\$"
 
