@@ -265,6 +265,15 @@
   text-decoration: underline;
 }
 
+.jobRunLink {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.jobRunLink:hover {
+  text-decoration: underline;
+}
+
 .actionCell {
   text-align: right;
   white-space: nowrap;

@@ -33,7 +33,7 @@ function formatCreated(value: Date | string): string {
  *  ~4s for jobs still queued/running, stops once every job is terminal.
  *  Newly-dispatched jobs show up on the next page load, not live here --
  *  keeping 4a simple per the task brief. */
-export function JobsPanel({ initialJobs }: { initialJobs: Job[] }) {
+export function JobsPanel({ initialJobs, repo }: { initialJobs: Job[]; repo: string | null }) {
   const [jobs, setJobs] = useState(initialJobs);
 
   useEffect(() => {
@@ -66,7 +66,19 @@ export function JobsPanel({ initialJobs }: { initialJobs: Job[] }) {
                 <span className={styles.jobSlug}>{j.slug}</span>
                 <span className={styles.jobMeta}>
                   <span>{j.kind}</span>
-                  {j.workflow_run_id && <span>run {j.workflow_run_id}</span>}
+                  {j.workflow_run_id &&
+                    (repo ? (
+                      <a
+                        className={styles.jobRunLink}
+                        href={`https://github.com/${repo}/actions/runs/${j.workflow_run_id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        run {j.workflow_run_id}
+                      </a>
+                    ) : (
+                      <span>run {j.workflow_run_id}</span>
+                    ))}
                 </span>
                 {j.status === "running" && (
                   <span className={styles.jobProgress}>

@@ -41,7 +41,7 @@ export default async function Dashboard() {
           </p>
         </header>
         <ComponentTable state={state} storybookUrl={process.env.DESIGN_SYSTEM_STORYBOOK_URL ?? null} />
-        <JobsPanel initialJobs={jobs} />
+        <JobsPanel initialJobs={jobs} repo={process.env.GITHUB_DESIGN_SYSTEM_REPO ?? null} />
       </div>
     </main>
   );
