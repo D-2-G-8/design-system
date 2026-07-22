@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { matchRunByJobId, mapRunToJobStatus } from "../lib/run-correlation";
+import { matchRunByJobId, mapRunToJobStatus, workflowForKind } from "../lib/run-correlation";
 
 test("matchRunByJobId finds the run whose name carries the jobId", () => {
   const runs = [
@@ -18,4 +18,10 @@ test("mapRunToJobStatus maps run status/conclusion to a job status", () => {
   assert.equal(mapRunToJobStatus({ status: "completed", conclusion: "success" }), "done");
   assert.equal(mapRunToJobStatus({ status: "completed", conclusion: "failure" }), "failed");
   assert.equal(mapRunToJobStatus({ status: "completed", conclusion: "cancelled" }), "failed");
+});
+
+test("workflowForKind maps sync jobs to sync.yml, everything else to generate.yml", () => {
+  assert.equal(workflowForKind("sync"), "sync.yml");
+  assert.equal(workflowForKind("generate"), "generate.yml");
+  assert.equal(workflowForKind("anything-else"), "generate.yml");
 });

@@ -7,6 +7,13 @@ export function matchRunByJobId<T extends { name: string | null }>(runs: T[], jo
   return runs.find((r) => r.name?.includes(needle)) ?? null;
 }
 
+/** The GitHub Actions workflow file a job of a given `kind` runs on -- used to
+ *  correlate the job to its run (each workflow's runs are listed separately).
+ *  `sync` → the whole-library sync.yml; everything else → generate.yml. */
+export function workflowForKind(kind: string): string {
+  return kind === "sync" ? "sync.yml" : "generate.yml";
+}
+
 /** Map a GitHub run's status/conclusion to our coarse job status. The
  *  needs-human nuance lives on the PR label, not here. */
 export function mapRunToJobStatus(run: { status: string | null; conclusion: string | null }): JobStatus {

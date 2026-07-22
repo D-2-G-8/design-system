@@ -1,0 +1,82 @@
+name: Sync from Figma
+run-name: "sync (job ${{ inputs.jobId }})"
+
+# Dispatched by apps/admin (see apps/admin/lib/github.ts, dispatchSync) when a
+# user clicks "Sync from Figma". Runs the WHOLE-LIBRARY metadata sync
+# (`codegen sync`) -- curates the components/icons + harvests tokens from the
+# Figma library and opens a PR updating the manifest, tokens, and seed
+# contracts. Whole-library, so there is no slug input (unlike generate.yml).
+on:
+  workflow_dispatch:
+    inputs:
+      jobId:
+        description: "Job id from the admin app's Postgres job store, used to correlate this run back to that job row"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# One sync at a time -- the sync rewrites the whole manifest/tokens, so two
+# concurrent runs would race on the same sync/figma branch + files.
+concurrency:
+  group: sync-figma
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # No ANTHROPIC_API_KEY -- the metadata sync never calls the LLM. The file
+      # key comes from the manifest's figmaFileKey (or the FIGMA_FILE_KEY env).
+      # A failed sync (e.g. the non-empty abort guard) fails this step, so the
+      # PR step below is skipped -- no PR on a bad sync.
+      - name: Sync from Figma
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+        run: corepack pnpm --filter @d-2-g-8/codegen codegen sync | tee sync-output.txt
+
+      - name: Read summary
+        id: result
+        run: |
+          SUMMARY=$(grep -m1 '^sync:' sync-output.txt || echo "Figma library sync")
+          {
+            echo "body<<SYNC_EOF"
+            echo "$SUMMARY"
+            echo ""
+            echo "Figma library metadata sync -- review the manifest / token / seed-contract diff."
+            echo "SYNC_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open/update PR
+        # Third-party action pinned to a full commit SHA (supply-chain: a tag is
+        # movable, a SHA is immutable). Runs with contents/pull-requests write.
+        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
+        with:
+          branch: sync/figma
+          base: master
+          title: "sync: Figma library"
+          body: ${{ steps.result.outputs.body }}
+          labels: figma-sync
+          add-paths: |
+            design-system.manifest.json
+            tokens
+            packages/components
+          commit-message: "sync: Figma library metadata"

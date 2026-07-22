@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { enqueue, setStatus } from "@/lib/jobs";
-import { dispatchGenerate, getPullRequestForSlug, getPullRequestMergeState, canMerge, mergePullRequest } from "@/lib/github";
+import { dispatchGenerate, dispatchSync, getPullRequestForSlug, getPullRequestMergeState, canMerge, mergePullRequest } from "@/lib/github";
 import { syncJob } from "@/lib/jobs-sync";
 
 /**
@@ -36,6 +36,20 @@ export async function generateComponent(slug: string): Promise<{ jobId: string }
 export async function getJobStatus(jobId: string) {
   await requireSession();
   return syncJob(jobId);
+}
+
+/** Enqueue a whole-library Figma sync job and dispatch sync.yml. Gated on the
+ *  signed-in session; the run opens a PR updating the manifest/tokens/contracts. */
+export async function syncFromFigma(): Promise<{ jobId: string }> {
+  await requireSession();
+  const job = await enqueue("sync", "figma");
+  try {
+    await dispatchSync(job.id);
+  } catch (e) {
+    await setStatus(job.id, "failed", { log: e instanceof Error ? e.message : String(e) });
+    throw e;
+  }
+  return { jobId: job.id };
 }
 
 /** Merge a component's PR, gated on the session AND re-checked server-side
