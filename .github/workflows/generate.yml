@@ -45,8 +45,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browser (Chromium)
-        run: pnpm exec playwright install --with-deps chromium
+      # Phase 3 re-adds the Chromium install here (with @playwright/test as a
+      # declared dep) once the real loop needs a browser. The skeleton below
+      # doesn't, so installing it now would only fail (no playwright dep yet).
 
       # Placeholder for the real generation loop (Phase 3): distill Figma
       # design context -> generate component code -> tsc -> playwright
