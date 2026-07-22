@@ -55,6 +55,7 @@ export function ComponentTable({
                         View PR ↗
                       </a>
                     )}
+                    {c.status === "pending" && <a href={`/review/${c.slug}`}>Review</a>}
                     {c.status === "committed" && storybookUrl && (
                       <a href={storybookUrl} target="_blank" rel="noreferrer">
                         Storybook ↗
