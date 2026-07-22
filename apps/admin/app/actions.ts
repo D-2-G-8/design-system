@@ -1,34 +1,26 @@
 "use server";
 
+import { auth } from "@/auth";
 import { enqueue, setStatus } from "@/lib/jobs";
 import { dispatchGenerate } from "@/lib/github";
 import { syncJob } from "@/lib/jobs-sync";
 
 /**
- * Defense-in-depth for the server actions. The browser holds no token, so these
- * actions can't AUTHENTICATE the caller -- Vercel deployment protection is the
- * human gate. But if that's misconfigured (off, a preview environment left
- * unprotected, or "Protection Bypass for Automation" enabled), an unguarded
- * action would be a public POST that dispatches paid LLM/Figma/CI work (or leaks
- * job data). So we fail CLOSED unless the deployment is intentionally configured
- * for privileged use -- ADMIN_TOKEN present, the same fail-closed signal
- * lib/auth uses for the /api routes. This is a CONFIG gate, not authentication:
- * keep Vercel deployment protection ON across ALL environments (production AND
- * preview) -- see apps/admin/README.md.
+ * Defense-in-depth for the server actions. Middleware already redirects
+ * unauthenticated humans (the `authorized` callback in auth.ts), but server
+ * actions are POST endpoints reachable directly, so each one re-checks the
+ * session itself rather than trusting that every caller went through a
+ * middleware-matched page first.
  */
-function assertConfigured(): void {
-  if (!process.env.ADMIN_TOKEN) {
-    throw new Error(
-      "Admin not configured: ADMIN_TOKEN is unset. Set it and enable Vercel deployment " +
-        "protection (all environments) before using the dashboard's privileged actions.",
-    );
-  }
+async function requireSession(): Promise<void> {
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized -- sign in to use the admin.");
 }
 
-/** Enqueue a generate job and dispatch the workflow. Runs server-side (the
- *  browser holds no token; humans are gated by Vercel deployment protection). */
+/** Enqueue a generate job and dispatch the workflow. Runs server-side, gated
+ *  on the signed-in session. */
 export async function generateComponent(slug: string): Promise<{ jobId: string }> {
-  assertConfigured();
+  await requireSession();
   if (!slug || !slug.trim()) throw new Error("slug is required");
   const job = await enqueue("generate", slug);
   try {
@@ -40,8 +32,8 @@ export async function generateComponent(slug: string): Promise<{ jobId: string }
   return { jobId: job.id };
 }
 
-/** Live job status for the dashboard's polling (server action → no browser token). */
+/** Live job status for the dashboard's polling, gated on the signed-in session. */
 export async function getJobStatus(jobId: string) {
-  assertConfigured();
+  await requireSession();
   return syncJob(jobId);
 }

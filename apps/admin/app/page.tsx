@@ -1,6 +1,7 @@
 import { loadComponentState } from "@/lib/design-state";
 import { list as listJobs } from "@/lib/jobs";
 import { ComponentTable } from "./components/ComponentTable";
+import { Header } from "./components/Header";
 import { JobsPanel } from "./components/JobsPanel";
 import styles from "./components/dashboard.module.css";
 
@@ -16,6 +17,7 @@ export default async function Dashboard() {
   if (typeof state === "string") {
     return (
       <main className={styles.main}>
+        <Header />
         <div className={styles.wrap}>
           <header className={styles.header}>
             <p className={styles.eyebrow}>Component generation</p>
@@ -31,6 +33,7 @@ export default async function Dashboard() {
 
   return (
     <main className={styles.main}>
+      <Header />
       <div className={styles.wrap}>
         <header className={styles.header}>
           <p className={styles.eyebrow}>Component generation</p>
