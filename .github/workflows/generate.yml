@@ -1,4 +1,5 @@
 name: Generate Component
+run-name: "generate ${{ inputs.slug }} (job ${{ inputs.jobId }})"
 
 # Dispatched by apps/admin (see apps/admin/lib/github.ts, dispatchGenerate)
 # when a user asks the admin UI to (re)generate a component. This is the
@@ -16,6 +17,10 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write
+  pull-requests: write
+
 # Serialize runs per component slug -- two dispatches for the same
 # component shouldn't race each other (git commits, PRs, etc). Runs for
 # different slugs still run concurrently.
@@ -25,13 +30,11 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    # Phase 3 will add repo secrets FIGMA_ACCESS_TOKEN and ANTHROPIC_API_KEY
-    # here (as step/job env) for the real distill -> generate -> tsc ->
-    # playwright -> fix -> commit -> PR loop. Not needed yet for this
-    # skeleton placeholder step.
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -45,20 +48,43 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Phase 3 re-adds the Chromium install here (with @playwright/test as a
-      # declared dep) once the real loop needs a browser. The skeleton below
-      # doesn't, so installing it now would only fail (no playwright dep yet).
-
-      # Placeholder for the real generation loop (Phase 3): distill Figma
-      # design context -> generate component code -> tsc -> playwright
-      # visual check -> auto-fix -> commit -> open PR.
-      #
       # Inputs are passed via env: (not interpolated into the run: script)
       # since workflow_dispatch inputs are attacker-controllable strings --
       # interpolating them directly into a shell command would allow
       # command injection (e.g. slug = `$(rm -rf /)`).
-      - name: Generate (placeholder)
+      - name: Generate + validate
         env:
           SLUG: ${{ inputs.slug }}
-          JOB_ID: ${{ inputs.jobId }}
-        run: echo "generate $SLUG (job $JOB_ID)"
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: corepack pnpm --filter @d-2-g-8/codegen codegen generate "$SLUG"
+
+      - name: Read result
+        id: result
+        env:
+          SLUG: ${{ inputs.slug }}
+        run: |
+          PASSED=$(jq -r '.passed' codegen-result.json)
+          ROUNDS=$(jq -r '.rounds' codegen-result.json)
+          echo "passed=$PASSED" >> "$GITHUB_OUTPUT"
+          {
+            echo "body<<RESULT_EOF"
+            echo "Generated \`$SLUG\` via the codegen worker (fix rounds: $ROUNDS)."
+            if [ "$PASSED" != "true" ]; then
+              echo ""
+              echo "**Unresolved after the fix loop — needs a human:**"
+              jq -r '.findings[] | "- `\(.file)` — \(.message)"' codegen-result.json
+            fi
+            echo "RESULT_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open/update PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: codegen/${{ inputs.slug }}
+          base: master
+          title: "codegen: ${{ inputs.slug }}"
+          body: ${{ steps.result.outputs.body }}
+          labels: ${{ steps.result.outputs.passed == 'true' && '' || 'needs-human' }}
+          add-paths: packages/components
+          commit-message: "codegen: generate ${{ inputs.slug }}"
