@@ -12,3 +12,6 @@ test-results/
 playwright-report/
 tests/visual/__screenshots__/**/*-actual.png
 tests/visual/__screenshots__/**/*-diff.png
+
+# codegen package build output
+packages/codegen/dist/

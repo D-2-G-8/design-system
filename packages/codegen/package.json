@@ -1,0 +1,36 @@
+{
+  "name": "@d-2-g-8/codegen",
+  "version": "0.1.0",
+  "description": "Design-system codegen core: distill Figma designs and generate React + SCSS + Storybook code. Runs as a CLI invoked by the GitHub Actions generate worker.",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "codegen": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "codegen": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.16",
+    "ai": "^7.0.31",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.18.0"
+}
