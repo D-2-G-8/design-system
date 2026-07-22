@@ -1,0 +1,747 @@
+import { generateObject, generateText } from "ai";
+import { z } from "zod";
+import { getAnthropicClient } from "./anthropic";
+import { estimateCostUsd } from "./models";
+import type { DesignComponentVariant, DesignComponentState, StoredComponentContract } from "./types";
+import { toCssVarName, type TokenForCss } from "./tokens";
+import { buildOwnProps, buildComposedProps, buildExpectedComposedImports } from "./review/prop-types";
+
+// Re-exported so existing `from ".../component"` import sites (and this
+// module's own generateComponentCodeReviewed below) can use these pure
+// map builders. They live in ./review/prop-types (no server-only) rather
+// than here so fixture tests can import them under plain tsx/node --
+// this module starts with `import "server-only"`, which throws when
+// required outside a Next.js server context (e.g. under `tsx` directly).
+export { buildOwnProps, buildComposedProps };
+import {
+  pascalCase,
+  componentIdentifier,
+  componentSourcePaths,
+  storybookDefaultStoryId,
+  type ComponentSourcePaths,
+  type GeneratedComponentFiles,
+} from "./paths";
+import {
+  checkClassNamesMatch,
+  checkStoriesNoNameCollision,
+  extractReferencedClasses,
+  type ClassNameCheckResult,
+  type StoriesCheckResult,
+} from "./checks";
+import { reviewAndFix } from "./review";
+import type { Finding, GeneratedFiles, ReviewContext } from "./review";
+
+// Re-exported so existing `from ".../component"` import sites keep working after
+// these pure helpers moved to ./paths (which has no server-only, so icon.ts and
+// unit tests can use them without dragging in this module's LLM/db imports).
+export {
+  pascalCase,
+  componentIdentifier,
+  componentSourcePaths,
+  storybookDefaultStoryId,
+  type ComponentSourcePaths,
+  type GeneratedComponentFiles,
+};
+
+// Re-exported so existing `from ".../component"` import sites keep working after
+// these pure checks moved to ./checks (which has no server-only, so review/
+// deterministic.ts and unit tests can use them without dragging in this
+// module's LLM/db imports). Imported (not `export ... from`) so this module's
+// own internal calls below (generateComponentCode) still resolve them.
+export {
+  checkClassNamesMatch,
+  checkStoriesNoNameCollision,
+  type ClassNameCheckResult,
+  type StoriesCheckResult,
+};
+
+/**
+ * Turns one design_component row (+ the workspace's currently-synced
+ * tokens) into real React/CSS/Storybook source files for the design-system
+ * repo. Deliberately NOT one generateObject call producing the whole TSX
+ * and stylesheet as sibling JSON-string fields -- generateObject/structured
+ * output is solid for short, schema-friendly data (this codebase's only
+ * existing precedent, src/lib/code-review/*.ts, generates short JSON
+ * findings), but two independently-generated large source files inside one
+ * schema have nothing forcing them to actually agree with each other (a
+ * class name typo'd differently in each field is a likely, hard-to-catch
+ * failure mode), and large source files as JSON-string values are more
+ * failure-prone (escaping, truncation) than plain text generation.
+ *
+ * Pipeline instead:
+ * 1. contract (generateObject, genuinely schema-friendly: prop names/
+ *    types, chosen CSS class names, chosen token references).
+ * 2/3/4. TSX / stylesheet / stories, each a plain generateText completion
+ *    given the SAME contract as fixed shared input, so all three are
+ *    forced to agree on names instead of guessing independently.
+ * Then a deterministic (no LLM) check that every class the TSX references
+ * actually exists in the generated stylesheet, run BEFORE anything is
+ * committed (see src/lib/github/client.ts's caller in the codegen route).
+ *
+ * A real `tsc --noEmit`-in-package-context gate (as originally scoped) is
+ * NOT done here: that needs the design-system repo's own toolchain
+ * (React/TypeScript/Vite) available, which isn't practical to install
+ * inside a Vercel serverless invocation under a 60s budget. Instead the
+ * design-system repo runs its own CI (typecheck/lint/build) on the pull
+ * request this generates, and a person reviews that status before clicking
+ * "Confirm & merge" -- see that repo's .github/workflows/ci.yml.
+ */
+
+export interface ComponentForCodegen {
+  slug: string;
+  name: string;
+  description?: string;
+  variants: DesignComponentVariant[];
+  states: DesignComponentState[];
+  /**
+   * True for a single-glyph SVG icon (design_component.isIcon, set by Figma
+   * sync's isLikelyIconName heuristic). Icons are generated into a separate
+   * `src/icons/<slug>/` folder and grouped under Storybook's "Icons/" section
+   * instead of "Components/" -- everything else about the pipeline is the same.
+   */
+  isIcon: boolean;
+  /**
+   * Compact spec of the component's REAL Figma design (per-variant sizes,
+   * radii, fills, layout, typography, structure), distilled from the node
+   * subtree over REST -- see fetchComponentDesignSpec in figma-node.ts. When
+   * present, generation reproduces the actual design instead of guessing from
+   * variant labels. Optional: if the node fetch is unavailable (no Figma
+   * token / file key), generation falls back to label-only, same as before.
+   */
+  designSpec?: string;
+  /**
+   * Design-system components this one COMPOSES -- the design spec marks their
+   * spots as `USE <ComponentName>`. The generated TSX imports each from its
+   * sibling module (`../<slug>`) and renders it, instead of re-implementing
+   * it. These must already be generated (the codegen orchestrator emits them
+   * in dependency order -- see dependencies.ts).
+   */
+  uses?: { slug: string; componentName: string; isIcon: boolean }[];
+}
+
+const contractSchema = z.object({
+  props: z
+    .array(
+      z.object({
+        name: z.string().describe("camelCase prop name, e.g. \"size\" or \"disabled\"."),
+        type: z.string().describe('TypeScript type as a string, e.g. "\'sm\' | \'md\' | \'lg\'" or "boolean".'),
+        description: z
+          .string()
+          .describe(
+            "REQUIRED, one clear sentence for a developer consuming this component: what the prop controls AND " +
+              "when to pass vs omit it. Be concrete about defaults and the controlled/uncontrolled split -- e.g. " +
+              "\"Controlled open state; pass together with onOpenChange to drive it from the parent, or omit both to " +
+              "let the component manage its own open/closed state.\" or \"Initial open state when uncontrolled; " +
+              "ignored if `open` is provided.\" Never leave this blank or generic ('the size prop').",
+          ),
+      }),
+    )
+    .describe(
+      "Props derived from this component's Figma variants/states. Group related variants into one " +
+        'enum-typed prop where sensible (e.g. "Size: Small"/"Size: Large" variants become one `size` prop). ' +
+        "For an INTERACTIVE toggle state (e.g. an Opened On/Off variant on an accordion, a Checked variant on a " +
+        "checkbox/switch, a Selected variant on a chip/tab), do NOT emit a single required boolean. Emit the " +
+        "standard controlled/uncontrolled hybrid TRIO so a parent UI can both drive it and observe changes: an " +
+        "OPTIONAL controlled value `open?: boolean` (natural name -- `checked`, `selected`...), an optional " +
+        "`defaultOpen?: boolean` initial value, and a callback `onOpenChange?: (open: boolean) => void` fired on " +
+        "every toggle. (The TSX keeps internal state seeded from the default and uses `open ?? internal` as the " +
+        "effective value.) Non-interactive display states (disabled, error, loading, size, variant) stay plain props.",
+    ),
+  cssVariables: z
+    .array(z.string())
+    .describe(
+      "Exact token names (without -- prefix or var()) this component should reference, chosen ONLY from " +
+        "the provided list of available tokens -- never invent a token name that wasn't given.",
+    ),
+  classNames: z
+    .array(z.string())
+    .describe(
+      "CSS Modules class names this component's stylesheet will define and the TSX will reference via " +
+        "styles.<name>. MUST be camelCase single identifiers -- NO hyphens, NO BEM `--`/`__` (e.g. " +
+        '"buttonPrimary", never "button-primary", "avatar--24", or "avatar__container"). The TSX accesses ' +
+        "them as styles.<name> (dot), which is invalid for hyphenated names, so every variant/size/state must " +
+        "be its OWN camelCase class here (e.g. sizeSm, sizeMd, typeIcon, squared, withBadge) -- never a " +
+        "hyphenated or BEM modifier. TSX and CSS both copy this exact list character-for-character.",
+    ),
+});
+
+export type ComponentContract = z.infer<typeof contractSchema>;
+
+/** The subset of a component's persisted contract a DEPENDENT needs. */
+export type ChildContract = StoredComponentContract;
+
+function describeComponent(component: ComponentForCodegen): string {
+  const variantLines = component.variants.map((v) => `- ${v.name}${v.description ? ` -- ${v.description}` : ""}`);
+  const stateLines = component.states.map((s) => `- ${s.name}${s.description ? ` -- ${s.description}` : ""}`);
+  return [
+    `Component name: ${component.name}`,
+    component.description ? `Description: ${component.description}` : "",
+    variantLines.length ? `Variants (from Figma):\n${variantLines.join("\n")}` : "No variants.",
+    stateLines.length ? `States (from Figma):\n${stateLines.join("\n")}` : "No states.",
+    // The real design, distilled from the Figma node subtree. This is the
+    // source of truth for the implementation -- exact px sizes, corner radii,
+    // fill colors, auto-layout, and typography per variant. When present,
+    // reproduce it faithfully; do NOT invent dimensions/colors/structure.
+    component.designSpec
+      ? "Actual Figma design (REPRODUCE THIS EXACTLY -- indentation = node nesting; " +
+        "WxH in px, radius/gap/pad in px, fill/stroke are CSS colors, font:{...} is typography):\n" +
+        component.designSpec
+      : "",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+}
+
+/** Strips a markdown code fence if the model wraps its output in one despite instructions not to. */
+function stripCodeFence(text: string): string {
+  const trimmed = text.trim();
+  const fenced = trimmed.match(/^```[a-z]*\n([\s\S]*?)\n```$/i);
+  return (fenced ? fenced[1] : trimmed).trim() + "\n";
+}
+
+async function generateContract(
+  model: string,
+  component: ComponentForCodegen,
+  availableTokens: TokenForCss[],
+): Promise<{ contract: ComponentContract; inputTokens: number; outputTokens: number }> {
+  const anthropic = await getAnthropicClient();
+  const result = await generateObject({
+    model: anthropic(model),
+    schema: contractSchema,
+    system:
+      "You are designing the API contract for a React component that will be implemented as a CSS Modules " +
+      "component in a shared design-system library. Output only the contract -- no implementation code.",
+    prompt: [
+      describeComponent(component),
+      "",
+      `Available design tokens (choose only from these -- never invent one): ${availableTokens.map((t) => t.name).join(", ") || "(none synced yet)"}`,
+    ].join("\n"),
+  });
+  return {
+    contract: result.object,
+    inputTokens: result.usage?.inputTokens ?? 0,
+    outputTokens: result.usage?.outputTokens ?? 0,
+  };
+}
+
+async function generateTsx(
+  model: string,
+  component: ComponentForCodegen,
+  contract: ComponentContract,
+  componentName: string,
+  fileBase: string,
+  childContracts?: Map<string, ChildContract>,
+  reviewFeedback?: string,
+): Promise<{ content: string; inputTokens: number; outputTokens: number }> {
+  const anthropic = await getAnthropicClient();
+  const result = await generateText({
+    model: anthropic(model),
+    system:
+      "You write production React + TypeScript components for a shared component library. Output ONLY the " +
+      "raw .tsx file contents -- no markdown code fences, no explanation before or after.",
+    prompt: [
+      describeComponent(component),
+      "",
+      `Component name: ${componentName}`,
+      `Props:\n${contract.props.map((p) => `- ${p.name}: ${p.type}${p.description ? ` -- ${p.description}` : ""}`).join("\n")}`,
+      `CSS Modules class names available (import from "./${fileBase}.module.scss" as \`styles\`, reference ONLY via styles.<name>, exactly these names): ${contract.classNames.join(", ")}`,
+      component.uses && component.uses.length > 0
+        ? "\nThis component COMPOSES other design-system components -- the design spec marks their spots as " +
+          "`USE <Name>`. For each, IMPORT it using EXACTLY the path below and RENDER it there; do NOT re-implement " +
+          "its markup/SVG/styles, and do NOT change the import path. Available components:\n" +
+          component.uses
+            .map((u) => {
+              // Components live in src/components/<slug>, icons in src/icons/<slug>.
+              // From this component's dir the path to a same-kind dependency is
+              // "../<slug>"; to a different-kind one it must cross folders.
+              const path =
+                u.isIcon === component.isIcon
+                  ? `../${u.slug}`
+                  : `../../${u.isIcon ? "icons" : "components"}/${u.slug}`;
+              const c = childContracts?.get(u.slug);
+              const api = c
+                ? `\n    ${u.componentName} props (use ONLY these exact values): ${c.props.map((p) => `${p.name}: ${p.type}`).join("; ")}`
+                : "";
+              return `- import { ${u.componentName} } from "${path}";${api}`;
+            })
+            .join("\n") +
+          "\nPass the instance's props(...) from the spec through to the component's props as sensible. " +
+          "CRITICAL: wherever the spec says `USE <X>`, you MUST import and render the REAL <X/> there. Do NOT " +
+          "substitute a generic slot prop (e.g. `icon?: React.ReactNode`) for the caller to fill, do NOT render an " +
+          "arbitrary inline `<svg>`, and do NOT drop an empty placeholder (`<span/>`) in its place -- all three are " +
+          "failures to compose. If which instance to render depends on THIS component's own variant (e.g. a 24px vs " +
+          "16px icon per button size, or an open vs closed chevron), branch on the variant and render the correct " +
+          "real component with the correct props -- still never a generic slot. " +
+          "The spec writes instance props as raw Figma variant LABELS (e.g. `props(Appearance=Negative, Size=32 px, " +
+          "Square=Off)`). These are NOT the composed component's actual prop values -- convert them: design-system " +
+          "enum values are lowercase without units (`appearance=\"negative\"`, `size=\"32\"`), and On/Off booleans are " +
+          "real booleans (`square={false}`). Passing a capitalized label (`appearance=\"Negative\"`) or a unit string " +
+          "(`size=\"32 px\"`) is a TYPE ERROR that fails the build." +
+          " Map each Figma label to the child's ACTUAL prop value from its listed prop API above -- match names and " +
+          "values EXACTLY (case, units). If a label has no matching value in that API, pick the closest valid one; " +
+          "never invent a value outside the listed type."
+        : "",
+      "",
+      "Requirements:",
+      `- Named export \`${componentName}\`, plus an exported \`${componentName}Props\` interface.`,
+      "- In the `" +
+        componentName +
+        "Props` interface, put a JSDoc `/** ... */` comment ABOVE EVERY prop, taken from that prop's description below -- say what it controls and when to pass vs omit it (and for a controlled/uncontrolled prop, which mode it's for). Storybook's docgen reads these JSDoc comments and shows them in the component's args/Controls table, so a developer consuming the component understands each prop without reading the source. Do not leave any prop undocumented.",
+      "- If an \"Actual Figma design\" block is given above, reproduce its DOM structure and per-variant behavior faithfully (the same nesting of container/content/badge elements, the same size/type/state branching) -- don't invent a different structure.",
+      "- EVERY prop above comes from a real Figma variant/state, so EVERY prop MUST visibly change what renders -- the way those variants actually differ in the design block. An enum prop (size/type/variant/position) branches the classes or markup; a boolean prop (opened/checked/selected/disabled/error/active/loading) applies the exact visual change its variants show: a rotation/flip, a different color/fill/border, a shown-vs-hidden element, a moved or reordered element, a swapped icon direction. A prop the component destructures but that never changes the output (beyond gating a child's presence) is a BUG -- consuming `opened` to render the body but leaving the chevron identical open vs closed is exactly this failure. If the design block shows how a variant differs, implement that difference; leave NO prop visually inert.",
+      "- Apply each such state-driven change through EXACTLY ONE mechanism -- never two that compound. Two ways this bites: (a) the SAME transform in both an inline `style={{ transform: ... }}` AND a CSS rule (180deg + 180deg = 360deg, so it visibly doesn't move); and (b) swapping to a DIFFERENT icon per state AND rotating it. If the design uses distinct glyphs per state and you compose them (e.g. `<ChevronDown/>` when closed, `<ChevronUp/>` when open), that icon ALREADY points the right way -- do NOT also add a CSS `rotate` to it, or the rotation fights the swap (an up-chevron rotated 180deg looks like a down-chevron again, exactly the bug it seems fixed but isn't). CHOOSE ONE: either swap the icon per state and add NO rotation, OR render a single fixed icon and rotate it via one CSS class. Prefer the icon swap when the design provides both glyphs as separate components.",
+      "- Drive POINTER states (hover / active / focus / focus-visible) purely with CSS pseudo-classes in the stylesheet (`&:hover`, `&:active`, `&:focus-visible`). Do NOT ALSO track them in React state -- no `isHovered`/`isActive` `useState` with `onMouseEnter`/`onMouseDown` handlers toggling `.stateHover`/`.stateActive` classes. Mirroring a pointer state in both JS and CSS is the same double-mechanism failure (and re-renders on every hover). Reserve React state strictly for LOGICAL state the user toggles (open/checked/selected -- the hybrid controlled/uncontrolled props above).",
+      "- When a boolean state is INTERACTIVE (an accordion opening/closing, an expandable panel, a checkbox/switch/toggle, a selectable chip/tab), implement the STANDARD controlled/uncontrolled hybrid so the component both works on its own AND can be driven by a parent UI. Concretely, for a state called `open` (use the natural name -- `checked`, `selected`, `value`, etc.):",
+      "    * `open?: boolean` -- OPTIONAL controlled value. When the parent passes it, it WINS: render from it and do not use internal state for display.",
+      "    * `defaultOpen?: boolean` -- optional initial value for the uncontrolled case.",
+      "    * `onOpenChange?: (open: boolean) => void` -- called on EVERY user toggle with the NEXT value, so the parent always learns the new state (whether controlled or not).",
+      "    * internal `const [openState, setOpenState] = React.useState(defaultOpen ?? false)`; the effective value is `open ?? openState`.",
+      "    * on the click/change handler: compute `next = !effective`; if uncontrolled (`open === undefined`) call `setOpenState(next)`; ALWAYS call `onOpenChange?.(next)`.",
+      "  This means: with no props it still toggles on click (uncontrolled default -- never inert in Storybook or a first drop-in); a parent can fully control it via `open` + `onOpenChange`; and the parent always receives state changes. Drive the visual (rotate the chevron, show/hide the body, show the check) from the EFFECTIVE value. Do NOT make it controlled-only (a required value + required handler), and do NOT make it internal-only (no way for a parent to control or observe it). Apply this same hybrid to every interactive boolean.",
+      "- Extend the appropriate native HTML element attributes type where sensible (e.g. ButtonHTMLAttributes for a button).",
+      "- Reference styles ONLY via styles.<name>, copying each class name from the list above character-for-character (they are camelCase, so always dot access `styles.foo` -- never `styles['a-b']`, never a name not in the list). Never invent a class, never use inline styles for static styling, never hardcode a color/size value.",
+      "- If a section only renders when a boolean prop is true (e.g. `{opened && <div className={styles.body}>...}`), a CSS open/close TRANSITION on that element is dead code (it mounts already-open). Either always render it and toggle an `open` class, or don't write a transition for it.",
+      "- No default export.",
+      reviewFeedback
+        ? "\nA prior version of THIS file failed review. You MUST fix ALL of these and change nothing else that was already correct:\n" +
+          reviewFeedback
+        : "",
+    ].join("\n"),
+  });
+  return {
+    content: stripCodeFence(result.text),
+    inputTokens: result.usage?.inputTokens ?? 0,
+    outputTokens: result.usage?.outputTokens ?? 0,
+  };
+}
+
+async function generateCss(
+  model: string,
+  component: ComponentForCodegen,
+  contract: ComponentContract,
+  availableTokens: TokenForCss[],
+  reviewFeedback?: string,
+  requiredClasses?: string[],
+): Promise<{ content: string; inputTokens: number; outputTokens: number }> {
+  // Prefer the classes the TSX ACTUALLY references (so scss covers exactly what
+  // the component uses -> no A3 drift); fall back to the contract's declared
+  // list when not provided.
+  const classList = requiredClasses && requiredClasses.length > 0 ? requiredClasses : contract.classNames;
+  const tokenByName = new Map(availableTokens.map((t) => [t.name, t]));
+  const chosenTokens = contract.cssVariables
+    .map((name) => tokenByName.get(name))
+    .filter((t): t is TokenForCss => Boolean(t));
+
+  const anthropic = await getAnthropicClient();
+  const result = await generateText({
+    model: anthropic(model),
+    system:
+      "You write CSS Modules stylesheets in SCSS syntax for a shared component library. Output ONLY the raw " +
+      ".module.scss file contents -- no markdown code fences, no explanation before or after. Valid SCSS " +
+      "(nesting, &-modifiers, etc.) is allowed and encouraged, but every class the component references must " +
+      "still resolve to a top-level exported class name.",
+    prompt: [
+      describeComponent(component),
+      "",
+      `Write a rule for EVERY one of these class names, copied character-for-character, all camelCase (e.g. .buttonPrimary) -- do NOT rename to kebab-case or BEM, do NOT add or drop any, and do NOT leave any without its own selector (even a boolean/marker modifier like .withBadge MUST get a rule, even if minimal). These are EXACTLY the classes the component references, so the stylesheet MUST define all of them: ${classList.join(", ")}. You MAY additionally combine them in compound/nested selectors (e.g. \`.squared.sizeMd\`, \`.avatar .badge\`) for variant-specific rules, but every class token used must be one of these exact names.`,
+      "Each variant/state class must actually ENCODE the visual DIFFERENCE that variant shows in the design (its own color/rotation/border/size/position), NOT an empty rule or one identical to the base state -- a state class that renders the same as the base makes that prop do nothing. E.g. an `.opened` class should carry the transform/height/etc. that the opened variant differs by; a `.selected`/`.error`/`.disabled` class should carry its distinct color/border/opacity from the design.",
+      "If an \"Actual Figma design\" block is given above, match its exact px dimensions, corner radii, gaps/padding, and per-variant typography -- these are the real measured values, use them.",
+      `Reference color/shadow values via the EXACT var() names below (they match the generated tokens.css; CSS custom properties are case-sensitive, so copy each var(--...) verbatim); px sizes/radii/gaps from the design block are written directly. CRITICAL: never write \`var(--x)\` for an x NOT in this list -- there is no --font-family-*, --text-primary, --focus-ring etc. unless it appears below. If the design needs a value with NO matching token here (a font-family, or a color/size the list doesn't cover), INLINE the literal value (e.g. \`font-family: 'Roboto Flex', sans-serif;\`, \`color: #1c1c1c;\`) or define a local \`--x:\` custom property in this stylesheet -- inlining is correct and expected in that case. Inventing a var() that isn't a real token below is the one thing that breaks the build:`,
+      chosenTokens.map((t) => `- var(--${toCssVarName(t.name)}) (${t.category}) = ${t.value}`).join("\n") || "(no tokens chosen -- inline literal values)",
+      reviewFeedback
+        ? "\nA prior version of THIS file failed review. You MUST fix ALL of these and change nothing else that was already correct:\n" +
+          reviewFeedback
+        : "",
+    ].join("\n"),
+  });
+  return {
+    content: stripCodeFence(result.text),
+    inputTokens: result.usage?.inputTokens ?? 0,
+    outputTokens: result.usage?.outputTokens ?? 0,
+  };
+}
+
+async function generateStories(
+  model: string,
+  component: ComponentForCodegen,
+  contract: ComponentContract,
+  componentName: string,
+  fileBase: string,
+  reviewFeedback?: string,
+): Promise<{ content: string; inputTokens: number; outputTokens: number }> {
+  // Icons get their own "Icons/" Storybook section (mirrors the src/icons/
+  // folder split and the app's separate Icons tab); everything else is a
+  // "Components/" story. storybookDefaultStoryId derives the id from the
+  // same rule, so the detail page's deep-link stays correct.
+  const section = component.isIcon ? "Icons" : "Components";
+  const anthropic = await getAnthropicClient();
+  const result = await generateText({
+    model: anthropic(model),
+    system:
+      "You write Storybook CSF3 stories (@storybook/react, TypeScript) for a shared component library. " +
+      "Output ONLY the raw .stories.tsx file contents -- no markdown code fences, no explanation.",
+    prompt: [
+      describeComponent(component),
+      "",
+      `Component: ${componentName}, imported from "./${fileBase}" (a barrel that re-exports it).`,
+      `Props (name: type -- description):\n${contract.props.map((p) => `- ${p.name}: ${p.type}${p.description ? ` -- ${p.description}` : ""}`).join("\n")}`,
+      "In `meta`, include an `argTypes` map with an entry for EVERY prop above, each carrying a `description` " +
+        "(the prop's description text above -- what it controls and when to pass/omit it) so the Storybook Controls/Docs " +
+        "table documents every prop for the developer. For enum props also set `control: { type: \"select\" }` with the " +
+        "exact literal `options`, and for booleans `control: \"boolean\"`. Example: " +
+        '`argTypes: { open: { description: "Controlled open state; pass with onOpenChange to drive from the parent, or omit both for uncontrolled.", control: "boolean" } }`.',
+      "",
+      "Follow this exact structure (adjust component/args/stories to this component, but keep `title` and " +
+        "the `Default` story EXACTLY as shown -- the platform deep-links to this specific story id):",
+      "```",
+      'import type { Meta, StoryObj } from "@storybook/react";',
+      'import { Button as Component } from "./Button";',
+      "",
+      "const meta: Meta<typeof Component> = {",
+      `  title: "${section}/${componentName}",`,
+      "  component: Component,",
+      '  args: { children: "Button" },',
+      "};",
+      "export default meta;",
+      "",
+      "type Story = StoryObj<typeof Component>;",
+      "",
+      "export const Default: Story = {};",
+      'export const Primary: Story = { args: { variant: "primary" } };',
+      "```",
+      `REQUIRED: title must be exactly "${section}/${componentName}", and there must be exactly one story ` +
+        'exported as `Default` (using the component\'s default args, like the example above) -- this is the ' +
+        "canonical story the component detail page embeds. Beyond that, add one story per meaningfully " +
+        "distinct variant/state combination -- don't enumerate every possible cross-product if that would " +
+        "be excessive, use judgment for what's useful to preview.",
+      "If the component is INTERACTIVE (toggles/expands/checks on click -- it manages its own state), the `Default` " +
+        "story must let that interaction happen: render it plainly and do NOT freeze it by hard-pinning the state prop " +
+        "with no way to change it. The reader must be able to click and watch it expand/collapse or toggle. Provide the " +
+        "content it needs to show something meaningful when open (e.g. a title and some body text/children).",
+      "",
+      "Import ONLY from \"./" +
+        componentName +
+        "\" -- do NOT import any other package (no icon libraries like react-icons, @heroicons, lucide, etc.; " +
+        "they are NOT dependencies and break the Storybook build). For a ReactNode/icon-typed prop, pass a small " +
+        "inline `<svg width={16} height={16}>...</svg>` or omit it. In args/argTypes use ONLY the exact literal " +
+        "values from the prop types above (e.g. if `size: \"24\" | \"32\"`, the control options are \"24\"/\"32\", " +
+        "never invented ones like \"sm\"/\"md\").",
+      "",
+      `ALWAYS import the component under the alias "Component", exactly as shown above (\`import { ${componentName} as Component } from "./${fileBase}"\`) -- ` +
+        "never under its own bare name. A story is always exported as `Default`, and some components may also " +
+        `end up with a variant/state story that happens to share the component's own name (e.g. a component ` +
+        'called "Default" or "Primary") -- importing the component bare in that case declares two top-level ' +
+        "bindings with the same identifier in one module, which Babel refuses to parse at all (confirmed in " +
+        "production: a component named \"Default\" broke the whole Storybook build this way). Aliasing the " +
+        "import to a fixed, neutral name sidesteps this category of collision entirely, regardless of what the " +
+        "component itself is named.",
+      reviewFeedback
+        ? "\nA prior version of THIS file failed review. You MUST fix ALL of these and change nothing else that was already correct:\n" +
+          reviewFeedback
+        : "",
+    ].join("\n"),
+  });
+  return {
+    content: stripCodeFence(result.text),
+    inputTokens: result.usage?.inputTokens ?? 0,
+    outputTokens: result.usage?.outputTokens ?? 0,
+  };
+}
+
+/** Delimiter-framed multi-file fix: one generateText that may rewrite any of the
+ *  three files together to satisfy all review findings. Delimited plain text
+ *  (not generateObject) -- large source files as JSON-string fields are
+ *  escaping/truncation-prone (see this module's top comment). */
+const FIX_DELIM = { tsx: "===== TSX =====", css: "===== SCSS =====", stories: "===== STORIES =====" };
+
+function parseFixedFiles(text: string, current: GeneratedFiles): GeneratedFiles {
+  const grab = (label: string, nextLabel: string | null): string | null => {
+    const start = text.indexOf(label);
+    if (start < 0) return null;
+    const from = start + label.length;
+    const end = nextLabel ? text.indexOf(nextLabel, from) : text.length;
+    const body = text.slice(from, end < 0 ? text.length : end);
+    const cleaned = stripCodeFence(body).trim();
+    return cleaned || null;
+  };
+  return {
+    tsx: grab(FIX_DELIM.tsx, FIX_DELIM.css) ?? current.tsx,
+    css: grab(FIX_DELIM.css, FIX_DELIM.stories) ?? current.css,
+    stories: grab(FIX_DELIM.stories, null) ?? current.stories,
+    index: current.index, // deterministic; never LLM-fixed
+  };
+}
+
+/** Human-readable list of each composed child's REAL prop API (from its stored
+ *  contract), with the crucial note that the Figma spec writes instance props as
+ *  raw variant LABELS (e.g. `Appearance=Negative`, `Size=24 px`) which MUST be
+ *  mapped to these values, NOT copied verbatim. Empty string if nothing is
+ *  composed or no child contracts are available. Shared by the generation autofix
+ *  AND the LLM review -- so the reviewer stops grading correct (mapped)
+ *  composition values (appearance="negative", size="24px") as design infidelity
+ *  and pulling the autofix back toward the raw labels the deterministic gate
+ *  rejects. */
+export function composedApiDescription(
+  component: ComponentForCodegen,
+  childContracts?: Map<string, ChildContract>,
+): string {
+  if (!component.uses || component.uses.length === 0 || !childContracts) return "";
+  const lines = component.uses
+    .map((u) => {
+      const c = childContracts.get(u.slug);
+      return c ? `- ${u.componentName}: ${c.props.map((p) => `${p.name}: ${p.type}`).join("; ")}` : "";
+    })
+    .filter(Boolean);
+  if (lines.length === 0) return "";
+  return (
+    "Composed children accept ONLY these prop values. The Figma spec writes their instance props as raw " +
+    'variant LABELS (e.g. `Appearance=Negative`, `Size=24 px`); those MAP to the child\'s real values below -- ' +
+    'the code MUST use the real values (e.g. appearance="negative", size="24px"), NOT the raw labels:\n' +
+    lines.join("\n")
+  );
+}
+
+async function holisticFix(
+  model: string,
+  component: ComponentForCodegen,
+  contract: ComponentContract,
+  files: GeneratedFiles,
+  findings: { file: string; message: string; suggestion?: string }[],
+  componentName: string,
+  childContracts?: Map<string, ChildContract>,
+  availableTokens?: TokenForCss[],
+): Promise<{ files: GeneratedFiles; inputTokens: number; outputTokens: number }> {
+  const anthropic = await getAnthropicClient();
+  const tokenByName = new Map((availableTokens ?? []).map((t) => [t.name, t]));
+  const chosenTokens = contract.cssVariables
+    .map((name) => tokenByName.get(name))
+    .filter((t): t is TokenForCss => Boolean(t));
+  const result = await generateText({
+    model: anthropic(model),
+    system:
+      "You fix a generated React + CSS-Modules design-system component so it satisfies ALL the review findings. " +
+      "You are a capable engineer: fix the ROOT cause, and when a fix spans files, change ALL the files it needs " +
+      "-- coherently. Change nothing that is already correct. Output ONLY the three delimited file blocks, no prose.",
+    prompt: [
+      describeComponent(component),
+      "",
+      `Component name: ${componentName}. CSS Modules class names (use these EXACT names, styles.<name>): ${contract.classNames.join(", ")}`,
+      `Props: ${contract.props.map((p) => `${p.name}: ${p.type}`).join("; ")}`,
+      // The ONLY real token vars. An "unknown token var" finding means the scss
+      // wrote a var(--x) that isn't one of these -- the fix is to use a real one
+      // below OR (when nothing matches, e.g. a font-family / focus ring) INLINE
+      // the literal value / define a local --x:. Never re-reference an invented
+      // token (there is no --font-family-*, --text-primary, --focus-ring unless
+      // it appears here).
+      `Valid design-token vars (the ONLY var(--x) allowed in the scss; copy verbatim): ${
+        chosenTokens.map((t) => `var(--${toCssVarName(t.name)})=${t.value}`).join(", ") || "(none)"
+      }. For any value with no matching token here, INLINE the literal (e.g. font-family, a one-off color) or define a local \`--x:\` -- do NOT write var(--x) for an x not in this list.`,
+      composedApiDescription(component, childContracts),
+      component.uses && component.uses.length
+        ? `Composed components must be imported with EXACTLY these statements (copy verbatim -- correct path AND name; do NOT rename or shorten):\n${[
+            ...buildExpectedComposedImports(component.uses, component.isIcon),
+          ]
+            .map(([path, id]) => `- import { ${id} } from "${path}";`)
+            .join("\n")}`
+        : "",
+      "",
+      "Review findings you MUST fix ALL of:",
+      findings.map((f) => `- [${f.file}] ${f.message}${f.suggestion ? ` (suggested: ${f.suggestion})` : ""}`).join("\n"),
+      "",
+      "You MAY change more than one file to fix a single finding, coherently. Example: a class referenced in the " +
+        "tsx but missing from the scss -- either add the class to the scss OR remove the reference from the tsx, but " +
+        "make tsx and scss agree. Keep the component's exported name, prop API, and everything already correct.",
+      "",
+      "Current files:",
+      `--- current tsx ---\n${files.tsx}`,
+      `--- current scss ---\n${files.css}`,
+      `--- current stories ---\n${files.stories}`,
+      "",
+      "Now output the FULL updated content of all three files, each after its delimiter line exactly as shown, in this order, and nothing else:",
+      FIX_DELIM.tsx,
+      "<updated tsx>",
+      FIX_DELIM.css,
+      "<updated scss>",
+      FIX_DELIM.stories,
+      "<updated stories>",
+    ].join("\n"),
+  });
+  return {
+    files: parseFixedFiles(result.text, files),
+    inputTokens: result.usage?.inputTokens ?? 0,
+    outputTokens: result.usage?.outputTokens ?? 0,
+  };
+}
+
+/**
+ * Run the holistic autofix over an EXISTING component's files against a set
+ * of findings (e.g. real tsc errors reported by the design-system repo's own
+ * CI, rather than this pipeline's own review layer). Reuses the exact same
+ * fixer the generation review loop uses (holisticFix, internal to this
+ * module) -- the caller supplies the files (read from the branch), the
+ * persisted contract, and the composed children's contracts, since a CI-
+ * triggered fix has none of those freshly in hand the way a just-generated
+ * component does.
+ */
+export async function fixComponentFiles(
+  model: string,
+  component: ComponentForCodegen,
+  contract: ComponentContract,
+  files: GeneratedFiles,
+  findings: { file: string; message: string }[],
+  childContracts?: Map<string, ChildContract>,
+  availableTokens?: TokenForCss[],
+): Promise<{ files: GeneratedFiles; inputTokens: number; outputTokens: number }> {
+  return holisticFix(
+    model,
+    component,
+    contract,
+    files,
+    findings,
+    componentIdentifier(component.slug),
+    childContracts,
+    availableTokens,
+  );
+}
+
+/**
+ * Generates one component's full file set. Throws (does not commit
+ * anything itself -- that's the caller's job, see the codegen route) if
+ * the deterministic class-name check or the stories name-collision check
+ * fails, since committing mismatched TSX/CSS would ship a component that
+ * renders unstyled, and committing a colliding stories file would break
+ * the whole Storybook build for everyone, not just this one component.
+ */
+export async function generateComponentCode(
+  model: string,
+  component: ComponentForCodegen,
+  availableTokens: TokenForCss[],
+  childContracts?: Map<string, ChildContract>,
+): Promise<GeneratedComponentFiles & { contract: ComponentContract }> {
+  // Computed from the slug rather than asked of the LLM (the contract
+  // schema used to have a `componentName` field) -- this makes the
+  // Storybook story id ("components-<sanitized componentName>--default")
+  // fully derivable from component.slug alone, which is what the
+  // component detail page's Storybook iframe link needs (see
+  // src/app/(protected)/design-system/components/[slug]/page.tsx).
+  const paths = componentSourcePaths(component.slug, component.isIcon);
+  const fileBase = paths.componentName; // the file name (may start with a digit -- valid as a path)
+  const componentName = componentIdentifier(component.slug); // the JS identifier (never starts with a digit)
+  const { contract, inputTokens: t1, outputTokens: o1 } = await generateContract(model, component, availableTokens);
+
+  // TSX first, then generate the scss from the classes the TSX ACTUALLY
+  // references (extractReferencedClasses) so the two agree by construction --
+  // the parallel version let complex components (InputText's 10+ state classes)
+  // drift into an A3 "class referenced in tsx but missing from scss" mismatch
+  // the autofix couldn't always reconcile. Stories still run alongside the scss.
+  const tsx = await generateTsx(model, component, contract, componentName, fileBase, childContracts);
+  const requiredClasses = extractReferencedClasses(tsx.content);
+  const [css, stories] = await Promise.all([
+    generateCss(model, component, contract, availableTokens, undefined, requiredClasses),
+    generateStories(model, component, contract, componentName, fileBase),
+  ]);
+
+  // NB: class-name (A3) and stories-collision (A4) mismatches are NOT thrown
+  // here anymore. generateComponentCode is only ever called by
+  // generateComponentCodeReviewed, whose review loop runs those exact
+  // deterministic gates and lets holisticFix repair them (add the missing scss
+  // class OR drop the tsx reference) -- a hard throw here aborted before the
+  // autofix could run (e.g. Inputtext referencing fieldError/fieldDefault). If
+  // the mismatch survives the loop, the reviewed path returns reviewPassed:false
+  // -> 422, so a mismatched component still never commits.
+
+  const inputTokens = t1 + tsx.inputTokens + css.inputTokens + stories.inputTokens;
+  const outputTokens = o1 + tsx.outputTokens + css.outputTokens + stories.outputTokens;
+
+  return {
+    contract,
+    componentName,
+    tsxPath: paths.tsxPath,
+    tsxContent: tsx.content,
+    cssPath: paths.cssPath,
+    cssContent: css.content,
+    storiesPath: paths.storiesPath,
+    storiesContent: stories.content,
+    indexPath: paths.indexPath,
+    indexContent: `export { ${componentName} } from "./${fileBase}";\nexport type { ${componentName}Props } from "./${fileBase}";\n`,
+    // Legacy files from when a digit-leading slug filed under its pascalCase
+    // name (an invalid identifier); the file base is now componentIdentifier,
+    // so remove the old-named tsx/scss/stories to avoid orphaned duplicates.
+    deletePaths:
+      pascalCase(component.slug) === fileBase
+        ? []
+        : [
+            `${paths.dir}/${pascalCase(component.slug)}.tsx`,
+            `${paths.dir}/${pascalCase(component.slug)}.module.scss`,
+            `${paths.dir}/${pascalCase(component.slug)}.stories.tsx`,
+          ],
+    inputTokens,
+    outputTokens,
+    costUsd: estimateCostUsd(model, inputTokens, outputTokens),
+  };
+}
+
+/**
+ * Same as generateComponentCode, but runs the generated files through the
+ * review layer (deterministic gates + LLM DoD review + targeted
+ * regeneration) before returning. The regeneration closures reuse the SAME
+ * contract the first pass produced, so class/prop names stay stable across
+ * review iterations instead of drifting into new mismatches.
+ */
+export async function generateComponentCodeReviewed(
+  model: string,
+  component: ComponentForCodegen,
+  availableTokens: TokenForCss[],
+  childContracts?: Map<string, ChildContract>,
+): Promise<GeneratedComponentFiles & { contract: ComponentContract; reviewFindings: Finding[]; reviewPassed: boolean }> {
+  const base = await generateComponentCode(model, component, availableTokens, childContracts);
+
+  const paths = componentSourcePaths(component.slug, component.isIcon);
+  const componentName = componentIdentifier(component.slug);
+  const fileBase = paths.componentName;
+  const contract = base.contract; // reuse the SAME contract (stable names)
+
+  const ctx: ReviewContext = {
+    componentName,
+    fileBase,
+    tokenVarNames: new Set(availableTokens.map((t) => toCssVarName(t.name)).filter(Boolean)),
+    ownProps: buildOwnProps(contract),
+    composedProps: buildComposedProps(component.uses, childContracts),
+    expectedComposedImports: buildExpectedComposedImports(component.uses, component.isIcon),
+  };
+
+  const files: GeneratedFiles = {
+    tsx: base.tsxContent,
+    css: base.cssContent,
+    stories: base.storiesContent,
+    index: base.indexContent,
+  };
+
+  const applyFix = (f: GeneratedFiles, findings: Finding[]) =>
+    holisticFix(model, component, contract, f, findings, componentName, childContracts, availableTokens);
+
+  const review = await reviewAndFix({
+    model,
+    files,
+    ctx,
+    spec: component.designSpec,
+    composedApi: composedApiDescription(component, childContracts),
+    applyFix,
+  });
+
+  const totalInput = base.inputTokens + review.inputTokens;
+  const totalOutput = base.outputTokens + review.outputTokens;
+
+  return {
+    ...base,
+    tsxContent: review.files.tsx,
+    cssContent: review.files.css,
+    storiesContent: review.files.stories,
+    indexContent: review.files.index,
+    inputTokens: totalInput,
+    outputTokens: totalOutput,
+    costUsd: estimateCostUsd(model, totalInput, totalOutput),
+    reviewFindings: review.findings,
+    reviewPassed: review.passed,
+  };
+}
