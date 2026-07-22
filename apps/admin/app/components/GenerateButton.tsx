@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { generateComponent } from "../actions";
 import styles from "./dashboard.module.css";
 
@@ -11,6 +12,7 @@ import styles from "./dashboard.module.css";
 export function GenerateButton({ slug, label }: { slug: string; label: string }) {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const router = useRouter();
   const isPrimary = label === "Generate";
 
   return (
@@ -24,6 +26,7 @@ export function GenerateButton({ slug, label }: { slug: string; label: string })
           setErr(null);
           try {
             await generateComponent(slug);
+            router.refresh(); // surface the just-queued job in the panel without a manual reload
           } catch (e) {
             setErr(e instanceof Error ? e.message : String(e));
           } finally {
