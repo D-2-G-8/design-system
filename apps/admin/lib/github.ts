@@ -2,6 +2,8 @@
 // worker workflow. GITHUB_TOKEN / GITHUB_DESIGN_SYSTEM_REPO are read
 // lazily (inside getConfig(), only when a function here is actually
 // called) so that `next build` succeeds with no env configured at all.
+import { matchRunByJobId } from "./run-correlation";
+
 export interface WorkflowRun {
   id: number;
   status: string | null;
@@ -76,4 +78,18 @@ export async function getWorkflowRun(runId: number | string): Promise<WorkflowRu
     throw new Error(`Failed to get workflow run ${runId}: ${res.status} ${await res.text()}`);
   }
   return (await res.json()) as WorkflowRun;
+}
+
+/** Lists recent generate.yml runs and returns the one whose run-name carries
+ *  `jobId` (workflow_dispatch doesn't return a run id, so we correlate by name).
+ *  Null if it hasn't appeared yet. */
+export async function findRunByJobId(jobId: string): Promise<WorkflowRun | null> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/actions/workflows/generate.yml/runs?per_page=50`);
+  if (!res.ok) {
+    throw new Error(`Failed to list generate.yml runs: ${res.status} ${await res.text()}`);
+  }
+  const data = (await res.json()) as { workflow_runs: (WorkflowRun & { name: string | null })[] };
+  const match = matchRunByJobId(data.workflow_runs ?? [], jobId);
+  return match ? { id: match.id, status: match.status, conclusion: match.conclusion, html_url: match.html_url } : null;
 }
