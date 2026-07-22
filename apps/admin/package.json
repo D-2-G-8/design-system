@@ -1,0 +1,26 @@
+{
+  "name": "@d-2-g-8/design-system-admin",
+  "version": "0.1.0",
+  "description": "Admin UI for triggering and monitoring design-system component generation. Vercel Next.js app (UI/API only) -- the generation worker runs as a GitHub Actions workflow (see .github/workflows/generate.yml), not inside this app.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^16.2.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.18.0"
+}

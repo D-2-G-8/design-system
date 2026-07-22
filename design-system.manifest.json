@@ -1,0 +1,11 @@
+{
+  "components": [
+    {
+      "name": "Button",
+      "slug": "button",
+      "isIcon": false,
+      "figmaNodeIds": []
+    }
+  ],
+  "icons": []
+}

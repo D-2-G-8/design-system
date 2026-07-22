@@ -4,3 +4,11 @@ storybook-static/
 *.tsbuildinfo
 .DS_Store
 _to_delete/
+.next/
+
+# Playwright visual testing (tests/visual/) — committed baselines live in
+# tests/visual/__screenshots__/, only run artifacts are ignored here.
+test-results/
+playwright-report/
+tests/visual/__screenshots__/**/*-actual.png
+tests/visual/__screenshots__/**/*-diff.png

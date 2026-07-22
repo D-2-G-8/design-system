@@ -1,0 +1,64 @@
+name: Generate Component
+
+# Dispatched by apps/admin (see apps/admin/lib/github.ts, dispatchGenerate)
+# when a user asks the admin UI to (re)generate a component. This is the
+# WORKER for the admin: the admin app itself is UI/API only (Vercel), it
+# never runs a browser or the generation loop -- this workflow does.
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Component slug to generate (e.g. button, dialog)"
+        required: true
+        type: string
+      jobId:
+        description: "Job id from the admin app's Postgres job store, used to correlate this run back to that job row"
+        required: true
+        type: string
+
+# Serialize runs per component slug -- two dispatches for the same
+# component shouldn't race each other (git commits, PRs, etc). Runs for
+# different slugs still run concurrently.
+concurrency:
+  group: generate-${{ inputs.slug }}
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    # Phase 3 will add repo secrets FIGMA_ACCESS_TOKEN and ANTHROPIC_API_KEY
+    # here (as step/job env) for the real distill -> generate -> tsc ->
+    # playwright -> fix -> commit -> PR loop. Not needed yet for this
+    # skeleton placeholder step.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Phase 3 re-adds the Chromium install here (with @playwright/test as a
+      # declared dep) once the real loop needs a browser. The skeleton below
+      # doesn't, so installing it now would only fail (no playwright dep yet).
+
+      # Placeholder for the real generation loop (Phase 3): distill Figma
+      # design context -> generate component code -> tsc -> playwright
+      # visual check -> auto-fix -> commit -> open PR.
+      #
+      # Inputs are passed via env: (not interpolated into the run: script)
+      # since workflow_dispatch inputs are attacker-controllable strings --
+      # interpolating them directly into a shell command would allow
+      # command injection (e.g. slug = `$(rm -rf /)`).
+      - name: Generate (placeholder)
+        env:
+          SLUG: ${{ inputs.slug }}
+          JOB_ID: ${{ inputs.jobId }}
+        run: echo "generate $SLUG (job $JOB_ID)"

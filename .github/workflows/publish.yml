@@ -39,17 +39,22 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run typecheck
       - run: pnpm run lint
-      - run: pnpm run build
-      - run: pnpm run build-storybook
+      - run: pnpm run build:lib
 
+      # Monorepo: the published package is packages/components (the root is a
+      # private workspace). Bump + publish there; the version commit/tag is
+      # created against the repo root git and pushed from there.
       - name: Bump patch version
+        working-directory: packages/components
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           npm version patch -m "chore: release %s [skip ci]"
-          git push --follow-tags
+      - name: Push version bump
+        run: git push --follow-tags
 
       - name: Publish to GitHub Packages
+        working-directory: packages/components
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

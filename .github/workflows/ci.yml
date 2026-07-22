@@ -4,14 +4,11 @@ on:
   pull_request:
     branches: [master]
 
-# Runs on every pull request (including the sync-session PRs ai-tools-app's
-# design-system codegen opens, see that repo's src/lib/github/client.ts) --
-# this is the real safety gate for generated code: ai-tools-app itself only
-# does a cheap deterministic class-name cross-check before committing (see
-# its src/lib/design-system-codegen/component.ts), since running a full
-# typecheck/lint/build inside a Vercel serverless function isn't practical.
-# A person reviews this status before clicking "Confirm & merge" in
-# ai-tools-app's design-system settings page.
+# Runs on every pull request (including the sync-session PRs the admin's
+# generate workflow opens) -- the real safety gate for generated code:
+# typecheck + lint + build the library + build Storybook + admin build, plus a
+# Playwright visual job. Monorepo: root scripts delegate to the workspaces
+# (packages/components + apps/admin). A person reviews this status before merge.
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -26,5 +23,21 @@ jobs:
       - run: echo "::add-matcher::.github/tsc.json"
       - run: pnpm run typecheck
       - run: pnpm run lint
-      - run: pnpm run build
-      - run: pnpm run build-storybook
+      - run: pnpm run build:lib
+      - run: pnpm run build:storybook
+      - run: pnpm -F @d-2-g-8/design-system-admin build
+
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      # Only a smoke spec exists today (no committed baselines yet); real
+      # per-story visual regression lands in Phase 3.
+      - run: pnpm test:visual
