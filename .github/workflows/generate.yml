@@ -100,7 +100,10 @@ jobs:
             echo "Generated \`$SLUG\` via the codegen worker (fix rounds: $ROUNDS)."
             if [ "$PASSED" != "true" ]; then
               echo ""; echo "**Unresolved after the fix loop — needs a human:**"
-              jq -r '.findings[] | "- \(.message)"' codegen-result.json
+              # Code findings: keep the `file` prefix — for a tsc finding it holds
+              # the ONLY file path (message is just "error TSxxxx: ..."), so a
+              # multi-file failure would otherwise be ambiguous to triage.
+              jq -r '.findings[] | "- `\(.file)` — \(.message)"' codegen-result.json
             fi
             if [ "$VIS_N" -gt 0 ]; then
               echo ""; echo "**Visual review vs Figma (advisory):**"
