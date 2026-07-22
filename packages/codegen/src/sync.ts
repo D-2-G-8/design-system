@@ -183,12 +183,20 @@ export async function runSync(args: RunSyncArgs): Promise<SyncResult> {
   const resolved = await deps.resolveNodes(fileKey, [...setIds, ...styleNodeIds], accessToken);
 
   const variantsBySetId = new Map<string, RawVariantChild[]>();
+  const childIdsInSets = new Set<string>();
   for (const id of setIds) {
     const children = resolved[id]?.children ?? [];
     variantsBySetId.set(id, children.map((c) => ({ id: c.id, name: c.name })));
+    for (const c of children) childIdsInSets.add(c.id);
   }
 
-  const groups = buildComponentGroups(sets, comps, variantsBySetId);
+  // Exclude components that are already a set's variant child (mirrors the
+  // source's childNodeIdsInSets filter). Otherwise a set whose children satisfy
+  // isLikelyIconName -- e.g. an icon SET on a page named "Icons" -- would emit
+  // each child a SECOND time as a duplicate standalone icon alongside the set.
+  const standaloneComps = comps.filter((c) => !childIdsInSets.has(c.node_id));
+
+  const groups = buildComponentGroups(sets, standaloneComps, variantsBySetId);
   const componentGroups = groups.filter((g) => !g.isIcon);
   const iconGroups = groups.filter((g) => g.isIcon);
 
@@ -215,7 +223,11 @@ export async function runSync(args: RunSyncArgs): Promise<SyncResult> {
   }
 
   const nonIconRows = componentGroups.map((g) => ({ figmaNodeIds: g.figmaNodeIds, isIcon: g.isIcon }));
-  const derived = await deps.deriveTokens(nonIconRows, fileKey, accessToken);
+  // Token derivation AUGMENTS, never breaks (mirrors the source's try/catch): a
+  // derive hiccup must not abort an otherwise-good manifest+component sync.
+  const derived = await deps
+    .deriveTokens(nonIconRows, fileKey, accessToken)
+    .catch((): DeriveTokensResult => ({ tokens: [], colors: 0, radii: 0 }));
 
   // Dedupe by name: Style tokens WIN over derived tokens on a collision (an
   // authored Style is a more intentional source than a harvested-from-usage
@@ -224,6 +236,11 @@ export async function runSync(args: RunSyncArgs): Promise<SyncResult> {
   for (const t of derived.tokens) tokenByName.set(t.name, t);
   for (const t of styleTokens) tokenByName.set(t.name, t);
 
+  // NB: tokens have NO non-empty guard (unlike components/icons above -- a
+  // deliberate locked decision). If styles fail-soft AND derive yields nothing,
+  // writeSync writes an empty tokens.json/tokens.css; the human reviews the
+  // working-tree diff before committing, so an accidental token wipe can't land
+  // silently. Do not "fix" this into an abort without revisiting that decision.
   return {
     components: componentGroups.map(toManifestEntry),
     icons: iconGroups.map(toManifestEntry),
