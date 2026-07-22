@@ -4,9 +4,11 @@
 // Actions workflow (see .github/workflows/generate.yml); this module is
 // just bookkeeping for that dispatch.
 //
-// IMPORTANT: JOB_DB_URL is read lazily (inside getSql(), only when a
-// function here is actually called) so that `next build` succeeds with no
-// env configured at all -- module-level env reads would break that.
+// Connection string: prefer JOB_DB_URL (an explicit override), else fall back
+// to POSTGRES_URL -- the var Vercel Postgres/Neon injects automatically -- so
+// attaching a Vercel Postgres to this project just works with no extra env.
+// Read lazily (inside getSql(), only when a function here is actually called)
+// so that `next build` succeeds with no env configured at all.
 import postgres from "postgres";
 
 export type JobStatus = "queued" | "running" | "done" | "failed";
@@ -26,9 +28,9 @@ let sql: postgres.Sql | undefined;
 
 function getSql(): postgres.Sql {
   if (!sql) {
-    const url = process.env.JOB_DB_URL;
+    const url = process.env.JOB_DB_URL ?? process.env.POSTGRES_URL;
     if (!url) {
-      throw new Error("JOB_DB_URL is not set");
+      throw new Error("No database URL: set POSTGRES_URL (auto-injected by Vercel Postgres) or JOB_DB_URL.");
     }
     sql = postgres(url, { max: 1 });
   }
