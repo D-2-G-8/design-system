@@ -1,5 +1,8 @@
-import { getFileBase64, getFileContent, getPullRequestForSlug } from "@/lib/github";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { getFileBase64, getFileContent, getPullRequestForSlug, getPullRequestMergeState, canMerge } from "@/lib/github";
 import { fetchNodeImageDataUrl } from "@/lib/figma";
+import { MergeButton } from "../MergeButton";
 import styles from "../review.module.css";
 
 // Reads GitHub (PR + manifest + screenshot) and Figma at request time -- all
@@ -29,6 +32,12 @@ function findManifestEntry(manifest: Manifest | null, slug: string): ManifestEnt
 }
 
 export default async function ReviewPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Middleware already redirects unauthenticated requests, but this page now
+  // hosts a mutating control (merge), so it re-checks in-code too rather than
+  // relying solely on the middleware matcher.
+  const session = await auth();
+  if (!session?.user) redirect("/signin");
+
   const { slug } = await params;
 
   const pr = await getPullRequestForSlug(slug).catch(() => null);
@@ -79,6 +88,15 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
   const nodeId = entry?.figmaNodeIds?.[0];
   const designSrc =
     token && fileKey && nodeId ? await fetchNodeImageDataUrl(fileKey, nodeId, token).catch(() => null) : null;
+
+  // Merge readiness is advisory here too -- `mergeComponentPr` re-checks the
+  // same gate server-side immediately before merging, so a missing token or a
+  // GitHub hiccup degrades this panel to "blocked" rather than crashing the
+  // page or letting a stale read authorize a merge.
+  const mergeState = await getPullRequestMergeState(pr.number).catch(() => null);
+  const gate = mergeState ? canMerge(mergeState) : { ok: false, reason: "could not read merge state" };
+  const mergeableLabel =
+    mergeState?.mergeable === null ? "checking…" : mergeState?.mergeable ? "yes" : "no";
 
   return (
     <main className={styles.main}>
@@ -140,6 +158,30 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
           ) : (
             <pre className={`${styles.findingsBody} ${styles.findingsEmpty}`}>No findings recorded on this PR.</pre>
           )}
+        </section>
+
+        <section aria-labelledby="merge-heading" className={styles.mergePanel}>
+          <h2 id="merge-heading" className={styles.sectionHeading}>
+            Merge
+          </h2>
+          <div className={styles.mergeCard}>
+            <div className={styles.mergeStatus}>
+              <span
+                className={`${styles.mergeDot} ${gate.ok ? styles.mergeDotReady : styles.mergeDotPending}`}
+                aria-hidden="true"
+              />
+              <p className={styles.mergeStatusText}>
+                {mergeState ? (
+                  <>
+                    Mergeable: <strong>{mergeableLabel}</strong> · CI: {mergeState.ciSummary}
+                  </>
+                ) : (
+                  gate.reason
+                )}
+              </p>
+            </div>
+            <MergeButton slug={slug} prNumber={pr.number} disabled={!gate.ok} reason={gate.reason} />
+          </div>
         </section>
       </div>
     </main>
