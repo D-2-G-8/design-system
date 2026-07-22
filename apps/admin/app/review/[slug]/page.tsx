@@ -53,7 +53,18 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
   }
 
   const manifestRaw = await getFileContent("design-system.manifest.json").catch(() => null);
-  const manifest = manifestRaw ? (JSON.parse(manifestRaw) as Manifest) : null;
+  // Guard the parse too: getFileContent returns raw file text without validating
+  // it's JSON, so a malformed manifest on master (partial commit, conflict
+  // markers, wrong file) would otherwise throw and 500 the whole review page.
+  // Degrade to null like a missing manifest -> name=slug, fileKey=undefined.
+  let manifest: Manifest | null = null;
+  if (manifestRaw) {
+    try {
+      manifest = JSON.parse(manifestRaw) as Manifest;
+    } catch {
+      manifest = null;
+    }
+  }
   const entry = findManifestEntry(manifest, slug);
   const name = entry?.name ?? slug;
   const fileKey = process.env.FIGMA_FILE_KEY ?? manifest?.figmaFileKey;
