@@ -22,9 +22,12 @@ test.beforeEach(async ({ page }) => {
 for (const c of committed) {
   test(`visual: ${c.slug}`, async ({ page }, testInfo) => {
     const baseline = join(root, `tests/visual/__screenshots__/linux/${c.slug}.png`);
-    // CI (updateSnapshots !== 'all') without a baseline: skip rather than fail —
-    // the worker creates the baseline with --update-snapshots (=> 'all').
-    if (testInfo.config.updateSnapshots !== "all" && !existsSync(baseline)) {
+    // Skip only when we're NOT writing snapshots (config 'none' -> CI's read-only
+    // run) AND no baseline exists yet, so CI stays green for not-yet-generated
+    // components. The worker passes --update-snapshots (=> 'changed'/'all', anything
+    // but 'none'), so it never skips and DOES create/refresh the baseline. Mirrors
+    // Playwright's own write-missing gate (updateSnapshots !== 'none').
+    if (testInfo.config.updateSnapshots === "none" && !existsSync(baseline)) {
       test.skip(true, "no committed baseline yet");
     }
     const storyId = storybookDefaultStoryId(c.slug, c.isIcon);
