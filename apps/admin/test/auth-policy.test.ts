@@ -15,3 +15,8 @@ test("no allowlist: falls through to org membership", () => {
   assert.equal(isAllowedGitHubUser("alice", { allowlist: null, isOrgMember: true }), true);
   assert.equal(isAllowedGitHubUser("alice", { allowlist: null, isOrgMember: false }), false);
 });
+test("allowlist match is case-insensitive (GitHub logins are)", () => {
+  assert.deepEqual(parseAllowlist("Alice, BOB"), ["alice", "bob"]); // normalized on parse
+  assert.equal(isAllowedGitHubUser("Alice", { allowlist: ["alice"], isOrgMember: false }), true);
+  assert.equal(isAllowedGitHubUser("alice", { allowlist: parseAllowlist("Alice")!, isOrgMember: false }), true);
+});
