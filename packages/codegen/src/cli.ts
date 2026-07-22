@@ -105,6 +105,10 @@ async function generate(slug: string, forceIcon: boolean): Promise<number> {
   }
 
   // Regular component: distill the real Figma design + composition, then generate.
+  // Fail fast on a missing ANTHROPIC_API_KEY BEFORE the Figma network round-trip
+  // (getAnthropicClient() throws when the key is unset).
+  getAnthropicClient();
+  const model = getCodegenModel();
   const tokens = loadTokens(root);
   const childContracts = loadCommittedContracts(root);
   const index = buildComponentIndex(loadAllComponentRows(root));
@@ -120,9 +124,6 @@ async function generate(slug: string, forceIcon: boolean): Promise<number> {
     uses: design?.uses,
   };
 
-  const model = getCodegenModel();
-  // getAnthropicClient() throws early if ANTHROPIC_API_KEY is missing.
-  getAnthropicClient();
   const reviewed = await generateComponentCodeReviewed(model, component, tokens, childContracts);
 
   const contractFile: ComponentContractFile = {
