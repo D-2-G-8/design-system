@@ -3,6 +3,7 @@ import { list as listJobs } from "@/lib/jobs";
 import { ComponentTable } from "./components/ComponentTable";
 import { Header } from "./components/Header";
 import { JobsPanel } from "./components/JobsPanel";
+import { SyncButton } from "./components/SyncButton";
 import styles from "./components/dashboard.module.css";
 
 // Reads GitHub + the job DB at request time; must never run at build time
@@ -42,6 +43,7 @@ export default async function Dashboard() {
             Status is read straight from git: committed components have shipped, pending ones have an
             open codegen pull request, and the rest have never been generated.
           </p>
+          <SyncButton />
         </header>
         <ComponentTable state={state} storybookUrl={process.env.DESIGN_SYSTEM_STORYBOOK_URL ?? null} />
         <JobsPanel initialJobs={jobs} repo={process.env.GITHUB_DESIGN_SYSTEM_REPO ?? null} />

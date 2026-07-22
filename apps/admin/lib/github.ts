@@ -43,6 +43,19 @@ async function githubFetch(path: string, init: RequestInit = {}): Promise<Respon
  * hardcoded, so a default-branch rename doesn't silently break this).
  */
 export async function dispatchGenerate(slug: string, jobId: string): Promise<void> {
+  await dispatchWorkflow("generate.yml", { slug, jobId });
+}
+
+/** Dispatches the whole-library sync.yml workflow, tagged with `jobId` for
+ *  run-name correlation. No slug -- the sync is whole-library. */
+export async function dispatchSync(jobId: string): Promise<void> {
+  await dispatchWorkflow("sync.yml", { jobId });
+}
+
+/** Dispatch a workflow against the repo's default branch (resolved via the API
+ *  rather than hardcoded, so a default-branch rename doesn't silently break
+ *  this). Shared by dispatchGenerate/dispatchSync. */
+async function dispatchWorkflow(workflowFile: string, inputs: Record<string, string>): Promise<void> {
   const { repo } = getConfig();
 
   const repoRes = await githubFetch(`/repos/${repo}`);
@@ -54,18 +67,15 @@ export async function dispatchGenerate(slug: string, jobId: string): Promise<voi
   const repoInfo = (await repoRes.json()) as { default_branch: string };
 
   const dispatchRes = await githubFetch(
-    `/repos/${repo}/actions/workflows/generate.yml/dispatches`,
+    `/repos/${repo}/actions/workflows/${workflowFile}/dispatches`,
     {
       method: "POST",
-      body: JSON.stringify({
-        ref: repoInfo.default_branch,
-        inputs: { slug, jobId },
-      }),
+      body: JSON.stringify({ ref: repoInfo.default_branch, inputs }),
     },
   );
   if (!dispatchRes.ok) {
     throw new Error(
-      `Failed to dispatch generate.yml: ${dispatchRes.status} ${await dispatchRes.text()}`,
+      `Failed to dispatch ${workflowFile}: ${dispatchRes.status} ${await dispatchRes.text()}`,
     );
   }
 }
@@ -80,14 +90,15 @@ export async function getWorkflowRun(runId: number | string): Promise<WorkflowRu
   return (await res.json()) as WorkflowRun;
 }
 
-/** Lists recent generate.yml runs and returns the one whose run-name carries
- *  `jobId` (workflow_dispatch doesn't return a run id, so we correlate by name).
- *  Null if it hasn't appeared yet. */
-export async function findRunByJobId(jobId: string): Promise<WorkflowRun | null> {
+/** Lists recent runs of `workflowFile` and returns the one whose run-name
+ *  carries `jobId` (workflow_dispatch doesn't return a run id, so we correlate
+ *  by name). Defaults to generate.yml; sync jobs pass sync.yml. Null if the run
+ *  hasn't appeared yet. */
+export async function findRunByJobId(jobId: string, workflowFile = "generate.yml"): Promise<WorkflowRun | null> {
   const { repo } = getConfig();
-  const res = await githubFetch(`/repos/${repo}/actions/workflows/generate.yml/runs?per_page=50`);
+  const res = await githubFetch(`/repos/${repo}/actions/workflows/${workflowFile}/runs?per_page=50`);
   if (!res.ok) {
-    throw new Error(`Failed to list generate.yml runs: ${res.status} ${await res.text()}`);
+    throw new Error(`Failed to list ${workflowFile} runs: ${res.status} ${await res.text()}`);
   }
   const data = (await res.json()) as { workflow_runs: (WorkflowRun & { name: string | null })[] };
   const match = matchRunByJobId(data.workflow_runs ?? [], jobId);

@@ -1,6 +1,6 @@
 import { get, setStatus, type Job } from "./jobs";
 import { findRunByJobId, getWorkflowRun } from "./github";
-import { mapRunToJobStatus } from "./run-correlation";
+import { mapRunToJobStatus, workflowForKind } from "./run-correlation";
 
 /** Resolve a job's workflow run (correlating by run-name when the id isn't
  *  stored yet), sync the job's status from the run, and return the fresh job.
@@ -13,7 +13,7 @@ export async function syncJob(id: string): Promise<{ job: Job | undefined; run: 
   let runId = job.workflow_run_id;
   if (!runId) {
     try {
-      const found = await findRunByJobId(id);
+      const found = await findRunByJobId(id, workflowForKind(job.kind));
       if (found) { runId = String(found.id); await setStatus(id, mapRunToJobStatus(found), { workflow_run_id: runId }); run = found; }
     } catch (e) { run = { error: e instanceof Error ? e.message : String(e) }; }
   }
