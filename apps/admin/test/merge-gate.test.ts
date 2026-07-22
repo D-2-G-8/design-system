@@ -9,6 +9,15 @@ test("summarizeChecks: all-pass, one-fail, in-progress", () => {
   assert.deepEqual(summarizeChecks([]), { green: false, summary: "no checks reported" });
 });
 
+test("summarizeChecks: truncation (total_count > fetched) fails closed, not green", () => {
+  // All fetched runs pass, but the API says there are more than we read → block.
+  const r = summarizeChecks([{ status: "completed", conclusion: "success" }], 31);
+  assert.equal(r.green, false);
+  assert.match(r.summary, /cannot confirm green/i);
+  // total_count == fetched → not truncated → green as normal.
+  assert.equal(summarizeChecks([{ status: "completed", conclusion: "success" }], 1).green, true);
+});
+
 test("canMerge: only ok when mergeable + no conflicts + ci green", () => {
   assert.equal(canMerge({ mergeable: true, conflicts: false, ciGreen: true }).ok, true);
   assert.equal(canMerge({ mergeable: true, conflicts: false, ciGreen: false }).ok, false);
