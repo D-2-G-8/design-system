@@ -134,3 +134,37 @@ export async function getFileImages(
   if (res.err) throw new Error(`Figma image render failed: ${res.err}`);
   return res.images ?? {};
 }
+
+export interface FigmaLibComponent {
+  node_id: string;
+  name: string;
+  description?: string;
+  containing_frame?: { pageName?: string };
+}
+export interface FigmaLibStyle {
+  node_id: string;
+  style_type: string; // FILL | TEXT | EFFECT | GRID
+  name: string;
+  description?: string;
+}
+interface FigmaComponentsResponse { meta?: { components?: FigmaLibComponent[] } }
+interface FigmaComponentSetsResponse { meta?: { component_sets?: FigmaLibComponent[] } }
+interface FigmaStylesResponse { meta?: { styles?: FigmaLibStyle[] } }
+
+/** Published-library components. 55s budget (large libraries are slow); THROWS
+ *  on failure (never swallow -- a slow list must surface, not silently yield an
+ *  empty inventory). */
+export async function getFileComponents(fileKey: string, accessToken: string): Promise<FigmaLibComponent[]> {
+  const res = await figmaGet<FigmaComponentsResponse>(`/files/${fileKey}/components`, accessToken, FIGMA_FILE_FETCH_TIMEOUT_MS);
+  return res.meta?.components ?? [];
+}
+export async function getFileComponentSets(fileKey: string, accessToken: string): Promise<FigmaLibComponent[]> {
+  const res = await figmaGet<FigmaComponentSetsResponse>(`/files/${fileKey}/component_sets`, accessToken, FIGMA_FILE_FETCH_TIMEOUT_MS);
+  return res.meta?.component_sets ?? [];
+}
+/** Published-library styles (tokens). Default (shorter) timeout; the caller may
+ *  fail-soft (tokens are optional). */
+export async function getFileStyles(fileKey: string, accessToken: string): Promise<FigmaLibStyle[]> {
+  const res = await figmaGet<FigmaStylesResponse>(`/files/${fileKey}/styles`, accessToken);
+  return res.meta?.styles ?? [];
+}
