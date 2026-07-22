@@ -1,0 +1,13 @@
+{
+  "name": "Button",
+  "slug": "button",
+  "isIcon": false,
+  "figmaNodeIds": [],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}
