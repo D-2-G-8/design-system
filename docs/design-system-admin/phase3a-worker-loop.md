@@ -190,14 +190,24 @@ step itself errored (hard failure — no PR).
 - Repo **Actions secrets**: `FIGMA_ACCESS_TOKEN` (a `figd_` PAT with
   `library_content` read) and `ANTHROPIC_API_KEY`.
 - Workflow **permissions** `contents: write` + `pull-requests: write` (in the
-  workflow, above) AND the repo/org setting "Allow GitHub Actions to create pull
-  requests" enabled.
+  workflow, above) AND the repo/org setting "Allow GitHub Actions to create and
+  approve pull requests" enabled.
 - A **manifest component with real `figmaNodeIds`** — the seed `Button` has
   `figmaNodeIds: []`, so `fetchComponentDesignSpec` returns null and generation is
   label-only. A meaningful smoke needs a component whose node ids point at the DS
   Figma file (`figmaFileKey` already seeded).
 - The admin deployed (Phase-1 op) if driving via the UI; otherwise dispatch
   `generate.yml` directly from the Actions tab for the CLI/workflow smoke.
+
+### Live smoke (user-gated — costs Figma + Anthropic)
+Preconditions: repo Actions secrets FIGMA_ACCESS_TOKEN + ANTHROPIC_API_KEY set;
+"Allow GitHub Actions to create and approve pull requests" enabled; a manifest
+component with real figmaNodeIds (the seed Button has none → label-only). Then,
+from the repo checkout with the two env vars set:
+    corepack pnpm --filter @d-2-g-8/codegen codegen generate <slug>
+    # inspect codegen-result.json + the written files under packages/components
+Or dispatch the workflow from the Actions tab (slug + a jobId) and watch it open
+codegen/<slug> PR; the admin's GET /api/jobs/<jobId> then reflects the run status.
 
 ## Out of scope (later phases)
 
