@@ -18,3 +18,6 @@ export * from "./tsc-runner";
 export * from "./validate";
 export * from "./figma-image";
 export * from "./visual";
+export * from "./sync";
+export * from "./sync-curate";
+export * from "./sync-tokens";
