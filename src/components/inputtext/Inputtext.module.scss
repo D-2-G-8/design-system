@@ -1,0 +1,233 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.labelRow {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  height: 20px;
+}
+
+.labelText {
+  color: #757575;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  flex: 1;
+}
+
+.characterCount {
+  color: #757575;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  width: 136px;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  box-sizing: border-box;
+}
+
+.fieldSize52 {
+  height: 52px;
+  border-radius: 12px;
+  padding: 0 16px;
+}
+
+.fieldSize40 {
+  height: 40px;
+  border-radius: 10px;
+  padding: 0 14px;
+}
+
+.fieldDefault {
+  border-color: #d6d6d6;
+}
+
+.fieldFocus {
+  border-color: #b8b8b8;
+}
+
+.fieldError {
+  border-color: #ff5d2a;
+}
+
+.fieldErrorFocus {
+  border-color: #ff5d2a;
+}
+
+.fieldReadOnly {
+  border: none;
+  background: transparent;
+  
+  &.fieldSize52 {
+    padding: 0 0 0 0;
+  }
+
+  &.fieldSize40 {
+    padding: 0 0 0 0;
+  }
+}
+
+.fieldReadOnlyLowProfile {
+  border: none;
+  background: transparent;
+  
+  &.fieldSize52 {
+    padding: 0 0 0 0;
+    height: 20px;
+  }
+  
+  &.fieldSize40 {
+    padding: 0 0 0 0;
+    height: 22px;
+  }
+}
+
+.fieldDisabled {
+  background: #f5f5f5;
+  border: none;
+}
+
+.valueContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.labelInside {
+  flex: 1;
+  color: #757575;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.valueText {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #000000;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+
+  .fieldReadOnly & {
+    font-family: 'Roboto Flex', sans-serif;
+  }
+
+  .fieldReadOnlyLowProfile & {
+    font-family: 'Roboto', sans-serif;
+    line-height: 22px;
+  }
+
+  .fieldDisabled & {
+    color: #757575;
+  }
+
+  &::placeholder {
+    color: #757575;
+  }
+
+  .fieldFocus &::placeholder,
+  .fieldErrorFocus &::placeholder {
+    color: #b8b8b8;
+  }
+
+  .fieldDisabled &::placeholder {
+    color: #b8b8b8;
+  }
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  
+  .fieldSize52 & {
+    height: 52px;
+  }
+
+  .fieldSize40 & {
+    height: 40px;
+  }
+
+  .fieldReadOnlyLowProfile.fieldSize52 & {
+    height: 20px;
+  }
+
+  .fieldReadOnlyLowProfile.fieldSize40 & {
+    height: 22px;
+  }
+
+  .fieldDisabled & {
+    opacity: 0.5;
+  }
+}
+
+.loaderIcon {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  padding-left: 8px;
+}
+
+.lottie {
+  width: 20px;
+  height: 20px;
+  background: #d6d6d6;
+  border-radius: 50%;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  padding-left: 8px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.tooltipWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.descriptionText {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  height: 20px;
+  color: #757575;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  
+  &.descriptionError {
+    color: #ff5d2a;
+  }
+}
