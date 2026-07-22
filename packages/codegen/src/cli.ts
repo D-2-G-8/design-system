@@ -24,6 +24,7 @@ import type { GeneratedFiles } from "./review";
 import { runVisualReview } from "./visual";
 import { fetchNodeImage } from "./figma-image";
 import { reviewVisualDiff } from "./visual-diff";
+import { runSync, writeSync } from "./sync";
 
 const HELP = `codegen -- design-system component generator
 
@@ -43,6 +44,9 @@ Usage:
   codegen visual <slug> --rendered <png>  Vision-diff the rendered Default-story
                                      screenshot vs the Figma design; writes
                                      visual-result.json (advisory).
+  codegen sync                       Read the Figma library -> write manifest +
+                                     tokens + seed contracts (needs
+                                     FIGMA_ACCESS_TOKEN).
   codegen doctor                     Check env + manifest presence (no network).
   codegen --help                     Show this help.
 
@@ -261,6 +265,26 @@ async function visual(slug: string, opts: { rendered?: string; resultFile?: stri
   return 0; // advisory: never blocks
 }
 
+async function sync(): Promise<number> {
+  const root = findRepoRoot();
+  const token = getFigmaAccessToken();
+  if (!token) {
+    console.error("FIGMA_ACCESS_TOKEN is not set.");
+    return 1;
+  }
+  const fileKey = process.env.FIGMA_FILE_KEY || loadManifest(root).figmaFileKey;
+  if (!fileKey) {
+    console.error("No Figma file key: set FIGMA_FILE_KEY or manifest.figmaFileKey.");
+    return 1;
+  }
+  const result = await runSync({ fileKey, token }); // real deps by default
+  const written = writeSync(result, root);
+  console.log(
+    `sync: ${result.components.length} components, ${result.icons.length} icons, ${result.tokens.length} tokens (${result.tokensSkipped} skipped)\n${written.length} files written`,
+  );
+  return 0;
+}
+
 async function main(): Promise<number> {
   const argv = process.argv.slice(2);
   const cmd = argv[0];
@@ -269,6 +293,7 @@ async function main(): Promise<number> {
     return 0;
   }
   if (cmd === "doctor") return doctor();
+  if (cmd === "sync") return sync();
   if (cmd === "generate") {
     const rest = argv.slice(1);
     const slug = rest.find((a) => !a.startsWith("-"));

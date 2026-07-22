@@ -154,6 +154,14 @@ Port the pure decision logic (no I/O), unit-tested:
   seeded in the manifest as `figmaFileKey = OcaHeBKMqemoZZt2C5z0wd`, or
   `FIGMA_FILE_KEY` env).
 - Run `codegen sync` from a repo checkout; inspect the manifest/tokens diff; commit + PR.
+  This is **user-gated** (it costs real Figma API calls) — not run automatically by
+  any agent/CI step in this phase:
+
+  ```bash
+  FIGMA_ACCESS_TOKEN=figd_... corepack pnpm --filter @d-2-g-8/codegen codegen sync
+  # inspect the design-system.manifest.json / tokens.json / tokens.css / seed
+  # <slug>.contract.json diffs, then commit + PR
+  ```
 
 ## ⚠️ Deferred — NOT in this phase (recorded so it isn't lost)
 
