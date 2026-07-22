@@ -14,3 +14,5 @@ export * from "./icon-fetch";
 export * from "./component";
 export { reviewAndFix } from "./review";
 export type { ReviewAndFixArgs, GeneratedFiles, ReviewContext, ReviewResult, Finding } from "./review";
+export * from "./tsc-runner";
+export * from "./validate";

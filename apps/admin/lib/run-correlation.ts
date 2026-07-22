@@ -1,0 +1,15 @@
+import type { JobStatus } from "./jobs";
+
+/** Find the workflow run whose run-name carries this jobId
+ *  ("generate <slug> (job <jobId>)"). Null when it hasn't appeared yet. */
+export function matchRunByJobId<T extends { name: string | null }>(runs: T[], jobId: string): T | null {
+  const needle = `(job ${jobId})`;
+  return runs.find((r) => r.name?.includes(needle)) ?? null;
+}
+
+/** Map a GitHub run's status/conclusion to our coarse job status. The
+ *  needs-human nuance lives on the PR label, not here. */
+export function mapRunToJobStatus(run: { status: string | null; conclusion: string | null }): JobStatus {
+  if (run.status !== "completed") return "running";
+  return run.conclusion === "success" ? "done" : "failed";
+}
