@@ -153,6 +153,16 @@ permissions, injection-safe env):
   secret. The first run for a component **establishes** its baseline (no prior
   baseline to diff — expected).
 
+### Live smoke (user-gated — costs Figma + Anthropic + CI browser time)
+Preconditions: everything from 3a + the component actually generated (its dir +
+Default story exist) so Playwright can screenshot it. From a repo checkout with
+Chromium installed and the two env vars set:
+    corepack pnpm exec playwright test -c tests/visual/playwright.config.ts --update-snapshots -g "^visual: <slug>$"
+    corepack pnpm --filter @d-2-g-8/codegen codegen visual <slug> --rendered tests/visual/__screenshots__/linux/<slug>.png
+    # inspect visual-result.json + the committed baseline PNG
+Or dispatch generate.yml (slug + jobId) and review the opened codegen/<slug> PR:
+code + baseline PNG + a "Visual review vs Figma" section + a visual-review label.
+
 ## Out of scope (later)
 
 - **v2:** all stories / per-state, with a story↔Figma-variant mapping; a bounded
