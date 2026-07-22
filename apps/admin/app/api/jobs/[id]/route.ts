@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { get } from "@/lib/jobs";
 import { getWorkflowRun } from "@/lib/github";
+import { requireAdmin } from "@/lib/auth";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = requireAdmin(request);
+  if (unauthorized) return unauthorized;
   const { id } = await params;
 
   try {

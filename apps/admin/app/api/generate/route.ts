@@ -1,13 +1,18 @@
 import { NextResponse } from "next/server";
 import { enqueue, setStatus } from "@/lib/jobs";
 import { dispatchGenerate } from "@/lib/github";
+import { requireAdmin } from "@/lib/auth";
 
 /**
  * Enqueues a "generate" job for a component slug and dispatches the
  * generate.yml GitHub Actions workflow to do the actual work. Body:
- * { slug: string }.
+ * { slug: string }. Requires an admin bearer token (this dispatches a workflow
+ * that spends LLM/Figma/CI resources -- never leave it open).
  */
 export async function POST(request: Request) {
+  const unauthorized = requireAdmin(request);
+  if (unauthorized) return unauthorized;
+
   let body: unknown;
   try {
     body = await request.json();

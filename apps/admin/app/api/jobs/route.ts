@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { list } from "@/lib/jobs";
+import { requireAdmin } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const unauthorized = requireAdmin(request);
+  if (unauthorized) return unauthorized;
   try {
     const jobs = await list();
     return NextResponse.json({ ok: true, jobs });
