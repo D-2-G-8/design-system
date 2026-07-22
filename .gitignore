@@ -18,3 +18,6 @@ packages/codegen/dist/
 
 # codegen run result (read by the generate workflow; never committed)
 codegen-result.json
+
+# codegen visual-review result (read by the generate workflow; never committed)
+visual-result.json

@@ -1,4 +1,4 @@
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { getFigmaAccessToken } from "./figma";
 import { getAnthropicClient, getCodegenModel } from "./anthropic";
@@ -17,10 +17,13 @@ import { fetchComponentDesignSpec } from "./figma-node";
 import { generateComponentCodeReviewed, fixComponentFiles, type ComponentForCodegen, type ComponentContract } from "./component";
 import { buildIconComponentFiles } from "./icon";
 import { fetchIconSvg } from "./icon-fetch";
-import { componentSourcePaths, type GeneratedComponentFiles } from "./paths";
+import { componentSourcePaths, componentIdentifier, type GeneratedComponentFiles } from "./paths";
 import { runPackageTypecheck } from "./tsc-runner";
 import { runValidationLoop } from "./validate";
 import type { GeneratedFiles } from "./review";
+import { runVisualReview } from "./visual";
+import { fetchNodeImage } from "./figma-image";
+import { reviewVisualDiff } from "./visual-diff";
 
 const HELP = `codegen -- design-system component generator
 
@@ -37,6 +40,9 @@ Usage:
                                      (the workflow opens the PR either way; a
                                      needs-human label carries any remaining
                                      findings). A hard error still exits non-zero.
+  codegen visual <slug> --rendered <png>  Vision-diff the rendered Default-story
+                                     screenshot vs the Figma design; writes
+                                     visual-result.json (advisory).
   codegen doctor                     Check env + manifest presence (no network).
   codegen --help                     Show this help.
 
@@ -224,6 +230,37 @@ async function generate(slug: string, forceIcon: boolean, opts: { maxRounds: num
   return 0; // the workflow opens the PR; the label carries needs-human
 }
 
+async function visual(slug: string, opts: { rendered?: string; resultFile?: string }): Promise<number> {
+  const root = findRepoRoot();
+  const manifest = loadManifest(root);
+  const existing = loadComponentContract(slug, root);
+  const entry = manifest.components.find((c) => c.slug === slug) ?? manifest.icons.find((c) => c.slug === slug) ?? null;
+  const isIcon = existing?.isIcon ?? entry?.isIcon ?? false;
+  const nodeId = (existing?.figmaNodeIds ?? entry?.figmaNodeIds ?? [])[0] ?? "";
+  const token = getFigmaAccessToken();
+  const model = getCodegenModel();
+  const result = await runVisualReview({
+    slug,
+    componentName: componentIdentifier(slug),
+    fileKey: manifest.figmaFileKey ?? process.env.FIGMA_FILE_KEY ?? "",
+    nodeId: token && (manifest.figmaFileKey || process.env.FIGMA_FILE_KEY) ? nodeId : "",
+    token: token ?? "",
+    model,
+    readRendered: () => {
+      if (!opts.rendered) return null;
+      try { return { bytes: new Uint8Array(readFileSync(opts.rendered)), mediaType: "image/png" }; }
+      catch { return null; }
+    },
+    fetchImage: (fk, nid, tk) => fetchNodeImage(fk, nid, tk),
+    reviewDiff: (m, f, r, cn, sp) => reviewVisualDiff(m, f, r, cn, sp),
+  });
+  const path = opts.resultFile ?? join(root, "visual-result.json");
+  writeFileSync(path, JSON.stringify(result, null, 2) + "\n");
+  console.log(`visual → ${path} (ran=${result.ran}, findings=${result.findings.length})`);
+  void isIcon;
+  return 0; // advisory: never blocks
+}
+
 async function main(): Promise<number> {
   const argv = process.argv.slice(2);
   const cmd = argv[0];
@@ -247,6 +284,16 @@ async function main(): Promise<number> {
     const rfIdx = rest.indexOf("--result-file");
     const resultFile = rfIdx >= 0 ? rest[rfIdx + 1] : undefined;
     return generate(slug, rest.includes("--icon"), { maxRounds, resultFile });
+  }
+  if (cmd === "visual") {
+    const rest = argv.slice(1);
+    const slug = rest.find((a) => !a.startsWith("-"));
+    if (!slug) { console.error("visual needs a <slug>. See `codegen --help`."); return 1; }
+    const rIdx = rest.indexOf("--rendered");
+    const rendered = rIdx >= 0 ? rest[rIdx + 1] : undefined;
+    const rfIdx = rest.indexOf("--result-file");
+    const resultFile = rfIdx >= 0 ? rest[rfIdx + 1] : undefined;
+    return visual(slug, { rendered, resultFile });
   }
   console.error(`Unknown command "${cmd}". See \`codegen --help\`.`);
   return 1;

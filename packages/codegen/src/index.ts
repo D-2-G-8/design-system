@@ -16,3 +16,5 @@ export { reviewAndFix } from "./review";
 export type { ReviewAndFixArgs, GeneratedFiles, ReviewContext, ReviewResult, Finding } from "./review";
 export * from "./tsc-runner";
 export * from "./validate";
+export * from "./figma-image";
+export * from "./visual";
