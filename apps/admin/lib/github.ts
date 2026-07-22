@@ -93,3 +93,36 @@ export async function findRunByJobId(jobId: string): Promise<WorkflowRun | null>
   const match = matchRunByJobId(data.workflow_runs ?? [], jobId);
   return match ? { id: match.id, status: match.status, conclusion: match.conclusion, html_url: match.html_url } : null;
 }
+
+/** Read a file's decoded UTF-8 content from the repo at `ref` (default master).
+ *  Null on 404. */
+export async function getFileContent(path: string, ref = "master"): Promise<string | null> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/contents/${path}?ref=${ref}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`getFileContent ${path}: ${res.status} ${await res.text()}`);
+  const data = (await res.json()) as { content?: string };
+  return data.content ? Buffer.from(data.content, "base64").toString("utf8") : null;
+}
+
+/** List a directory's immediate entry names at `ref` (default master). Empty on
+ *  404 (dir not created yet). */
+export async function listDirEntries(path: string, ref = "master"): Promise<string[]> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/contents/${path}?ref=${ref}`);
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error(`listDirEntries ${path}: ${res.status} ${await res.text()}`);
+  const data = (await res.json()) as { name: string }[];
+  return Array.isArray(data) ? data.map((e) => e.name) : [];
+}
+
+/** Open PRs whose head branch is `codegen/*` → Map<headBranch, html_url>. */
+export async function listOpenCodegenPRs(): Promise<Map<string, string>> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/pulls?state=open&per_page=100`);
+  if (!res.ok) throw new Error(`listOpenCodegenPRs: ${res.status} ${await res.text()}`);
+  const prs = (await res.json()) as { head: { ref: string }; html_url: string }[];
+  const map = new Map<string, string>();
+  for (const pr of prs) if (pr.head?.ref?.startsWith("codegen/")) map.set(pr.head.ref, pr.html_url);
+  return map;
+}

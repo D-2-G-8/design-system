@@ -1,0 +1,546 @@
+/*
+ * Design tokens for the admin dashboard.
+ *
+ * Direction: a "spec sheet" reading rather than a generic SaaS dashboard --
+ * paper-neutral surface, hairline rules, and a single annotation-blue accent
+ * (the color a designer marks up a redline with), echoing the fact that this
+ * tool exists to turn a design-system spec into shipped code. Status color
+ * is the one recurring signal: it appears as a small dot in every badge and
+ * as a left-edge "redline" tick on table rows and job entries, so the same
+ * color always means the same thing everywhere on the page.
+ *
+ * System fonts only (no next/font, no new dependency, no network fetch at
+ * build time): a sans stack for prose, a monospace stack for anything that
+ * is literally data -- slugs, job ids, timestamps, env var names.
+ */
+
+.main {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --line: #e6e2d9;
+  --line-strong: #d6d0c2;
+  --ink: #201f1c;
+  --ink-muted: #7a766c;
+  --ink-faint: #a8a396;
+
+  --accent: #2b4de0;
+  --accent-ink: #ffffff;
+  --accent-wash: #ecf0ff;
+
+  --status-committed: #1c7c54;
+  --status-committed-bg: #e6f3ec;
+  --status-pending: #a3650a;
+  --status-pending-bg: #faf1e0;
+  --status-never: #8a8676;
+  --status-never-bg: #f0eee6;
+
+  --job-queued: #8a8676;
+  --job-running: #2b4de0;
+  --job-done: #1c7c54;
+  --job-failed: #c1403d;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100dvh;
+  padding: var(--space-7) var(--space-5) var(--space-7);
+}
+
+@media (prefers-color-scheme: dark) {
+  .main {
+    --bg: #171613;
+    --surface: #201f1b;
+    --line: #33322b;
+    --line-strong: #45443a;
+    --ink: #f2f0e9;
+    --ink-muted: #a8a396;
+    --ink-faint: #716d61;
+
+    --accent: #7c93ff;
+    --accent-ink: #10142e;
+    --accent-wash: #1c2242;
+
+    --status-committed: #4fbf8c;
+    --status-committed-bg: #17301f;
+    --status-pending: #e0a13f;
+    --status-pending-bg: #332510;
+    --status-never: #9a9686;
+    --status-never-bg: #29271e;
+
+    --job-queued: #9a9686;
+    --job-running: #7c93ff;
+    --job-done: #4fbf8c;
+    --job-failed: #e26a67;
+  }
+}
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+/* ---------- Header ---------- */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+
+.main h1 {
+  font-size: 1.75rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.tagline {
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 56ch;
+  line-height: 1.5;
+}
+
+/* ---------- No-config error panel ---------- */
+
+.error {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--status-pending);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.sectionHeading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.sectionCount {
+  font-weight: 400;
+  color: var(--ink-faint);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.empty {
+  color: var(--ink-muted);
+  font-style: italic;
+  margin: 0;
+  padding: var(--space-4) 0;
+}
+
+/* ---------- Component table ---------- */
+
+.tableWrap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.table th {
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+.table td:first-child {
+  border-left: 3px solid transparent;
+}
+
+.rowCommitted td:first-child {
+  border-left-color: var(--status-committed);
+}
+
+.rowPending td:first-child {
+  border-left-color: var(--status-pending);
+}
+
+.rowNever td:first-child {
+  border-left-color: var(--status-never);
+}
+
+.name {
+  font-weight: 550;
+}
+
+.kind {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: 0.8125rem;
+}
+
+.links a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.jobRunLink {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.jobRunLink:hover {
+  text-decoration: underline;
+}
+
+.actionCell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ---------- Status badge ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 3px var(--space-3) 3px var(--space-2);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusCommitted {
+  background: var(--status-committed-bg);
+  color: var(--status-committed);
+}
+.statusCommitted .badgeDot {
+  background: var(--status-committed);
+}
+
+.statusPending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending);
+}
+.statusPending .badgeDot {
+  background: var(--status-pending);
+}
+
+.statusNever {
+  background: var(--status-never-bg);
+  color: var(--status-never);
+}
+.statusNever .badgeDot {
+  background: var(--status-never);
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 7px var(--space-4);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.button:disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Never-generated components are the actual outstanding work on this page --
+   they get the one solid, high-contrast call to action. */
+.buttonPrimary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.buttonPrimary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--accent) 88%, black);
+}
+
+/* Regenerating an already-shipped component is available but shouldn't
+   compete visually with the primary call to action above. */
+.buttonSecondary {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.buttonSecondary:not(:disabled):hover {
+  background: var(--accent-wash);
+  border-color: var(--accent);
+}
+
+.buttonError {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: 0.75rem;
+  color: var(--job-failed);
+  max-width: 22ch;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* ---------- Jobs panel ---------- */
+
+.jobsList {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.jobRow {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  border-left: 3px solid transparent;
+}
+
+.jobRow:last-child {
+  border-bottom: none;
+}
+
+.jobQueued {
+  border-left-color: var(--job-queued);
+}
+.jobRunning {
+  border-left-color: var(--job-running);
+}
+.jobDone {
+  border-left-color: var(--job-done);
+}
+.jobFailed {
+  border-left-color: var(--job-failed);
+}
+
+.jobStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.jobDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.jobQueued .jobDot {
+  background: var(--job-queued);
+}
+.jobRunning .jobDot {
+  background: var(--job-running);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.jobDone .jobDot {
+  background: var(--job-done);
+}
+.jobFailed .jobDot {
+  background: var(--job-failed);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jobDot {
+    animation: none !important;
+  }
+}
+
+.jobMain {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.jobSlug {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 550;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jobMeta {
+  display: flex;
+  gap: var(--space-3);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.jobProgress {
+  width: 100%;
+  max-width: 120px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.jobProgressFill {
+  height: 100%;
+  background: var(--job-running);
+}
+
+.jobDetail {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--job-failed);
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jobCreated {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* ---------- Utility ---------- */
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .main {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .jobRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .jobCreated {
+    text-align: left;
+  }
+}
