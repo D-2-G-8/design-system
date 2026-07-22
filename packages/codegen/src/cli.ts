@@ -240,7 +240,10 @@ async function main(): Promise<number> {
       return 1;
     }
     const mrIdx = rest.indexOf("--max-rounds");
-    const maxRounds = mrIdx >= 0 ? Number(rest[mrIdx + 1]) : 3;
+    // Guard against a non-numeric/<1 --max-rounds: an unguarded NaN makes the
+    // `rounds >= maxRounds` cap never trip -> an uncapped paid LLM fix loop.
+    const mrRaw = mrIdx >= 0 ? Number(rest[mrIdx + 1]) : 3;
+    const maxRounds = Number.isInteger(mrRaw) && mrRaw >= 1 ? mrRaw : 3;
     const rfIdx = rest.indexOf("--result-file");
     const resultFile = rfIdx >= 0 ? rest[rfIdx + 1] : undefined;
     return generate(slug, rest.includes("--icon"), { maxRounds, resultFile });
