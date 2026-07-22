@@ -126,3 +126,26 @@ export async function listOpenCodegenPRs(): Promise<Map<string, string>> {
   for (const pr of prs) if (pr.head?.ref?.startsWith("codegen/")) map.set(pr.head.ref, pr.html_url);
   return map;
 }
+
+/** The open codegen/<slug> PR, or null. */
+export async function getPullRequestForSlug(
+  slug: string,
+): Promise<{ number: number; body: string; htmlUrl: string; headRef: string } | null> {
+  const { repo } = getConfig();
+  const org = repo.split("/")[0];
+  const res = await githubFetch(`/repos/${repo}/pulls?state=open&head=${org}:codegen/${slug}`);
+  if (!res.ok) throw new Error(`getPullRequestForSlug ${slug}: ${res.status} ${await res.text()}`);
+  const prs = (await res.json()) as { number: number; body: string | null; html_url: string; head: { ref: string } }[];
+  const pr = prs[0];
+  return pr ? { number: pr.number, body: pr.body ?? "", htmlUrl: pr.html_url, headRef: pr.head.ref } : null;
+}
+
+/** Raw base64 file content at `ref` (NOT utf8-decoded -- for binary/PNG). Null on 404. */
+export async function getFileBase64(path: string, ref: string): Promise<string | null> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/contents/${encodeURI(path)}?ref=${ref}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`getFileBase64 ${path}: ${res.status} ${await res.text()}`);
+  const data = (await res.json()) as { content?: string };
+  return data.content ? data.content.replace(/\n/g, "") : null;
+}
