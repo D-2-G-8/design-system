@@ -59,10 +59,17 @@ pnpm run lint
 
 ## Publishing
 
-Push to `master` (normally via a merged pull request from `ai-tools-app`'s
-sync) triggers `.github/workflows/publish.yml`: typecheck, lint, build,
-build Storybook, bump the patch version, and `npm publish` to GitHub
-Packages. Nothing to run by hand.
+A merge to `master` that changes `packages/components/**` triggers
+`.github/workflows/publish.yml`: typecheck, lint, build the library, bump the
+patch version, and `npm publish` to GitHub Packages. Nothing to run by hand.
+Admin/docs/workflow-only merges are path-filtered out, so they don't republish
+an unchanged library.
+
+The bump step pushes a `chore: release x.y.z [skip ci]` commit straight to
+`master`. If `master` has branch protection, the **github-actions bot must be
+allowed to bypass it** (Settings → Branches → "Allow specified actors to bypass
+required pull requests"), or the job fails at the push and no release is cut —
+the usual reason releases silently stop.
 
 ## Styling approach
 

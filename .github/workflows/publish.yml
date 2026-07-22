@@ -3,18 +3,30 @@ name: Publish
 on:
   push:
     branches: [master]
+    # Only the PUBLISHED package's own sources gate a release. Admin/docs/
+    # workflow merges (apps/admin, docs, .github, etc.) must NOT bump+republish
+    # an identical library dist -- that coupled the library version to unrelated
+    # changes and churned versions. A codegen worker PR writes into
+    # packages/components/src/**, so a real component change still matches.
+    paths:
+      - "packages/components/**"
 
 # Explicit, since GitHub's newer default token permissions are read-only --
 # this workflow needs to push a version-bump commit and publish a package.
+# NOTE: the version-bump step below pushes a commit directly to master. If
+# master has branch protection, the github-actions bot must be allowed to
+# bypass it (Settings -> Branches -> add the actor to "Allow specified actors
+# to bypass required pull requests"), or this job fails at the push and no
+# release is cut. This is the usual reason releases silently stop.
 permissions:
   contents: write
   packages: write
 
-# A single sync session (ai-tools-app, see its src/lib/github/client.ts)
-# can land several commits on this branch in quick succession once a PR
-# merges. Without this, each push would kick off its own publish -- a
-# burst of noisy versions and registry-propagation races. Only the latest
-# push in a burst actually publishes.
+# Several codegen-worker PRs can merge in quick succession. Without this, each
+# push would kick off its own publish -- a burst of noisy versions and
+# registry-propagation races. Only the latest push in a burst actually
+# publishes. The version-bump commit carries [skip ci], so it never retriggers
+# this workflow (both GitHub's native skip and the job `if:` below guard it).
 concurrency:
   group: publish-${{ github.ref }}
   cancel-in-progress: true
