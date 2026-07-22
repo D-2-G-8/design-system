@@ -79,7 +79,10 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Open/update PR
-        uses: peter-evans/create-pull-request@v6
+        # Third-party action pinned to a full commit SHA (supply-chain: a tag is
+        # movable, a SHA is immutable). Runs with contents/pull-requests write.
+        # Bump deliberately (verify the SHA against the upstream release).
+        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
         with:
           branch: codegen/${{ inputs.slug }}
           base: master
