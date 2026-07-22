@@ -135,6 +135,14 @@ not raw inline styles. Keep it a single dashboard page for 4a.
 - Postgres attached (Phase 1). Optional `DESIGN_SYSTEM_STORYBOOK_URL` (the master
   Storybook stand) for the Storybook links.
 
+### Live smoke (user-gated)
+Deploy apps/admin to Vercel with deployment protection ON, GITHUB_TOKEN (repo
+contents + PR read) + GITHUB_DESIGN_SYSTEM_REPO, Postgres attached, and optionally
+DESIGN_SYSTEM_STORYBOOK_URL. Open the dashboard: it lists every manifest component
+with committed/pending/never status; "Generate"/"Regenerate" dispatches the
+workflow (visible in the jobs panel as queued→running→done, with a run link); a
+pending component links to its open PR.
+
 ## Out of scope (Phase 4b+)
 
 - In-app **validation review**: render the vision findings + pixel-diff baseline
