@@ -59,6 +59,26 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: corepack pnpm --filter @d-2-g-8/codegen codegen generate "$SLUG"
 
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Screenshot + update baseline
+        continue-on-error: true
+        env:
+          SLUG: ${{ inputs.slug }}
+        # webServer (in playwright.config.ts) builds + serves Storybook; --update-snapshots
+        # (=> 'all') writes the committed baseline for just this component (anchored grep).
+        run: |
+          corepack pnpm exec playwright test -c tests/visual/playwright.config.ts --update-snapshots -g "^visual: $SLUG\$"
+
+      - name: Visual review vs Figma
+        continue-on-error: true
+        env:
+          SLUG: ${{ inputs.slug }}
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: corepack pnpm --filter @d-2-g-8/codegen codegen visual "$SLUG" --rendered tests/visual/__screenshots__/linux/"$SLUG".png
+
       - name: Read result
         id: result
         env:
@@ -66,14 +86,27 @@ jobs:
         run: |
           PASSED=$(jq -r '.passed' codegen-result.json)
           ROUNDS=$(jq -r '.rounds' codegen-result.json)
-          echo "passed=$PASSED" >> "$GITHUB_OUTPUT"
+          VIS_RAN=false; VIS_N=0
+          if [ -f visual-result.json ]; then
+            VIS_RAN=$(jq -r '.ran' visual-result.json)
+            VIS_N=$(jq -r '.findings | length' visual-result.json)
+          fi
+          LABELS=""
+          [ "$PASSED" = "true" ] || LABELS="needs-human"
+          if [ "$VIS_N" -gt 0 ]; then LABELS="${LABELS:+$LABELS,}visual-review"; fi
+          echo "labels=$LABELS" >> "$GITHUB_OUTPUT"
           {
             echo "body<<RESULT_EOF"
             echo "Generated \`$SLUG\` via the codegen worker (fix rounds: $ROUNDS)."
             if [ "$PASSED" != "true" ]; then
-              echo ""
-              echo "**Unresolved after the fix loop — needs a human:**"
-              jq -r '.findings[] | "- `\(.file)` — \(.message)"' codegen-result.json
+              echo ""; echo "**Unresolved after the fix loop — needs a human:**"
+              jq -r '.findings[] | "- \(.message)"' codegen-result.json
+            fi
+            if [ "$VIS_N" -gt 0 ]; then
+              echo ""; echo "**Visual review vs Figma (advisory):**"
+              jq -r '.findings[] | "- \(.message)"' visual-result.json
+            elif [ "$VIS_RAN" != "true" ]; then
+              echo ""; echo "_Visual review skipped (no Figma node id or render unavailable)._"
             fi
             echo "RESULT_EOF"
           } >> "$GITHUB_OUTPUT"
@@ -88,6 +121,8 @@ jobs:
           base: master
           title: "codegen: ${{ inputs.slug }}"
           body: ${{ steps.result.outputs.body }}
-          labels: ${{ steps.result.outputs.passed == 'true' && '' || 'needs-human' }}
-          add-paths: packages/components
+          labels: ${{ steps.result.outputs.labels }}
+          add-paths: |
+            packages/components
+            tests/visual/__screenshots__
           commit-message: "codegen: generate ${{ inputs.slug }}"
