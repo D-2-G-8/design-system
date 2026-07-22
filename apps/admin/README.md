@@ -20,6 +20,18 @@ unauthenticated humans to `/signin`), and the Server Actions
 middleware-matched page). Login is authorized by `D-2-G-8` org membership, with
 an optional username-allowlist override.
 
+As of **Phase 4b-ii**, an authenticated reviewer can also **merge** a
+component's PR from `/review/<slug>` — the one high-stakes *write* the admin
+performs. The merge is gated on the PR being **mergeable (no conflicts) AND
+CI-green**; that gate is re-checked **server-side** immediately before the
+merge (the server action never trusts the disabled/enabled state of the
+button), behind an in-UI **confirm step**, and always uses **squash** merge
+with a head-SHA concurrency guard (GitHub rejects the merge if the branch
+moved since the check). The `/review/[slug]` page itself gained an explicit
+in-code `auth()` gate at the top (redirects to `/signin`), on top of the
+existing `middleware.ts` gate, so the page hosting the merge control is
+session-checked in two independent places.
+
 Previously (Phase 4a) this app's *only* human gate was **Vercel deployment
 protection**, with `ADMIN_TOKEN` as the fail-closed config signal for the
 Server Actions. That invariant is now **relaxed**: deployment protection
@@ -56,8 +68,15 @@ for programmatic callers — set it if you use those.
    understand it exposes the app ahead of the login.
 4. Set `ADMIN_TOKEN` (`openssl rand -base64 32`) if you use the bearer-protected
    `/api/*` routes for programmatic callers.
-5. Set `GITHUB_TOKEN` (repo contents read + pull-requests read + workflow
-   dispatch) and `GITHUB_DESIGN_SYSTEM_REPO=D-2-G-8/design-system`.
+5. Set `GITHUB_TOKEN` and `GITHUB_DESIGN_SYSTEM_REPO=D-2-G-8/design-system`.
+   As of **Phase 4b-ii**, the token needs **Pull requests: Write + Contents:
+   Write** (to merge PRs from the UI) — one scope more than 4b-i's reads (repo
+   contents read + pull-requests read + workflow dispatch, still required for
+   the rest of the app). If the repo has a **branch-protection rule on
+   `master`**, it must also allow this token to merge (e.g. exempt it, or
+   ensure its required-checks match what CI reports) — otherwise the merge
+   call gets a `405`/`409` from GitHub, surfaced in the UI as the blocked
+   reason rather than a raw error.
 6. Attach a Vercel Postgres (auto-injects `POSTGRES_URL`; or set `JOB_DB_URL`).
 7. Optional: `DESIGN_SYSTEM_STORYBOOK_URL` (the master Storybook stand) for the
    per-component Storybook links.
@@ -66,9 +85,21 @@ for programmatic callers — set it if you use those.
 
 `/review/<slug>` shows the worker's findings (read from the open
 `codegen/<slug>` PR body) alongside the Figma design and the committed/rendered
-screenshot, side by side. It requires a signed-in session (same gate as the
-rest of the app) and reads the **open** codegen PR for that slug — there's
+screenshot, side by side. It requires a signed-in session — checked both by
+`middleware.ts` and, as of 4b-ii, by an explicit `auth()` call at the top of
+the page itself — and reads the **open** codegen PR for that slug — there's
 nothing to show once the PR merges or if none exists yet.
+
+When there's an open PR, the page also renders a **merge panel**: the PR's
+mergeable/CI status, and a `Merge` button that's only enabled when GitHub
+reports the PR mergeable with no conflicts and CI green. Clicking it asks for
+confirmation, then calls the `mergeComponentPr` server action, which
+re-derives mergeable/CI state itself right before merging (squash, with a
+head-SHA guard) rather than trusting the client. A blocked merge shows the
+specific reason (e.g. "CI not green", "has conflicts", "GitHub still
+computing mergeability", or a GitHub-reported merge failure). There's no
+batch-merge, auto-merge, merge queue, or in-UI choice of merge method — all
+out of scope for now.
 
 ## Scripts
 
