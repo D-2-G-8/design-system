@@ -149,3 +149,69 @@ export async function getFileBase64(path: string, ref: string): Promise<string |
   const data = (await res.json()) as { content?: string };
   return data.content ? data.content.replace(/\n/g, "") : null;
 }
+
+export interface CheckRun { status: string; conclusion: string | null; name?: string }
+
+/** Reduce GitHub check-runs to a green flag + a short human summary. Green only
+ *  when every run is completed with a non-failing conclusion and none is still
+ *  running/queued. `totalCount` (from the API's `total_count`) fails the gate
+ *  closed if the fetched page was TRUNCATED -- a failing run on an unfetched
+ *  page must not read as green. */
+export function summarizeChecks(runs: CheckRun[], totalCount?: number): { green: boolean; summary: string } {
+  if (runs.length === 0) return { green: false, summary: "no checks reported" };
+  if (typeof totalCount === "number" && totalCount > runs.length) {
+    return { green: false, summary: `${totalCount} checks, only ${runs.length} read -- cannot confirm green` };
+  }
+  const running = runs.filter((r) => r.status !== "completed");
+  if (running.length) return { green: false, summary: `${running.length} running: ${running.map((r) => r.name ?? "?").join(", ")}` };
+  const failing = runs.filter((r) => !["success", "neutral", "skipped"].includes(r.conclusion ?? ""));
+  if (failing.length) return { green: false, summary: `${failing.length} failing: ${failing.map((r) => r.name ?? "?").join(", ")}` };
+  return { green: true, summary: `${runs.length} passing` };
+}
+
+/** Pure merge decision: ok only when GitHub says mergeable, no conflicts, CI green. */
+export function canMerge(state: { mergeable: boolean | null; conflicts: boolean; ciGreen: boolean }): { ok: boolean; reason: string } {
+  if (state.conflicts) return { ok: false, reason: "PR has conflicts" };
+  if (state.mergeable === null) return { ok: false, reason: "GitHub is still computing mergeability -- refresh in a moment" };
+  if (!state.mergeable) return { ok: false, reason: "PR is not mergeable" };
+  if (!state.ciGreen) return { ok: false, reason: "CI is not green" };
+  return { ok: true, reason: "" };
+}
+
+export interface PrMergeState { mergeable: boolean | null; conflicts: boolean; headSha: string; ciGreen: boolean; ciSummary: string }
+
+/** Fetch the PR's mergeability + CI status for the gate. */
+export async function getPullRequestMergeState(number: number): Promise<PrMergeState> {
+  const { repo } = getConfig();
+  const prRes = await githubFetch(`/repos/${repo}/pulls/${number}`);
+  if (!prRes.ok) throw new Error(`getPullRequestMergeState ${number}: ${prRes.status} ${await prRes.text()}`);
+  const pr = (await prRes.json()) as { mergeable: boolean | null; mergeable_state: string; head: { sha: string } };
+  const headSha = pr.head.sha;
+  // filter=latest supersedes re-run attempts; per_page=100 + the total_count
+  // truncation guard in summarizeChecks keep a failing run on a 2nd page from
+  // reading as green (the gate must fail closed on incomplete data).
+  const checksRes = await githubFetch(`/repos/${repo}/commits/${headSha}/check-runs?per_page=100&filter=latest`);
+  let ciGreen = false, ciSummary = "no checks reported";
+  if (checksRes.ok) {
+    const data = (await checksRes.json()) as { check_runs?: CheckRun[]; total_count?: number };
+    ({ green: ciGreen, summary: ciSummary } = summarizeChecks(data.check_runs ?? [], data.total_count));
+  }
+  // `clean` is GitHub's "mergeable, no blockers" state. Gating on it (not just
+  // `mergeable === true`) makes the button honest for branch-protection blocks
+  // (blocked/behind/draft) instead of enabling a merge GitHub will 405.
+  return { mergeable: pr.mergeable && pr.mergeable_state === "clean", conflicts: pr.mergeable_state === "dirty", headSha, ciGreen, ciSummary };
+}
+
+/** Squash-merge the PR, guarded by the head SHA (GitHub rejects if it moved).
+ *  Returns { merged:false, message } on a 405/409 rather than throwing at the UI. */
+export async function mergePullRequest(number: number, headSha: string): Promise<{ merged: boolean; message?: string }> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/pulls/${number}/merge`, {
+    method: "PUT",
+    body: JSON.stringify({ merge_method: "squash", sha: headSha }),
+  });
+  if (res.ok) return { merged: true };
+  const text = await res.text();
+  if (res.status === 405 || res.status === 409) return { merged: false, message: `GitHub refused the merge (${res.status}): ${text.slice(0, 200)}` };
+  throw new Error(`mergePullRequest ${number}: ${res.status} ${text}`);
+}

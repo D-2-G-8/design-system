@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { enqueue, setStatus } from "@/lib/jobs";
-import { dispatchGenerate } from "@/lib/github";
+import { dispatchGenerate, getPullRequestForSlug, getPullRequestMergeState, canMerge, mergePullRequest } from "@/lib/github";
 import { syncJob } from "@/lib/jobs-sync";
 
 /**
@@ -36,4 +36,18 @@ export async function generateComponent(slug: string): Promise<{ jobId: string }
 export async function getJobStatus(jobId: string) {
   await requireSession();
   return syncJob(jobId);
+}
+
+/** Merge a component's PR, gated on the session AND re-checked server-side
+ *  (mergeable + CI green) immediately before merging -- never trusts the client
+ *  button's enabled state. Squash; head-SHA guarded. */
+export async function mergeComponentPr(slug: string): Promise<{ merged: boolean; reason?: string }> {
+  await requireSession();
+  const pr = await getPullRequestForSlug(slug);
+  if (!pr) return { merged: false, reason: "no open PR for this component" };
+  const state = await getPullRequestMergeState(pr.number);
+  const gate = canMerge(state);
+  if (!gate.ok) return { merged: false, reason: gate.reason };
+  const res = await mergePullRequest(pr.number, state.headSha);
+  return { merged: res.merged, reason: res.message };
 }
