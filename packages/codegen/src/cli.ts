@@ -222,6 +222,7 @@ async function generate(slug: string, forceIcon: boolean, opts: { maxRounds: num
     name, slug, isIcon: false, figmaNodeIds,
     variants: component.variants, states: component.states,
     contract: reviewed.contract,
+    figmaUpdatedAt: entry?.figmaUpdatedAt, // stamp the Figma version we generated from
   };
 
   const result = await runValidationLoop({

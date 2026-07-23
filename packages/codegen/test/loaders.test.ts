@@ -107,6 +107,41 @@ test("writeComponent writes 4 files + contract.json under packages/components", 
   assert.ok(written.length >= 5);
 });
 
+test("writeComponent persists a contract's figmaUpdatedAt", () => {
+  const root = makeRepo();
+  const contractFile: ComponentContractFile = {
+    name: "Button",
+    slug: "button",
+    isIcon: false,
+    figmaNodeIds: ["1:1"],
+    variants: [],
+    states: [],
+    contract: { props: [], cssVariables: [], classNames: [] },
+    figmaUpdatedAt: "2026-07-24T00:00:00Z",
+  };
+  writeComponent(
+    contractFile,
+    {
+      componentName: "Button",
+      tsxPath: "src/components/button/Button.tsx",
+      tsxContent: "x",
+      cssPath: "src/components/button/Button.module.scss",
+      cssContent: "x",
+      storiesPath: "src/components/button/Button.stories.tsx",
+      storiesContent: "x",
+      indexPath: "src/components/button/index.ts",
+      indexContent: "x",
+      deletePaths: [],
+      inputTokens: 0,
+      outputTokens: 0,
+      costUsd: 0,
+    },
+    root,
+  );
+  const loaded = loadComponentContract("button", root);
+  assert.equal(loaded?.figmaUpdatedAt, "2026-07-24T00:00:00Z");
+});
+
 test("writeSeedContract preserves an existing contract's figmaUpdatedAt across re-sync", () => {
   const root = makeRepo(); // existing helper; has a manifest so componentSourcePaths dir resolves
   // First: a generated contract stamped with a generated-from time.
