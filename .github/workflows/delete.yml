@@ -1,0 +1,68 @@
+name: Delete component
+run-name: "delete ${{ inputs.slug }} (job ${{ inputs.jobId }})"
+
+# Dispatched by apps/admin (dispatchDelete) when a user confirms deleting a
+# committed component. Runs `codegen delete <slug>` (removes the source dir,
+# manifest entry, and barrel line) and opens a delete/<slug> PR.
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Component slug to delete"
+        required: true
+        type: string
+      jobId:
+        description: "Job id from the admin app's Postgres job store, for run correlation"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: delete-${{ inputs.slug }}
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # slug via env, referenced as "$SLUG" -- never interpolated into the run
+      # script (injection-safe), matching the other workflows.
+      - name: Delete component
+        env:
+          SLUG: ${{ inputs.slug }}
+        run: corepack pnpm --filter @d-2-g-8/codegen codegen delete "$SLUG"
+
+      - name: Open/update PR
+        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
+        with:
+          # A PAT, not GITHUB_TOKEN: the automatic token can't open PRs and its
+          # PRs don't trigger ci.yml. Needs Contents + Pull requests write.
+          token: ${{ secrets.CREATE_PR_TOKEN }}
+          branch: delete/${{ inputs.slug }}
+          base: master
+          title: "delete: ${{ inputs.slug }}"
+          body: "Remove the ${{ inputs.slug }} component (source dir + manifest entry + barrel line)."
+          labels: delete
+          add-paths: |
+            packages/components
+            design-system.manifest.json
+          commit-message: "delete: ${{ inputs.slug }}"
