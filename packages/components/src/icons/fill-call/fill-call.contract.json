@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Call",
+  "slug": "fill-call",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7810:59892"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

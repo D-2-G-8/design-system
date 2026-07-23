@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Coins",
+  "slug": "outline-bold-coins",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8003:6451"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

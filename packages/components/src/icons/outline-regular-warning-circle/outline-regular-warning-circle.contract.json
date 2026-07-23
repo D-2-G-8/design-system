@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/WarningCircle",
+  "slug": "outline-regular-warning-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1656:1580"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

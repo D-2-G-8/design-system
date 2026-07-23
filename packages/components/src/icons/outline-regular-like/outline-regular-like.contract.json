@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Like",
+  "slug": "outline-regular-like",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1711"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

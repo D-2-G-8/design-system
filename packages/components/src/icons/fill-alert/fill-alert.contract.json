@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Alert",
+  "slug": "fill-alert",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "4287:8823"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

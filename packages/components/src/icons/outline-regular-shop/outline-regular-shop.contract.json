@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Shop",
+  "slug": "outline-regular-shop",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2420:11932"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

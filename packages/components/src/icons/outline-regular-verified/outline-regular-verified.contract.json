@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Verified",
+  "slug": "outline-regular-verified",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11180:17776"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

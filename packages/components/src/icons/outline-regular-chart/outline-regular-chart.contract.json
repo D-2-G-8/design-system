@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Chart",
+  "slug": "outline-regular-chart",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7774:2249"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

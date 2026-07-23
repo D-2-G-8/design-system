@@ -1,0 +1,60 @@
+{
+  "name": "TextArea",
+  "slug": "text-area",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "2410:9817",
+    "2410:9814",
+    "2410:9810",
+    "2410:9816",
+    "2410:9812",
+    "2410:9811",
+    "2410:9808",
+    "2410:9806",
+    "2410:9807",
+    "2410:9809",
+    "2410:9804",
+    "2410:9815",
+    "2410:9803",
+    "2410:9802",
+    "2410:9813",
+    "2410:9805",
+    "2410:9801"
+  ],
+  "variants": [
+    {
+      "name": "Appearence: Default"
+    },
+    {
+      "name": "Filled: Off"
+    },
+    {
+      "name": "Label Outside: Off"
+    },
+    {
+      "name": "Filled: On"
+    },
+    {
+      "name": "Label Outside: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Error"
+    },
+    {
+      "name": "Focus"
+    },
+    {
+      "name": "Error-Focus"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

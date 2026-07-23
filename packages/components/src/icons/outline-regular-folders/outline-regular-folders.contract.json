@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Folders",
+  "slug": "outline-regular-folders",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "6745:13485"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

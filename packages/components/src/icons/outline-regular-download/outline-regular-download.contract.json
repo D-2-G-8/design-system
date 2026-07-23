@@ -1,0 +1,16 @@
+{
+  "name": "Outline/Regular/Download",
+  "slug": "outline-regular-download",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "3184:136",
+    "1841:4179"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Play",
+  "slug": "fill-play",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10366:4478"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/AddCircle",
+  "slug": "outline-regular-add-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12720:22"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

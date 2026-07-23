@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Cancel",
+  "slug": "fill-cancel",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2858:8099"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

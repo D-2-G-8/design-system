@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/MediaDelete",
+  "slug": "outline-regular-media-delete",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7727:15877"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

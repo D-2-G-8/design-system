@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Catalog",
+  "slug": "outline-bold-catalog",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7860:4084"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

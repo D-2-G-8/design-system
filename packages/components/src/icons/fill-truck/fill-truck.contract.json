@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Truck",
+  "slug": "fill-truck",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2615:29"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

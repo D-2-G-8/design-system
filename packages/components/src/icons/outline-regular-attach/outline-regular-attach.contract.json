@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Attach",
+  "slug": "outline-regular-attach",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12095:35424"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "SegmentControll",
+  "slug": "segment-controll",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "4978:16295",
+    "4978:16000",
+    "4978:16296",
+    "4978:16512",
+    "4978:16521"
+  ],
+  "variants": [
+    {
+      "name": "size: L"
+    },
+    {
+      "name": "Resizeble: Off"
+    },
+    {
+      "name": "size: M"
+    },
+    {
+      "name": "Resizeble: On"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

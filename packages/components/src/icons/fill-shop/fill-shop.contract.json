@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Shop",
+  "slug": "fill-shop",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2449:11384"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

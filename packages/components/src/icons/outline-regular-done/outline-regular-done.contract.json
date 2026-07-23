@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Done",
+  "slug": "outline-regular-done",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:1964"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

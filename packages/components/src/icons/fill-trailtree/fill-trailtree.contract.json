@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Trailtree",
+  "slug": "fill-trailtree",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4905"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

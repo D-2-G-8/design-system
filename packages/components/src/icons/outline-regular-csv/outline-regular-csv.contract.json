@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Csv",
+  "slug": "outline-regular-csv",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11048:17403"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "[CROSS] Filter and Sorting",
+  "slug": "cross-filter-and-sorting",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "10251:47438",
+    "10251:47001",
+    "10251:47000",
+    "10647:30247",
+    "10251:46999",
+    "10251:46998",
+    "10593:17388",
+    "10624:19864",
+    "11058:19115",
+    "10251:46997"
+  ],
+  "variants": [],
+  "states": [
+    {
+      "name": "Sort"
+    },
+    {
+      "name": "Sort + Search"
+    },
+    {
+      "name": "Range"
+    },
+    {
+      "name": "Sort + Search Filled"
+    },
+    {
+      "name": "Sort + Search Checked Preview"
+    },
+    {
+      "name": "Filter Reopened"
+    },
+    {
+      "name": "Sort + Variants"
+    },
+    {
+      "name": "Sort + Search + Variants"
+    },
+    {
+      "name": "Sort + No Result"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

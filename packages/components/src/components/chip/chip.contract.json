@@ -1,0 +1,55 @@
+{
+  "name": "Chip",
+  "slug": "chip",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "3990:104400",
+    "3990:104399",
+    "3990:104462",
+    "3990:104395",
+    "3990:104467",
+    "3990:104398",
+    "3990:104472",
+    "3990:104397",
+    "3990:104476",
+    "3990:104396",
+    "3990:104480",
+    "3990:104394",
+    "3990:104484"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Size: 40 px"
+    },
+    {
+      "name": "Type: Default"
+    },
+    {
+      "name": "Appearance: Default"
+    },
+    {
+      "name": "Active: On"
+    },
+    {
+      "name": "Size: 32 px"
+    },
+    {
+      "name": "Active: Off"
+    },
+    {
+      "name": "Type: Menu"
+    },
+    {
+      "name": "Type: Editable"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

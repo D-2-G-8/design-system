@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Return",
+  "slug": "fill-return",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7875:4978"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

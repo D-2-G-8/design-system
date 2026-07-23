@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/UserGroup",
+  "slug": "outline-regular-user-group",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13530:2849"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

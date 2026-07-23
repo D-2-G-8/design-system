@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/ArrowRight",
+  "slug": "outline-bold-arrow-right",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:2040"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

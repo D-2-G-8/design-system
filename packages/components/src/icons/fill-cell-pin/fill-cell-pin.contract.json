@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Cell/Pin",
+  "slug": "fill-cell-pin",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2485:8"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

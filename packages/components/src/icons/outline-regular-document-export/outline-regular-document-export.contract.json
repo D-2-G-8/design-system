@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/DocumentExport",
+  "slug": "outline-regular-document-export",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10607:17133"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

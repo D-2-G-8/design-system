@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Orders",
+  "slug": "outline-bold-orders",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1635"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

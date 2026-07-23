@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Message",
+  "slug": "outline-regular-message",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7086:15846"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/SeettingsWarning",
+  "slug": "outline-bold-seettings-warning",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1685"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

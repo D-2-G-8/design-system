@@ -1,0 +1,52 @@
+{
+  "name": "Tab",
+  "slug": "tab",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "204:6972",
+    "204:6971",
+    "12232:5023",
+    "209:7063",
+    "12232:5015",
+    "204:6973",
+    "12232:5017",
+    "209:7065",
+    "12232:5019",
+    "204:7032",
+    "12232:5021",
+    "209:7067",
+    "12232:5013"
+  ],
+  "variants": [
+    {
+      "name": "Style: Fat"
+    },
+    {
+      "name": "Size: 52 Large"
+    },
+    {
+      "name": "Active: On"
+    },
+    {
+      "name": "Appearance: Primary"
+    },
+    {
+      "name": "Style: Thick"
+    },
+    {
+      "name": "Active: Off"
+    },
+    {
+      "name": "Size: 40 Medium"
+    },
+    {
+      "name": "Size: 32 Small"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

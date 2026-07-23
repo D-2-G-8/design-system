@@ -1,0 +1,109 @@
+{
+  "name": "<table>/<tbody>/<td>/Number",
+  "slug": "table-tbody-td-number",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2479:3443",
+    "2479:3444",
+    "2479:3446",
+    "2479:3448",
+    "2479:3451",
+    "2479:3454",
+    "2479:3457",
+    "2479:3460",
+    "2479:3463",
+    "2479:3465",
+    "2479:3469",
+    "2479:3471",
+    "2479:4499",
+    "2479:3473",
+    "2479:3475",
+    "2479:4501",
+    "2479:3477",
+    "2479:3479",
+    "2479:3481",
+    "2633:11679",
+    "2686:6369",
+    "2663:5727",
+    "2686:6371",
+    "2686:6381",
+    "2633:11687",
+    "2479:3483",
+    "2479:3485",
+    "2633:11681",
+    "2686:6373",
+    "2663:5729",
+    "2686:6375",
+    "2686:6383",
+    "2633:11689"
+  ],
+  "variants": [
+    {
+      "name": "Filled: Off"
+    },
+    {
+      "name": "Group expanded: Off"
+    },
+    {
+      "name": "Filled: On"
+    },
+    {
+      "name": "Group expanded: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Hover input"
+    },
+    {
+      "name": "Focous"
+    },
+    {
+      "name": "Focus disable"
+    },
+    {
+      "name": "Active<tr>another"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Active<col>another"
+    },
+    {
+      "name": "Active<tr>last"
+    },
+    {
+      "name": "Active<col>last"
+    },
+    {
+      "name": "Active left edge"
+    },
+    {
+      "name": "Active left corner bottom"
+    },
+    {
+      "name": "Active right edge"
+    },
+    {
+      "name": "Active right corner bottom"
+    },
+    {
+      "name": "Active another bottom"
+    },
+    {
+      "name": "Active another"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

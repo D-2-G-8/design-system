@@ -1,0 +1,24 @@
+{
+  "name": "Breadscrumbs",
+  "slug": "breadscrumbs",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "4492:6353",
+    "4481:1028",
+    "4492:6354"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Theme: Dark"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/ProfileData",
+  "slug": "outline-regular-profile-data",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1623"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

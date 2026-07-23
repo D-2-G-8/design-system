@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Copy",
+  "slug": "outline-regular-copy",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7865:13703"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

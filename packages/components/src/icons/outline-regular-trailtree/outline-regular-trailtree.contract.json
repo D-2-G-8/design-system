@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Trailtree",
+  "slug": "outline-regular-trailtree",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "6750:13490"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

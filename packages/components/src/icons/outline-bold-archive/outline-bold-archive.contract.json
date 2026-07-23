@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Archive",
+  "slug": "outline-bold-archive",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7843:10496"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

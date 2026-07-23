@@ -1,0 +1,73 @@
+{
+  "name": "<table>/<tfoot>/<td>/Number",
+  "slug": "table-tfoot-td-number",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2483:2526",
+    "2483:2527",
+    "2483:2529",
+    "2483:2531",
+    "2483:2534",
+    "2483:2537",
+    "2483:2540",
+    "2483:2543",
+    "2483:2546",
+    "2483:2548",
+    "2483:2552",
+    "2483:2554",
+    "2483:2556",
+    "2483:2558",
+    "2483:2560",
+    "2483:2562",
+    "2483:2564",
+    "2483:2566",
+    "2483:2568",
+    "2483:2570",
+    "2483:2572"
+  ],
+  "variants": [
+    {
+      "name": "Filled: Off"
+    },
+    {
+      "name": "Filled: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Hover input"
+    },
+    {
+      "name": "Focous"
+    },
+    {
+      "name": "Focus disable"
+    },
+    {
+      "name": "Active<tr>another"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Active<col>another"
+    },
+    {
+      "name": "Active<tr>last"
+    },
+    {
+      "name": "Active<col>last"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

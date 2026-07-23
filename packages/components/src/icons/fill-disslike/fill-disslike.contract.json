@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Disslike",
+  "slug": "fill-disslike",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1718"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

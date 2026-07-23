@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/BrokeBox",
+  "slug": "outline-regular-broke-box",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1636"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

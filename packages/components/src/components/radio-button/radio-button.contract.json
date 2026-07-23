@@ -1,0 +1,35 @@
+{
+  "name": "RadioButton",
+  "slug": "radio-button",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "1498:6748",
+    "1498:6744",
+    "1498:6779",
+    "1498:6742",
+    "1498:6788"
+  ],
+  "variants": [
+    {
+      "name": "Size: 16 px"
+    },
+    {
+      "name": "Active: On"
+    },
+    {
+      "name": "Right Position: Off"
+    },
+    {
+      "name": "Active: Off"
+    },
+    {
+      "name": "Right Position: On"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Notification",
+  "slug": "outline-bold-notification",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2776:19"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

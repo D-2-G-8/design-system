@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Toggle-On",
+  "slug": "outline-regular-toggle-on",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12138:34657"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

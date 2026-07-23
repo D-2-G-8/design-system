@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Archive",
+  "slug": "outline-regular-archive",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7378:13121"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

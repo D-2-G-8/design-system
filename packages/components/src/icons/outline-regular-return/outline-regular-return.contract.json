@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Return",
+  "slug": "outline-regular-return",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7885:6024"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

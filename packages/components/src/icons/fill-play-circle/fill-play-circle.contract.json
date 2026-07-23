@@ -1,0 +1,15 @@
+{
+  "name": "Fill/PlayCircle",
+  "slug": "fill-play-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13494:13556"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

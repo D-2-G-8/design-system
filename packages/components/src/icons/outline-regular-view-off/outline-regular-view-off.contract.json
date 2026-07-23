@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/ViewOff",
+  "slug": "outline-regular-view-off",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "3666:30956"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Download",
+  "slug": "fill-download",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "3184:117"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

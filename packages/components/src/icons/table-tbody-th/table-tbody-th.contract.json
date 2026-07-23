@@ -1,0 +1,44 @@
+{
+  "name": "<table>/<tbody>/<th>",
+  "slug": "table-tbody-th",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2483:2609",
+    "2483:2612",
+    "2483:2614",
+    "2483:2616",
+    "2483:2635",
+    "2483:2637",
+    "2483:2639",
+    "2590:4247"
+  ],
+  "variants": [],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Active<tr>"
+    },
+    {
+      "name": "Active chevr Hover<tr>"
+    },
+    {
+      "name": "Drag<tr>"
+    },
+    {
+      "name": "Active<tr> expanded"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

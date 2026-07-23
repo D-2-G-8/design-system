@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/MediaAdd",
+  "slug": "outline-bold-media-add",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4849"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

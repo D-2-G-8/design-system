@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Trash",
+  "slug": "outline-bold-trash",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1840:15"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

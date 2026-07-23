@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Burger",
+  "slug": "outline-regular-burger",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "6737:85365"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

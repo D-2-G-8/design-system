@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Close",
+  "slug": "fill-close",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "4683:19617"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

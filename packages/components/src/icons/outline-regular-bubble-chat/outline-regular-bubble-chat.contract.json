@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/bubble-chat",
+  "slug": "outline-regular-bubble-chat",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13210:63"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

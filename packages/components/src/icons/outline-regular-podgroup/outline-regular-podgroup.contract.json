@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Podgroup",
+  "slug": "outline-regular-podgroup",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10863:3035"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

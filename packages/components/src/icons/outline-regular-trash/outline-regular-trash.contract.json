@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Trash",
+  "slug": "outline-regular-trash",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1839:2153"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

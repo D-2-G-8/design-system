@@ -1,0 +1,15 @@
+{
+  "name": "Cell/Image",
+  "slug": "cell-image",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2238:1626"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

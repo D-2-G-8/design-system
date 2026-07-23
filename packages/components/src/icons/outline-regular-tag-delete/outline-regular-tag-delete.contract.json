@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/TagDelete",
+  "slug": "outline-regular-tag-delete",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12723:52"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

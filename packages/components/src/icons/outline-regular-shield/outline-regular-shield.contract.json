@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Shield",
+  "slug": "outline-regular-shield",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8009:6472"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

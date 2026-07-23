@@ -1,0 +1,53 @@
+{
+  "name": "<table>/<tfoot>/<th>",
+  "slug": "table-tfoot-th",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2483:2475",
+    "2483:2476",
+    "2483:2477",
+    "2483:2478",
+    "2483:2480",
+    "2483:2482",
+    "2483:2484",
+    "2483:2488",
+    "2483:2493",
+    "2483:2498",
+    "2483:2501",
+    "2483:2503",
+    "2483:2505"
+  ],
+  "variants": [
+    {
+      "name": "Type: Row control"
+    },
+    {
+      "name": "Type: Table header"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Active<tr>"
+    },
+    {
+      "name": "Active chevr Hover<tr>"
+    },
+    {
+      "name": "Drag<tr>"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

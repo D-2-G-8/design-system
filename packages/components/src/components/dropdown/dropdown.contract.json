@@ -1,0 +1,34 @@
+{
+  "name": "Dropdown",
+  "slug": "dropdown",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "2333:13718",
+    "2333:13719",
+    "2333:13729",
+    "2333:13739"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Size: M 48px"
+    },
+    {
+      "name": "Type: List"
+    },
+    {
+      "name": "Size: S 40px"
+    },
+    {
+      "name": "Type: Custom"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

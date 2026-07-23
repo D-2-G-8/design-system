@@ -1,0 +1,24 @@
+{
+  "name": "BottomSheet",
+  "slug": "bottom-sheet",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "861:21406",
+    "861:22476",
+    "4509:13554"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Theme: Dark"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fill/MediaAdd",
+  "slug": "fill-media-add",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4871"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fill/CellPinCollapced",
+  "slug": "fill-cell-pin-collapced",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2231:2724"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

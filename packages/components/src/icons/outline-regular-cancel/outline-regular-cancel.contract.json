@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Cancel",
+  "slug": "outline-regular-cancel",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2858:7929"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

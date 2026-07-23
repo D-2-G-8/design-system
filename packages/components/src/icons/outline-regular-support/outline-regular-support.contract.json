@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Support",
+  "slug": "outline-regular-support",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1839:2106"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Search",
+  "slug": "outline-bold-search",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1757"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

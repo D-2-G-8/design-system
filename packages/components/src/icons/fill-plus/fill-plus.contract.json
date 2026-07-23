@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Plus",
+  "slug": "fill-plus",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13885:1045"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

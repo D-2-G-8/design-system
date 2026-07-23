@@ -1,0 +1,35 @@
+{
+  "name": "Accordion",
+  "slug": "accordion",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "1772:2735",
+    "1772:2730",
+    "10970:92901",
+    "3278:5864",
+    "10970:92911"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Opened: Off"
+    },
+    {
+      "name": "Chevron: Right"
+    },
+    {
+      "name": "Chevron: Left"
+    },
+    {
+      "name": "Opened: On"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

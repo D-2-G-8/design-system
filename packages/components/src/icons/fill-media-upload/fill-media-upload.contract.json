@@ -1,0 +1,15 @@
+{
+  "name": "Fill/MediaUpload",
+  "slug": "fill-media-upload",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4870"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

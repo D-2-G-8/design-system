@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/SeettingsWarning",
+  "slug": "outline-regular-seettings-warning",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1684"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

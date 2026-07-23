@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Done",
+  "slug": "fill-done",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2512:13606"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

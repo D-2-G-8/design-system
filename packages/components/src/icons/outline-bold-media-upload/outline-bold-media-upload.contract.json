@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/MediaUpload",
+  "slug": "outline-bold-media-upload",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4850"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

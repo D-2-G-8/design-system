@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Catalog",
+  "slug": "outline-regular-catalog",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7860:4090"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

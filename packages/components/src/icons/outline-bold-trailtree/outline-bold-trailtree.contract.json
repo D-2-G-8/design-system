@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Trailtree",
+  "slug": "outline-bold-trailtree",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4900"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

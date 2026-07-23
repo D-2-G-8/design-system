@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/FilterAdd",
+  "slug": "outline-regular-filter-add",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11021:80"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

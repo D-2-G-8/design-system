@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Favorite",
+  "slug": "fill-favorite",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1602"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

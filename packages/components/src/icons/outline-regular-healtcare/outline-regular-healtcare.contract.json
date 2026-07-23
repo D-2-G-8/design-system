@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Healtcare",
+  "slug": "outline-regular-healtcare",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8075:7545"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

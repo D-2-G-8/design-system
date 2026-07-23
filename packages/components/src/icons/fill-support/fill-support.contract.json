@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Support",
+  "slug": "fill-support",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2510:13570"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

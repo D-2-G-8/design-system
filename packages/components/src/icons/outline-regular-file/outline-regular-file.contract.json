@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/File",
+  "slug": "outline-regular-file",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10037:6415"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

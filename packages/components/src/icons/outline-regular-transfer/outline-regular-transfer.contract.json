@@ -1,0 +1,16 @@
+{
+  "name": "Outline/Regular/Transfer",
+  "slug": "outline-regular-transfer",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11280:26",
+    "12719:27"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

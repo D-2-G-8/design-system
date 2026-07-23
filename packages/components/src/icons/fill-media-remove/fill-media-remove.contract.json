@@ -1,0 +1,15 @@
+{
+  "name": "Fill/MediaRemove",
+  "slug": "fill-media-remove",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4872"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

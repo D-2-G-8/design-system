@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/ChevronUp",
+  "slug": "outline-bold-chevron-up",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1644:3508"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

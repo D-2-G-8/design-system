@@ -1,0 +1,119 @@
+{
+  "name": "<table>/<tbody>/<td>/IconString",
+  "slug": "table-tbody-td-icon-string",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2479:3784",
+    "2479:3785",
+    "2479:3788",
+    "2479:3791",
+    "2479:3794",
+    "2479:3797",
+    "2479:3800",
+    "2479:3803",
+    "2479:3806",
+    "2832:7848",
+    "2832:7866",
+    "2832:7884",
+    "2832:7902",
+    "2832:7920",
+    "2832:7938",
+    "2479:3809",
+    "2479:3812",
+    "2479:3815",
+    "2832:7851",
+    "2832:7869",
+    "2832:7887",
+    "2832:7905",
+    "2832:7923",
+    "2832:7941",
+    "2479:3818",
+    "2832:7854",
+    "2832:7872",
+    "2832:7890",
+    "2832:7908",
+    "2832:7926",
+    "2832:7944",
+    "2479:3821",
+    "2483:2466",
+    "2479:3824",
+    "2479:3828",
+    "2479:3832",
+    "2483:2469",
+    "2479:3835",
+    "2479:3839",
+    "2479:3843",
+    "2483:2472",
+    "2479:3846",
+    "2479:3850"
+  ],
+  "variants": [
+    {
+      "name": "Link: Off"
+    },
+    {
+      "name": "Visited: Off"
+    },
+    {
+      "name": "Group expanded: Off"
+    },
+    {
+      "name": "Visited: On"
+    },
+    {
+      "name": "Link: On"
+    },
+    {
+      "name": "Group expanded: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Active<tr>another"
+    },
+    {
+      "name": "Active left adge"
+    },
+    {
+      "name": "Active<col>another"
+    },
+    {
+      "name": "Active<tr>last"
+    },
+    {
+      "name": "Active<col>last"
+    },
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Active right adge"
+    },
+    {
+      "name": "Active another"
+    },
+    {
+      "name": "Active left corner bottom"
+    },
+    {
+      "name": "Active right corner bottom"
+    },
+    {
+      "name": "Active another bottom"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Active link"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

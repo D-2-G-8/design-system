@@ -1,0 +1,15 @@
+{
+  "name": "Fill/VerifiedCircle",
+  "slug": "fill-verified-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13473:2796"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

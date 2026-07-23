@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Pin2",
+  "slug": "fill-pin2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2449:11425"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

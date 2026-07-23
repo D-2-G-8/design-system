@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Report-File",
+  "slug": "outline-regular-report-file",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12109:1739"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

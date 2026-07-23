@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Mark",
+  "slug": "outline-regular-mark",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11769:18889"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

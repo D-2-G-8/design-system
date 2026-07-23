@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Delivery",
+  "slug": "outline-regular-delivery",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10997:17405"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

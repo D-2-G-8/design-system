@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Folder-cloud",
+  "slug": "outline-regular-folder-cloud",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12160:2342"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Unlink",
+  "slug": "outline-regular-unlink",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10470:60242"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

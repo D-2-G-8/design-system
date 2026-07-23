@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Circle",
+  "slug": "fill-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12270:2460"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

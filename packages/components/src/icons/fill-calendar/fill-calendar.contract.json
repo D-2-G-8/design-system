@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Calendar",
+  "slug": "fill-calendar",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2487:10352"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

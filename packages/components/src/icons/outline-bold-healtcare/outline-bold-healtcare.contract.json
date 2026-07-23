@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Healtcare",
+  "slug": "outline-bold-healtcare",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8075:7536"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

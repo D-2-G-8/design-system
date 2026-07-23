@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Favorite",
+  "slug": "outline-bold-favorite",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1840:57"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

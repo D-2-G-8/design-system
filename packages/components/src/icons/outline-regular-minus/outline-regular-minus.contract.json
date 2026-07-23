@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Minus",
+  "slug": "outline-regular-minus",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1839:2126"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

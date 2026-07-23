@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Code",
+  "slug": "outline-bold-code",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11929:1954"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

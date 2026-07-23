@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Shield",
+  "slug": "outline-bold-shield",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8009:6464"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

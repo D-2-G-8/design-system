@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/ArrowBack",
+  "slug": "outline-bold-arrow-back",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:2052"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

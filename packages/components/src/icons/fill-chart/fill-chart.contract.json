@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Chart",
+  "slug": "fill-chart",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7847:10520"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

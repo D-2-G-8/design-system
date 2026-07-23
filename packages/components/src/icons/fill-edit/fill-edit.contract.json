@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Edit",
+  "slug": "fill-edit",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1989:205"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

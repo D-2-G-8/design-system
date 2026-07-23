@@ -1,0 +1,15 @@
+{
+  "name": "Fill/BookDownload",
+  "slug": "fill-book-download",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "3182:116"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Profile2",
+  "slug": "fill-profile2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1987:205"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Outline/Regular/Link",
+  "slug": "outline-regular-link",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7741:16164",
+    "10470:60243",
+    "10458:67"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

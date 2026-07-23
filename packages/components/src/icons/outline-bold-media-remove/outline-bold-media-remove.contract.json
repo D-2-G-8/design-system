@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/MediaRemove",
+  "slug": "outline-bold-media-remove",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4852"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

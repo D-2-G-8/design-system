@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Wallet",
+  "slug": "fill-wallet",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2616:43"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Catalog",
+  "slug": "fill-catalog",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7860:4074"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

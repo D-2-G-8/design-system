@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/FolderAdd",
+  "slug": "outline-bold-folder-add",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7935:1091"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

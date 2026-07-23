@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Logout",
+  "slug": "outline-regular-logout",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2517:23"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

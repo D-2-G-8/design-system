@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/StarOn",
+  "slug": "outline-regular-star-on",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10999:17436"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}
