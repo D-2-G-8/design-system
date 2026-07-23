@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import type { ComponentState } from "@/lib/design-state";
 import { generateComponent } from "../actions";
 import { StatusBadge } from "./StatusBadge";
-import { GenerateButton } from "./GenerateButton";
-import { DeleteButton } from "./DeleteButton";
+import { RowActions } from "./RowActions";
 import styles from "./dashboard.module.css";
 
 const ROW_CLASS: Record<ComponentState["status"], string> = {
@@ -90,10 +89,7 @@ export function SelectableComponents({ state, storybookUrl }: { state: Component
                   </div>
                 </td>
                 <td className={styles.actionCell}>
-                  <GenerateButton slug={c.slug} label={c.status === "never" ? "Generate" : "Regenerate"} />
-                  {c.status !== "pending" && (
-                    <DeleteButton slug={c.slug} name={c.name} deletePrUrl={c.deletePrUrl} />
-                  )}
+                  <RowActions c={c} />
                 </td>
               </tr>
             ))}
