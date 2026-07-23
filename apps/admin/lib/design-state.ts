@@ -15,8 +15,18 @@ interface ManifestEntry { slug: string; name: string; isIcon: boolean; figmaUpda
 interface Manifest { components: ManifestEntry[]; icons: ManifestEntry[] }
 
 /** Mirrors codegen's isFigmaStale: stale iff both set and differ. */
-function isFigmaStale(current?: string, generatedFrom?: string): boolean {
+export function isFigmaStale(current?: string, generatedFrom?: string): boolean {
   return !!current && !!generatedFrom && current !== generatedFrom;
+}
+
+/** Read a committed component's contract from master and return the Figma
+ *  updated_at it was generated from (undefined if missing/malformed/unstamped).
+ *  Guarded so a bad contract degrades rather than throwing. */
+export async function readContractFigmaUpdatedAt(slug: string): Promise<string | undefined> {
+  const raw = await getFileContent(`packages/components/src/components/${slug}/${slug}.contract.json`).catch(() => null);
+  if (!raw) return undefined;
+  try { return (JSON.parse(raw) as { figmaUpdatedAt?: string }).figmaUpdatedAt; }
+  catch { return undefined; }
 }
 
 /** Pure: derive each manifest component's status from git facts. Committed if
@@ -60,12 +70,7 @@ export async function loadComponentState(): Promise<ComponentState[]> {
   // Change-detection: read each committed COMPONENT's contract for its
   // generated-from figmaUpdatedAt (icons excluded -- they self-heal on sync).
   const versionPairs = await Promise.all(
-    components.map(async (slug): Promise<[string, string | undefined]> => {
-      const c = await getFileContent(`packages/components/src/components/${slug}/${slug}.contract.json`).catch(() => null);
-      if (!c) return [slug, undefined];
-      try { return [slug, (JSON.parse(c) as { figmaUpdatedAt?: string }).figmaUpdatedAt]; }
-      catch { return [slug, undefined]; }
-    }),
+    components.map(async (slug): Promise<[string, string | undefined]> => [slug, await readContractFigmaUpdatedAt(slug)]),
   );
   const contractVersions = new Map(versionPairs);
 

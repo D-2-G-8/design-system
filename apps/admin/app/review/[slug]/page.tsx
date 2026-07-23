@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getFileBase64, getFileContent, getPullRequestForSlug, getPullRequestMergeState, canMerge } from "@/lib/github";
 import { fetchNodeImageDataUrl } from "@/lib/figma";
+import { isFigmaStale, readContractFigmaUpdatedAt } from "@/lib/design-state";
 import { MergeButton } from "../MergeButton";
 import { BaselineButton } from "./BaselineButton";
 import { OverlayCompare } from "./OverlayCompare";
@@ -32,11 +33,6 @@ function findManifestEntry(manifest: Manifest | null, slug: string): ManifestEnt
   if (!manifest) return null;
   const all = [...(manifest.components ?? []), ...(manifest.icons ?? [])];
   return all.find((e) => e.slug === slug) ?? null;
-}
-
-/** Mirrors codegen's isFigmaStale: stale iff both set and differ. */
-function isFigmaStale(current?: string, generatedFrom?: string): boolean {
-  return !!current && !!generatedFrom && current !== generatedFrom;
 }
 
 export default async function ReviewPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -89,18 +85,7 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
   // Change-detection: read the committed contract's generated-from version and
   // compare to the manifest's current one. Components only; guarded like every
   // other read on this page.
-  const contractRaw =
-    entry && !entry.isIcon
-      ? await getFileContent(`packages/components/src/components/${slug}/${slug}.contract.json`).catch(() => null)
-      : null;
-  let contractFigmaUpdatedAt: string | undefined;
-  if (contractRaw) {
-    try {
-      contractFigmaUpdatedAt = (JSON.parse(contractRaw) as { figmaUpdatedAt?: string }).figmaUpdatedAt;
-    } catch {
-      contractFigmaUpdatedAt = undefined;
-    }
-  }
+  const contractFigmaUpdatedAt = entry && !entry.isIcon ? await readContractFigmaUpdatedAt(slug) : undefined;
   const figmaChanged = isFigmaStale(entry?.figmaUpdatedAt, contractFigmaUpdatedAt);
 
   const renderedB64 = await getFileBase64(
