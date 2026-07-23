@@ -1,0 +1,75 @@
+name: Baseline screenshot
+run-name: "baseline ${{ inputs.slug }} (job ${{ inputs.jobId }})"
+
+# Dispatched by apps/admin (dispatchBaseline) when a user clicks "Generate
+# baseline" on the review page. Screenshot-ONLY: it checks out the existing
+# codegen/<slug> PR branch, runs Playwright to write the baseline PNG, and
+# pushes it back. No codegen generate, no Anthropic/Figma -> no LLM cost.
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Component slug whose codegen/<slug> PR branch gets a baseline"
+        required: true
+        type: string
+      jobId:
+        description: "Job id from the admin app's Postgres job store, for run correlation"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+# Same group as generate.yml so a baseline run and a generate run for one slug
+# never race on the codegen/<slug> branch.
+concurrency:
+  group: generate-${{ inputs.slug }}
+
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the component's PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: codegen/${{ inputs.slug }}
+          fetch-depth: 0
+          # A PAT so the follow-up push triggers ci.yml on the PR.
+          token: ${{ secrets.CREATE_PR_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      # End-anchored grep only (see generate.yml): a leading ^ matches nothing.
+      # NOT continue-on-error: a failure (e.g. Storybook build) should fail the
+      # job so it shows as failed in the admin.
+      - name: Screenshot + update baseline
+        env:
+          SLUG: ${{ inputs.slug }}
+        run: |
+          corepack pnpm exec playwright test -c tests/visual/playwright.config.ts --update-snapshots -g "visual: $SLUG\$"
+
+      - name: Commit + push baseline
+        env:
+          SLUG: ${{ inputs.slug }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/__screenshots__
+          if git diff --cached --quiet; then
+            echo "no baseline change to commit"; exit 0
+          fi
+          git commit -m "baseline: $SLUG"
+          git push origin "HEAD:codegen/$SLUG"
