@@ -636,3 +636,19 @@
 /* ---------- Batch selection bar ---------- */
 
 .batchBar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 10px 14px; margin-bottom: 8px; border-radius: 8px; background: #1f6feb22; }
+
+/* ---------- Tokens panel ---------- */
+
+.tokenGroup { margin-top: 16px; }
+.tokenCategory { margin: 0 0 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.7; }
+.tokenGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.tokenItem { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; background: color-mix(in srgb, var(--accent) 3%, transparent); font-size: 0.85rem; }
+.tokenSwatch { width: 16px; height: 16px; border-radius: 4px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); flex: none; }
+.tokenName { font-weight: 550; }
+.tokenValue { margin-left: auto; opacity: 0.7; font-variant-numeric: tabular-nums; }
+
+/* ---------- Delete control ---------- */
+
+.deleteWrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.buttonDanger { background: #d64545; color: #fff; border: none; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.buttonDanger:disabled { opacity: 0.6; cursor: default; }

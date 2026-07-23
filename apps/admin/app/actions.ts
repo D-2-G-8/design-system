@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { enqueue, setStatus } from "@/lib/jobs";
 import {
-  dispatchGenerate, dispatchSync, getPullRequestForSlug, getPullRequestMergeState,
+  dispatchGenerate, dispatchSync, dispatchDelete, getPullRequestForSlug, getDeletePullRequest, getPullRequestMergeState,
   canMerge, mergePullRequest, getSyncPullRequest, closePullRequest,
 } from "@/lib/github";
 import { syncJob } from "@/lib/jobs-sync";
@@ -97,6 +97,40 @@ export async function acceptSyncPr(): Promise<{ merged: boolean; reason?: string
   await requireSession();
   const pr = await getSyncPullRequest();
   if (!pr) return { merged: false, reason: "no open sync PR" };
+  const state = await getPullRequestMergeState(pr.number);
+  const gate = canMerge(state);
+  if (!gate.ok) return { merged: false, reason: gate.reason };
+  const res = await mergePullRequest(pr.number, state.headSha);
+  return { merged: res.merged, reason: res.message };
+}
+
+/** Enqueue a delete job and dispatch delete.yml. Gated on the session; returns
+ *  the error rather than throwing (production redacts thrown action errors). */
+export async function deleteComponent(slug: string): Promise<DispatchResult> {
+  try {
+    await requireSession();
+    if (!slug || !slug.trim()) throw new Error("slug is required");
+    const job = await enqueue("delete", slug);
+    try {
+      await dispatchDelete(slug, job.id);
+    } catch (e) {
+      await setStatus(job.id, "failed", { log: e instanceof Error ? e.message : String(e) });
+      throw e;
+    }
+    return { ok: true, jobId: job.id };
+  } catch (e) {
+    console.error("deleteComponent failed:", e);
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+/** Merge the open delete/<slug> PR, gated on the session AND re-checked
+ *  server-side (mergeable + CI green) immediately before merging. Squash;
+ *  head-SHA guarded. Mirrors mergeComponentPr. */
+export async function mergeDeletePr(slug: string): Promise<{ merged: boolean; reason?: string }> {
+  await requireSession();
+  const pr = await getDeletePullRequest(slug);
+  if (!pr) return { merged: false, reason: "no open delete PR for this component" };
   const state = await getPullRequestMergeState(pr.number);
   const gate = canMerge(state);
   if (!gate.ok) return { merged: false, reason: gate.reason };

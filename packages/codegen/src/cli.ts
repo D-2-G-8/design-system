@@ -25,6 +25,7 @@ import { runVisualReview } from "./visual";
 import { fetchNodeImage } from "./figma-image";
 import { reviewVisualDiff } from "./visual-diff";
 import { runSync, writeSync } from "./sync";
+import { deleteComponent } from "./delete";
 
 const HELP = `codegen -- design-system component generator
 
@@ -47,6 +48,9 @@ Usage:
   codegen sync                       Read the Figma library -> write manifest +
                                      tokens + seed contracts (needs
                                      FIGMA_ACCESS_TOKEN).
+  codegen delete <slug>              Remove a component from the repo: its
+                                     source dir, manifest entry, and barrel
+                                     export line. Deterministic, no network.
   codegen doctor                     Check env + manifest presence (no network).
   codegen --help                     Show this help.
 
@@ -294,6 +298,13 @@ async function main(): Promise<number> {
   }
   if (cmd === "doctor") return doctor();
   if (cmd === "sync") return sync();
+  if (cmd === "delete") {
+    const slug = argv.slice(1).find((a) => !a.startsWith("-"));
+    if (!slug) { console.error("delete needs a <slug>. See `codegen --help`."); return 1; }
+    const changed = deleteComponent(slug);
+    console.log(`delete: removed ${slug} (${changed.length} paths changed)`);
+    return 0;
+  }
   if (cmd === "generate") {
     const rest = argv.slice(1);
     const slug = rest.find((a) => !a.startsWith("-"));

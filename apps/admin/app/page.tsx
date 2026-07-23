@@ -1,10 +1,11 @@
 import { loadComponentState } from "@/lib/design-state";
 import { list as listJobs } from "@/lib/jobs";
-import { getSyncPullRequest } from "@/lib/github";
+import { getSyncPullRequest, getFileContent } from "@/lib/github";
 import { ComponentTable } from "./components/ComponentTable";
 import { Header } from "./components/Header";
 import { JobsPanel } from "./components/JobsPanel";
 import { SyncButton } from "./components/SyncButton";
+import { TokensPanel } from "./components/TokensPanel";
 import styles from "./components/dashboard.module.css";
 
 // Reads GitHub + the job DB at request time; must never run at build time
@@ -16,6 +17,11 @@ export default async function Dashboard() {
   const state = await loadComponentState().catch((e) => (e instanceof Error ? e.message : String(e)));
   const jobs = await listJobs().catch(() => []);
   const syncPr = await getSyncPullRequest().catch(() => null);
+  const tokensRaw = await getFileContent("tokens/tokens.json").catch(() => null);
+  let tokens: Record<string, { category: string; value: string }> = {};
+  if (tokensRaw) {
+    try { tokens = JSON.parse(tokensRaw); } catch { tokens = {}; }
+  }
 
   if (typeof state === "string") {
     return (
@@ -53,6 +59,7 @@ export default async function Dashboard() {
           )}
         </header>
         <ComponentTable state={state} storybookUrl={process.env.DESIGN_SYSTEM_STORYBOOK_URL ?? null} />
+        <TokensPanel tokens={tokens} />
         <JobsPanel initialJobs={jobs} repo={process.env.GITHUB_DESIGN_SYSTEM_REPO ?? null} />
       </div>
     </main>

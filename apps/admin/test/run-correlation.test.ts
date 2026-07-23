@@ -20,8 +20,9 @@ test("mapRunToJobStatus maps run status/conclusion to a job status", () => {
   assert.equal(mapRunToJobStatus({ status: "completed", conclusion: "cancelled" }), "failed");
 });
 
-test("workflowForKind maps sync jobs to sync.yml, everything else to generate.yml", () => {
+test("workflowForKind maps sync/delete to their workflows, everything else to generate.yml", () => {
   assert.equal(workflowForKind("sync"), "sync.yml");
+  assert.equal(workflowForKind("delete"), "delete.yml");
   assert.equal(workflowForKind("generate"), "generate.yml");
   assert.equal(workflowForKind("anything-else"), "generate.yml");
 });
