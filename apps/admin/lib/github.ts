@@ -161,6 +161,20 @@ export async function getFileBase64(path: string, ref: string): Promise<string |
   return data.content ? data.content.replace(/\n/g, "") : null;
 }
 
+export interface TreeResult { paths: string[]; truncated: boolean }
+
+/** Recursive git tree at `ref` (default master) -> all blob paths + the API's
+ *  `truncated` flag. The caller MUST handle truncation rather than trust a
+ *  partial list (a missing path would read as "not committed"). */
+export async function listTree(ref = "master"): Promise<TreeResult> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/git/trees/${ref}?recursive=1`);
+  if (!res.ok) throw new Error(`listTree ${ref}: ${res.status} ${await res.text()}`);
+  const data = (await res.json()) as { tree?: { path: string; type: string }[]; truncated?: boolean };
+  const paths = (data.tree ?? []).filter((e) => e.type === "blob").map((e) => e.path);
+  return { paths, truncated: Boolean(data.truncated) };
+}
+
 export interface CheckRun { status: string; conclusion: string | null; name?: string }
 
 /** Reduce GitHub check-runs to a green flag + a short human summary. Green only

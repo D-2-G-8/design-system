@@ -1,4 +1,5 @@
-import { getFileContent, listDirEntries, listOpenCodegenPRs } from "./github";
+import { getFileContent, listTree, listOpenCodegenPRs } from "./github";
+import { committedSlugsFromTree } from "./committed";
 
 export interface ComponentState {
   slug: string;
@@ -30,15 +31,16 @@ export function deriveComponentState(
   });
 }
 
-/** Load component state live from GitHub (manifest + committed dirs + open PRs). */
+/** Load component state live from GitHub: manifest (master) + committed dirs
+ *  derived from the recursive git tree (a dir counts as committed only if it
+ *  holds real code, not just a sync-seeded contract.json) + open codegen PRs. */
 export async function loadComponentState(): Promise<ComponentState[]> {
   const raw = await getFileContent("design-system.manifest.json");
   if (!raw) throw new Error("design-system.manifest.json not found on master");
   const manifest = JSON.parse(raw) as Manifest;
-  const [components, icons, prs] = await Promise.all([
-    listDirEntries("packages/components/src/components"),
-    listDirEntries("packages/components/src/icons"),
-    listOpenCodegenPRs(),
-  ]);
+  const [tree, prs] = await Promise.all([listTree("master"), listOpenCodegenPRs()]);
+  if (tree.truncated) throw new Error("git tree truncated -- cannot reliably derive committed state");
+  const components = committedSlugsFromTree(tree.paths, "packages/components/src/components");
+  const icons = committedSlugsFromTree(tree.paths, "packages/components/src/icons");
   return deriveComponentState(manifest, components, icons, prs);
 }
