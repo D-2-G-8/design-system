@@ -9,10 +9,12 @@ export function matchRunByJobId<T extends { name: string | null }>(runs: T[], jo
 
 /** The GitHub Actions workflow file a job of a given `kind` runs on -- used to
  *  correlate the job to its run (each workflow's runs are listed separately).
- *  `sync` → sync.yml; `delete` → delete.yml; everything else → generate.yml. */
+ *  `sync` → sync.yml; `delete` → delete.yml; `baseline` → baseline.yml;
+ *  everything else → generate.yml. */
 export function workflowForKind(kind: string): string {
   if (kind === "sync") return "sync.yml";
   if (kind === "delete") return "delete.yml";
+  if (kind === "baseline") return "baseline.yml";
   return "generate.yml";
 }
 

@@ -57,6 +57,11 @@ export async function dispatchDelete(slug: string, jobId: string): Promise<void>
   await dispatchWorkflow("delete.yml", { slug, jobId });
 }
 
+/** Dispatches the baseline.yml worker for a component `slug`, tagged with `jobId`. */
+export async function dispatchBaseline(slug: string, jobId: string): Promise<void> {
+  await dispatchWorkflow("baseline.yml", { slug, jobId });
+}
+
 /** Dispatch a workflow against the repo's default branch (resolved via the API
  *  rather than hardcoded, so a default-branch rename doesn't silently break
  *  this). Shared by dispatchGenerate/dispatchSync. */

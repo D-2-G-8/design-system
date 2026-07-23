@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { enqueue, setStatus } from "@/lib/jobs";
 import {
-  dispatchGenerate, dispatchSync, dispatchDelete, getPullRequestForSlug, getDeletePullRequest, getPullRequestMergeState,
+  dispatchGenerate, dispatchSync, dispatchDelete, dispatchBaseline, getPullRequestForSlug, getDeletePullRequest, getPullRequestMergeState,
   canMerge, mergePullRequest, getSyncPullRequest, closePullRequest,
 } from "@/lib/github";
 import { syncJob } from "@/lib/jobs-sync";
@@ -145,4 +145,24 @@ export async function closeSyncPr(): Promise<{ closed: boolean; reason?: string 
   if (!pr) return { closed: false, reason: "no open sync PR" };
   await closePullRequest(pr.number);
   return { closed: true };
+}
+
+/** Enqueue a baseline job and dispatch baseline.yml (screenshot-only, no LLM).
+ *  Gated on the session; returns the error rather than throwing. */
+export async function generateBaseline(slug: string): Promise<DispatchResult> {
+  try {
+    await requireSession();
+    if (!slug || !slug.trim()) throw new Error("slug is required");
+    const job = await enqueue("baseline", slug);
+    try {
+      await dispatchBaseline(slug, job.id);
+    } catch (e) {
+      await setStatus(job.id, "failed", { log: e instanceof Error ? e.message : String(e) });
+      throw e;
+    }
+    return { ok: true, jobId: job.id };
+  } catch (e) {
+    console.error("generateBaseline failed:", e);
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
 }
