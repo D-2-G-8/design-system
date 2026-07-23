@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { acceptSyncPr, closeSyncPr } from "../../actions";
 import styles from "../review.module.css";
@@ -15,6 +15,15 @@ export function SyncActions({ acceptDisabled, disabledReason }: { acceptDisabled
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const router = useRouter();
+
+  // While Accept is gated (CI still running / not yet green), re-fetch the
+  // server-rendered gate every 7s so the button enables itself once CI passes,
+  // without a manual reload. Stops as soon as it's enabled.
+  useEffect(() => {
+    if (!acceptDisabled) return;
+    const t = setInterval(() => router.refresh(), 7000);
+    return () => clearInterval(t);
+  }, [acceptDisabled, router]);
 
   return (
     <div className={styles.mergeCard}>
