@@ -1,0 +1,4 @@
+# Keeps the visual-baseline dir present so the generate worker's create-pull-request
+# `add-paths: tests/visual/__screenshots__` always matches (an absent dir makes
+# `git add` abort and stage nothing -> the generated code is lost). Real baseline
+# PNGs land beside this file.
