@@ -49,6 +49,8 @@ export interface ValidationResult {
   rounds: number;
   findings: { file: string; message: string }[];
   files: GeneratedFiles;
+  inputTokens: number;
+  outputTokens: number;
 }
 
 export async function runValidationLoop(args: ValidationArgs): Promise<ValidationResult> {
@@ -56,6 +58,8 @@ export async function runValidationLoop(args: ValidationArgs): Promise<Validatio
   const gate = args.gate ?? ((f: GeneratedFiles) => gateComponent(f, args));
   let files = args.files;
   let rounds = 0;
+  let inputTokens = 0;
+  let outputTokens = 0;
 
   for (;;) {
     await args.write(files);
@@ -68,13 +72,15 @@ export async function runValidationLoop(args: ValidationArgs): Promise<Validatio
       .map((f) => ({ file: f.file, message: f.message }));
     const findings = [...tscFindings, ...gateFindings];
 
-    if (findings.length === 0) return { passed: true, rounds, findings: [], files };
+    if (findings.length === 0) return { passed: true, rounds, findings: [], files, inputTokens, outputTokens };
     // Icons are deterministic — no LLM fix; report and stop.
-    if (args.isIcon) return { passed: false, rounds, findings, files };
-    if (rounds >= maxRounds) return { passed: false, rounds, findings, files };
+    if (args.isIcon) return { passed: false, rounds, findings, files, inputTokens, outputTokens };
+    if (rounds >= maxRounds) return { passed: false, rounds, findings, files, inputTokens, outputTokens };
 
     const fixed = await args.fix(files, findings);
     files = fixed.files;
+    inputTokens += fixed.inputTokens;
+    outputTokens += fixed.outputTokens;
     rounds++;
   }
 }

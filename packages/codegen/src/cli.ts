@@ -26,6 +26,7 @@ import { fetchNodeImage } from "./figma-image";
 import { reviewVisualDiff } from "./visual-diff";
 import { runSync, writeSync } from "./sync";
 import { deleteComponent } from "./delete";
+import { estimateCostUsd } from "./models";
 
 const HELP = `codegen -- design-system component generator
 
@@ -103,6 +104,9 @@ interface CodegenResult {
   rounds: number;
   findings: { file: string; message: string }[];
   model: string;
+  inputTokens: number;
+  outputTokens: number;
+  estimatedCostUsd: number;
 }
 
 function writeResult(root: string, resultFile: string | undefined, r: CodegenResult): void {
@@ -186,7 +190,10 @@ async function generate(slug: string, forceIcon: boolean, opts: { maxRounds: num
       write: async (f) => { writeComponent(contractFile, toSource(slug, true, f, files), root); },
       fix: async (f) => ({ files: f, inputTokens: 0, outputTokens: 0 }), // never called for icons
     });
-    writeResult(root, resultFile, { slug, isIcon: true, passed: result.passed, rounds: result.rounds, findings: result.findings, model: getCodegenModel() });
+    writeResult(root, resultFile, {
+      slug, isIcon: true, passed: result.passed, rounds: result.rounds, findings: result.findings, model: getCodegenModel(),
+      inputTokens: 0, outputTokens: 0, estimatedCostUsd: 0,
+    });
     return 0;
   }
 
@@ -234,7 +241,12 @@ async function generate(slug: string, forceIcon: boolean, opts: { maxRounds: num
     fix: (files, findings) => fixComponentFiles(model, component, reviewed.contract, files, findings, childContracts, tokens),
   });
 
-  writeResult(root, resultFile, { slug, isIcon: false, passed: result.passed, rounds: result.rounds, findings: result.findings, model });
+  const inputTokens = reviewed.inputTokens + result.inputTokens;
+  const outputTokens = reviewed.outputTokens + result.outputTokens;
+  writeResult(root, resultFile, {
+    slug, isIcon: false, passed: result.passed, rounds: result.rounds, findings: result.findings, model,
+    inputTokens, outputTokens, estimatedCostUsd: estimateCostUsd(model, inputTokens, outputTokens),
+  });
   return 0; // the workflow opens the PR; the label carries needs-human
 }
 
