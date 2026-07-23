@@ -52,6 +52,11 @@ export async function dispatchSync(jobId: string): Promise<void> {
   await dispatchWorkflow("sync.yml", { jobId });
 }
 
+/** Dispatches the delete.yml worker for a component `slug`, tagged with `jobId`. */
+export async function dispatchDelete(slug: string, jobId: string): Promise<void> {
+  await dispatchWorkflow("delete.yml", { slug, jobId });
+}
+
 /** Dispatch a workflow against the repo's default branch (resolved via the API
  *  rather than hardcoded, so a default-branch rename doesn't silently break
  *  this). Shared by dispatchGenerate/dispatchSync. */
@@ -250,6 +255,33 @@ export async function getSyncPullRequest(): Promise<{ number: number; htmlUrl: s
   const prs = (await res.json()) as { number: number; html_url: string; head: { ref: string } }[];
   const pr = prs[0];
   return pr ? { number: pr.number, htmlUrl: pr.html_url, headRef: pr.head.ref } : null;
+}
+
+/** The open delete/<slug> -> master PR, or null. */
+export async function getDeletePullRequest(
+  slug: string,
+): Promise<{ number: number; htmlUrl: string; headRef: string } | null> {
+  const { repo } = getConfig();
+  const org = repo.split("/")[0];
+  const res = await githubFetch(`/repos/${repo}/pulls?state=open&head=${org}:delete/${slug}`);
+  if (!res.ok) throw new Error(`getDeletePullRequest ${slug}: ${res.status} ${await res.text()}`);
+  const prs = (await res.json()) as { number: number; html_url: string; head: { ref: string } }[];
+  const pr = prs[0];
+  return pr ? { number: pr.number, htmlUrl: pr.html_url, headRef: pr.head.ref } : null;
+}
+
+/** Open PRs whose head branch is `delete/*` -> Map<slug, html_url>. */
+export async function listOpenDeletePRs(): Promise<Map<string, string>> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/pulls?state=open&per_page=100`);
+  if (!res.ok) throw new Error(`listOpenDeletePRs: ${res.status} ${await res.text()}`);
+  const prs = (await res.json()) as { head: { ref: string }; html_url: string }[];
+  const map = new Map<string, string>();
+  for (const pr of prs) {
+    const ref = pr.head?.ref ?? "";
+    if (ref.startsWith("delete/")) map.set(ref.slice("delete/".length), pr.html_url);
+  }
+  return map;
 }
 
 /** Close a PR without merging (PATCH state=closed). */
