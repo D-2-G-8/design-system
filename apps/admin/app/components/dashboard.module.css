@@ -632,3 +632,7 @@
     text-align: left;
   }
 }
+
+/* ---------- Batch selection bar ---------- */
+
+.batchBar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 10px 14px; margin-bottom: 8px; border-radius: 8px; background: #1f6feb22; }
