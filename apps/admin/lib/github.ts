@@ -199,16 +199,48 @@ export function summarizeChecks(runs: CheckRun[], totalCount?: number): { green:
   return { green: true, summary: `${runs.length} passing` };
 }
 
-/** Pure merge decision: ok only when GitHub says mergeable, no conflicts, CI green. */
-export function canMerge(state: { mergeable: boolean | null; conflicts: boolean; ciGreen: boolean }): { ok: boolean; reason: string } {
-  if (state.conflicts) return { ok: false, reason: "PR has conflicts" };
+/** Turn GitHub's `mergeable_state` (+ the CI summary) into a specific,
+ *  human-readable reason a PR can't merge -- so the UI never shows a bare
+ *  "not mergeable" with no explanation. */
+export function notMergeableReason(mergeableState?: string, ciSummary?: string): string {
+  const ci = ciSummary ? ` -- CI: ${ciSummary}` : "";
+  switch (mergeableState) {
+    case "behind":
+      return "the branch is behind master -- it needs updating before it can merge";
+    case "blocked":
+      return `blocked by branch protection (a required check or review isn't satisfied)${ci}`;
+    case "unstable":
+      return `a required check is failing${ci}`;
+    case "draft":
+      return "the PR is a draft -- mark it ready for review";
+    case "dirty":
+      return "the PR has conflicts -- resolve them on GitHub";
+    case undefined:
+    case "":
+      return "the PR is not mergeable";
+    default:
+      return `the PR is not mergeable (GitHub state: ${mergeableState})${ci}`;
+  }
+}
+
+/** Pure merge decision: ok only when GitHub says mergeable, no conflicts, CI
+ *  green. When it can't merge, the reason names the specific blocker (falling
+ *  back to the generic text when the caller didn't supply `mergeableState`). */
+export function canMerge(state: {
+  mergeable: boolean | null;
+  conflicts: boolean;
+  ciGreen: boolean;
+  mergeableState?: string;
+  ciSummary?: string;
+}): { ok: boolean; reason: string } {
+  if (state.conflicts) return { ok: false, reason: "PR has conflicts -- resolve them on GitHub" };
   if (state.mergeable === null) return { ok: false, reason: "GitHub is still computing mergeability -- refresh in a moment" };
-  if (!state.mergeable) return { ok: false, reason: "PR is not mergeable" };
-  if (!state.ciGreen) return { ok: false, reason: "CI is not green" };
+  if (!state.mergeable) return { ok: false, reason: notMergeableReason(state.mergeableState, state.ciSummary) };
+  if (!state.ciGreen) return { ok: false, reason: `CI is not green${state.ciSummary ? ` (${state.ciSummary})` : ""}` };
   return { ok: true, reason: "" };
 }
 
-export interface PrMergeState { mergeable: boolean | null; conflicts: boolean; headSha: string; ciGreen: boolean; ciSummary: string }
+export interface PrMergeState { mergeable: boolean | null; conflicts: boolean; headSha: string; ciGreen: boolean; ciSummary: string; mergeableState: string }
 
 /** Fetch the PR's mergeability + CI status for the gate. */
 export async function getPullRequestMergeState(number: number): Promise<PrMergeState> {
@@ -229,7 +261,7 @@ export async function getPullRequestMergeState(number: number): Promise<PrMergeS
   // `clean` is GitHub's "mergeable, no blockers" state. Gating on it (not just
   // `mergeable === true`) makes the button honest for branch-protection blocks
   // (blocked/behind/draft) instead of enabling a merge GitHub will 405.
-  return { mergeable: pr.mergeable && pr.mergeable_state === "clean", conflicts: pr.mergeable_state === "dirty", headSha, ciGreen, ciSummary };
+  return { mergeable: pr.mergeable && pr.mergeable_state === "clean", conflicts: pr.mergeable_state === "dirty", headSha, ciGreen, ciSummary, mergeableState: pr.mergeable_state };
 }
 
 /** Squash-merge the PR, guarded by the head SHA (GitHub rejects if it moved).

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { canMerge, summarizeChecks } from "../lib/github";
+import { canMerge, summarizeChecks, notMergeableReason } from "../lib/github";
 
 test("summarizeChecks: all-pass, one-fail, in-progress", () => {
   assert.deepEqual(summarizeChecks([{ status: "completed", conclusion: "success" }, { status: "completed", conclusion: "skipped" }]), { green: true, summary: "2 passing" });
@@ -29,4 +29,20 @@ test("canMerge: reason names the blocker", () => {
   assert.match(canMerge({ mergeable: true, conflicts: false, ciGreen: false }).reason, /CI/i);
   assert.match(canMerge({ mergeable: true, conflicts: true, ciGreen: true }).reason, /conflict/i);
   assert.match(canMerge({ mergeable: null, conflicts: false, ciGreen: true }).reason, /comput/i);
+});
+
+test("canMerge: not-mergeable reason surfaces the specific GitHub state", () => {
+  assert.match(canMerge({ mergeable: false, conflicts: false, ciGreen: true, mergeableState: "behind" }).reason, /behind/i);
+  assert.match(canMerge({ mergeable: false, conflicts: false, ciGreen: false, mergeableState: "blocked", ciSummary: "1 failing: ci" }).reason, /branch protection.*1 failing: ci/i);
+  assert.match(canMerge({ mergeable: false, conflicts: false, ciGreen: false, mergeableState: "unstable", ciSummary: "1 failing: visual" }).reason, /check is failing.*visual/i);
+  assert.match(canMerge({ mergeable: false, conflicts: false, ciGreen: true, mergeableState: "draft" }).reason, /draft/i);
+  // no mergeableState supplied -> graceful generic fallback (back-compat)
+  assert.equal(canMerge({ mergeable: false, conflicts: false, ciGreen: true }).reason, "the PR is not mergeable");
+});
+
+test("notMergeableReason maps GitHub states to specific text", () => {
+  assert.match(notMergeableReason("behind"), /behind master/i);
+  assert.match(notMergeableReason("blocked", "2 failing: a, b"), /branch protection.*2 failing/i);
+  assert.match(notMergeableReason("weird-new-state"), /GitHub state: weird-new-state/i);
+  assert.equal(notMergeableReason(), "the PR is not mergeable");
 });
