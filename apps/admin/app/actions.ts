@@ -2,7 +2,10 @@
 
 import { auth } from "@/auth";
 import { enqueue, setStatus } from "@/lib/jobs";
-import { dispatchGenerate, dispatchSync, getPullRequestForSlug, getPullRequestMergeState, canMerge, mergePullRequest } from "@/lib/github";
+import {
+  dispatchGenerate, dispatchSync, getPullRequestForSlug, getPullRequestMergeState,
+  canMerge, mergePullRequest, getSyncPullRequest, closePullRequest,
+} from "@/lib/github";
 import { syncJob } from "@/lib/jobs-sync";
 
 /**
@@ -85,4 +88,27 @@ export async function mergeComponentPr(slug: string): Promise<{ merged: boolean;
   if (!gate.ok) return { merged: false, reason: gate.reason };
   const res = await mergePullRequest(pr.number, state.headSha);
   return { merged: res.merged, reason: res.message };
+}
+
+/** Merge the open sync/figma PR into master. Gated on the session AND re-checked
+ *  server-side (mergeable + CI green) immediately before merging -- never trusts
+ *  the client button's enabled state. Head-SHA guarded (squash). */
+export async function acceptSyncPr(): Promise<{ merged: boolean; reason?: string }> {
+  await requireSession();
+  const pr = await getSyncPullRequest();
+  if (!pr) return { merged: false, reason: "no open sync PR" };
+  const state = await getPullRequestMergeState(pr.number);
+  const gate = canMerge(state);
+  if (!gate.ok) return { merged: false, reason: gate.reason };
+  const res = await mergePullRequest(pr.number, state.headSha);
+  return { merged: res.merged, reason: res.message };
+}
+
+/** Close the open sync/figma PR without merging (a fresh Resync re-opens it). */
+export async function closeSyncPr(): Promise<{ closed: boolean; reason?: string }> {
+  await requireSession();
+  const pr = await getSyncPullRequest();
+  if (!pr) return { closed: false, reason: "no open sync PR" };
+  await closePullRequest(pr.number);
+  return { closed: true };
 }
