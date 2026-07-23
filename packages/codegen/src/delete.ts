@@ -6,9 +6,10 @@ import { componentSourcePaths } from "./paths";
 /**
  * Fully remove a component from the repo: its manifest entry, its source dir,
  * and any root-barrel export line referencing it. Returns the changed paths.
- * Throws if the slug is not in the manifest. Barrel removal is defensive -- a
- * no-op when the component was never barrelled (generate does not add barrel
- * lines today), but it prevents a broken build for one that was (e.g. Button).
+ * Throws if the slug is not in the manifest. Generate registers each component
+ * in the root barrel (writeComponent -> ensureBarrelExport), so this removes the
+ * matching lines; it is also defensive -- a no-op for a never-generated (seed-
+ * only) component that has no barrel line.
  */
 export function deleteComponent(slug: string, root: string = findRepoRoot()): string[] {
   const manifest = loadManifest(root);
