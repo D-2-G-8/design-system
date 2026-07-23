@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { expect, test } from "@playwright/test";
-import { storybookDefaultStoryId } from "../../packages/codegen/src/paths";
+import { storybookAllVariantsStoryId, storybookDefaultStoryId } from "../../packages/codegen/src/paths";
 
 // Data-driven from the manifest: one screenshot test per COMMITTED component's
 // Default story (a manifest entry whose component dir doesn't exist yet is
@@ -19,6 +19,20 @@ test.beforeEach(async ({ page }) => {
   await page.route(/^https?:\/\/(?!localhost)/, (route) => route.abort()); // determinism: no external net
 });
 
+/** True if the built Storybook (served by the webServer) has this story id.
+ *  Lets the baseline use the AllVariants board when present and fall back to
+ *  Default for components generated before the showcase story existed. */
+async function storyExists(page: import("@playwright/test").Page, id: string): Promise<boolean> {
+  try {
+    const res = await page.request.get("/index.json");
+    if (!res.ok()) return false;
+    const data = (await res.json()) as { entries?: Record<string, unknown> };
+    return Boolean(data.entries && id in data.entries);
+  } catch {
+    return false;
+  }
+}
+
 for (const c of committed) {
   test(`visual: ${c.slug}`, async ({ page }, testInfo) => {
     const baseline = join(root, `tests/visual/__screenshots__/linux/${c.slug}.png`);
@@ -30,7 +44,8 @@ for (const c of committed) {
     if (testInfo.config.updateSnapshots === "none" && !existsSync(baseline)) {
       test.skip(true, "no committed baseline yet");
     }
-    const storyId = storybookDefaultStoryId(c.slug, c.isIcon);
+    const allId = storybookAllVariantsStoryId(c.slug, c.isIcon);
+    const storyId = (await storyExists(page, allId)) ? allId : storybookDefaultStoryId(c.slug, c.isIcon);
     await page.goto(`iframe.html?id=${storyId}&viewMode=story`);
     await expect(page.locator("#storybook-root")).toHaveScreenshot(`${c.slug}.png`);
   });
