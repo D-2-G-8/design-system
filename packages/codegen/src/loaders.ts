@@ -164,5 +164,36 @@ export function writeComponent(
   const paths = componentSourcePaths(contractFile.slug, contractFile.isIcon);
   const contractPath = join(paths.dir, `${contractFile.slug}.contract.json`);
   written.push(write(contractPath, JSON.stringify(contractFile, null, 2) + "\n"));
+  // Register the component in the root barrel so it is part of the published
+  // package's public API. Idempotent (a regenerate won't duplicate); the delete
+  // command removes the same lines.
+  const barrelChanged = ensureBarrelExport(contractFile.slug, contractFile.isIcon, root);
+  if (barrelChanged) written.push(barrelChanged);
   return written;
+}
+
+/**
+ * Ensure the root barrel (`packages/components/src/index.ts`) re-exports a
+ * component -- `export { Name } from "./<kind>/<slug>"` plus the matching
+ * `export type { NameProps }`. Idempotent: returns null (writes nothing) when
+ * the component is already exported. Returns the barrel path when it appends.
+ * Symmetric to `deleteComponent`'s barrel removal (same trailing-quote marker,
+ * so `button` never matches `button-group`).
+ */
+export function ensureBarrelExport(
+  slug: string,
+  isIcon: boolean,
+  root: string = findRepoRoot(),
+): string | null {
+  const barrelPath = join(root, COMPONENTS_ROOT, "index.ts");
+  const { componentName } = componentSourcePaths(slug, isIcon);
+  const rel = `./${isIcon ? "icons" : "components"}/${slug}`;
+  const existing = existsSync(barrelPath) ? readFileSync(barrelPath, "utf8") : "";
+  if (existing.includes(`${rel}"`)) return null; // already exported
+  const additions =
+    `export { ${componentName} } from "${rel}";\n` +
+    `export type { ${componentName}Props } from "${rel}";\n`;
+  const base = existing === "" || existing.endsWith("\n") ? existing : existing + "\n";
+  writeFileSync(barrelPath, base + additions);
+  return barrelPath;
 }
