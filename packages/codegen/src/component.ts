@@ -414,6 +414,14 @@ async function generateStories(
         "canonical story the component detail page embeds. Beyond that, add one story per meaningfully " +
         "distinct variant/state combination -- don't enumerate every possible cross-product if that would " +
         "be excessive, use judgment for what's useful to preview.",
+      "ALSO REQUIRED: export a story named `AllVariants` that renders the whole variant matrix on ONE page, " +
+        "so a single screenshot previews every variant like a design spec sheet. Use a `render` function (not args) " +
+        "with inline flex/grid layout: render the component for EVERY combination of its string-literal-union props " +
+        "(e.g. appearance x size) in their resting state, PLUS one disabled example, each in a labeled cell/row. " +
+        "Use ONLY the exact literal prop values from the prop types above. Do NOT force interactive pseudo-states " +
+        "(hover/active/toggled) -- resting + disabled only. Keep it self-contained (no external imports beyond the " +
+        "component). Example shape: " +
+        "`export const AllVariants: Story = { render: () => (<div style={{ display: \"flex\", flexDirection: \"column\", gap: 16 }}>{/* one row per size, each row a flex of appearances; a final disabled example */}</div>) };`",
       "If the component is INTERACTIVE (toggles/expands/checks on click -- it manages its own state), the `Default` " +
         "story must let that interaction happen: render it plainly and do NOT freeze it by hard-pinning the state prop " +
         "with no way to change it. The reader must be able to click and watch it expand/collapse or toggle. Provide the " +
