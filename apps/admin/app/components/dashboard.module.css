@@ -578,6 +578,12 @@
   color: var(--ink-muted);
 }
 
+.jobUsage {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
 .jobProgress {
   width: 100%;
   max-width: 120px;
