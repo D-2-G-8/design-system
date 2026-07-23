@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getFileBase64, getFileContent, getPullRequestForSlug, getPullRequestMergeState, canMerge } from "@/lib/github";
 import { fetchNodeImageDataUrl } from "@/lib/figma";
 import { MergeButton } from "../MergeButton";
+import { BaselineButton } from "./BaselineButton";
 import styles from "../review.module.css";
 
 // Reads GitHub (PR + manifest + screenshot) and Figma at request time -- all
@@ -142,7 +143,10 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
                     className={styles.mountImg}
                   />
                 ) : (
-                  <p className={styles.unavailable}>No baseline screenshot yet</p>
+                  <div className={styles.baselineEmpty}>
+                    <p className={styles.unavailable}>No baseline screenshot yet</p>
+                    <BaselineButton slug={slug} />
+                  </div>
                 )}
               </div>
             </div>
