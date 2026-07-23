@@ -519,3 +519,8 @@
 .diffList li { line-height: 1.5; }
 .hint { margin-top: 12px; opacity: 0.75; font-size: 0.9em; }
 .secondaryButton { margin-left: 8px; background: transparent; border: 1px solid currentColor; border-radius: 6px; padding: 8px 14px; cursor: pointer; }
+
+/* ---------- BaselineButton (no-baseline empty state) ---------- */
+
+.baselineEmpty { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.baselineAction { display: flex; flex-direction: column; align-items: center; gap: 6px; }
