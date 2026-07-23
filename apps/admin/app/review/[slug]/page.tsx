@@ -4,6 +4,7 @@ import { getFileBase64, getFileContent, getPullRequestForSlug, getPullRequestMer
 import { fetchNodeImageDataUrl } from "@/lib/figma";
 import { MergeButton } from "../MergeButton";
 import { BaselineButton } from "./BaselineButton";
+import { OverlayCompare } from "./OverlayCompare";
 import styles from "../review.module.css";
 
 // Reads GitHub (PR + manifest + screenshot) and Figma at request time -- all
@@ -151,6 +152,9 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
               </div>
             </div>
           </div>
+          {designSrc && renderedSrc ? (
+            <OverlayCompare designSrc={designSrc} renderedSrc={renderedSrc} name={name} />
+          ) : null}
         </section>
 
         <section aria-labelledby="findings-heading" className={styles.findings}>

@@ -270,6 +270,142 @@
   transform: translate(-50%, -50%);
 }
 
+/* ---------- Overlay (onion-skin) ----------
+ * A light-table aid under the two-up plates: the same two images stacked in one
+ * box so drift shows up under a blend, not a side-by-side eye-flick. The slider
+ * cross-fades the render over the Figma source; "Difference" flips it to
+ * mix-blend-mode: difference (matches go black, discrepancies glow) at full
+ * opacity, since a partial-opacity difference means nothing. Client-only. */
+
+.overlay {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.overlayLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* Same dot-grid light table as the plates; both images share this box and
+   sit centered so they register regardless of aspect. */
+.overlayStack {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface);
+  background-image: radial-gradient(var(--line-strong) 1px, transparent 1px);
+  background-size: 14px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  overflow: hidden;
+}
+
+.overlayImg {
+  max-width: 100%;
+  max-height: 420px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* The top (rendered) image is absolutely centered over the bottom (Figma) one;
+   its opacity is driven inline by the slider. */
+.overlayTop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.overlayDiff {
+  mix-blend-mode: difference;
+}
+
+.overlayControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.overlaySliderRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 220px;
+}
+
+.overlaySliderCap {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  flex-shrink: 0;
+}
+
+.overlaySlider {
+  flex: 1;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.overlaySlider:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.overlaySlider:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.overlayToggle {
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 7px var(--space-4);
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.overlayToggle:hover {
+  background: var(--accent-wash);
+  border-color: var(--accent);
+}
+
+.overlayToggleOn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.overlayToggleOn:hover {
+  background: var(--accent);
+}
+
+.overlayToggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ---------- Findings ---------- */
 
 .findings {
@@ -501,6 +637,14 @@
 
   .mount {
     min-height: 220px;
+  }
+
+  .overlayStack {
+    min-height: 220px;
+  }
+
+  .overlayControls {
+    gap: var(--space-3);
   }
 
   .mergeCard {
