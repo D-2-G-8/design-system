@@ -8,9 +8,11 @@ import styles from "./dashboard.module.css";
 export function ComponentTable({
   state,
   storybookUrl,
+  activeSlugs,
 }: {
   state: ComponentState[];
   storybookUrl: string | null;
+  activeSlugs: Set<string>;
 }) {
   return (
     <section className={styles.section} aria-labelledby="components-heading">
@@ -21,7 +23,7 @@ export function ComponentTable({
       {state.length === 0 ? (
         <p className={styles.empty}>No components found in the manifest.</p>
       ) : (
-        <SelectableComponents state={state} storybookUrl={storybookUrl} />
+        <SelectableComponents state={state} storybookUrl={storybookUrl} activeSlugs={activeSlugs} />
       )}
     </section>
   );

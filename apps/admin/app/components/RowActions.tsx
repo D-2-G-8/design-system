@@ -10,12 +10,12 @@ import styles from "./dashboard.module.css";
  *  state so the Generate button is hidden while the confirm prompt is open
  *  (keeps the cell from overflowing with both at once). Delete is offered on
  *  every row except `pending` (which has an in-flight codegen PR). */
-export function RowActions({ c }: { c: ComponentState }) {
+export function RowActions({ c, active = false }: { c: ComponentState; active?: boolean }) {
   const [confirming, setConfirming] = useState(false);
   return (
     <span className={styles.rowActions}>
       {!confirming && (
-        <GenerateButton slug={c.slug} label={c.status === "never" ? "Generate" : "Regenerate"} />
+        <GenerateButton slug={c.slug} label={c.status === "never" ? "Generate" : "Regenerate"} active={active} />
       )}
       {c.status !== "pending" && (
         <DeleteButton
