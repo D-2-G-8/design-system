@@ -1,0 +1,60 @@
+{
+  "name": "InputPrice",
+  "slug": "input-price",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "3700:11791",
+    "3700:12096",
+    "3700:12128",
+    "3700:12160",
+    "3700:12196",
+    "3700:12232",
+    "3700:12268",
+    "3700:12576",
+    "3700:12604",
+    "3700:12632",
+    "3700:12660",
+    "3700:12688",
+    "3700:12720",
+    "3700:12752",
+    "3700:12784",
+    "3700:12816",
+    "3700:12848"
+  ],
+  "variants": [
+    {
+      "name": "Size: 52 px"
+    },
+    {
+      "name": "Appearence: Default"
+    },
+    {
+      "name": "Filled: On"
+    },
+    {
+      "name": "Size: 40 px"
+    },
+    {
+      "name": "Filled: Off"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Focus"
+    },
+    {
+      "name": "Error-Focus"
+    },
+    {
+      "name": "Error"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

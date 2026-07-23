@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Hourglass",
+  "slug": "fill-hourglass",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2495:177"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

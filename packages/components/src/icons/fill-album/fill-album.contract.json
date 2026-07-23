@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Album",
+  "slug": "fill-album",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7230:22957"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

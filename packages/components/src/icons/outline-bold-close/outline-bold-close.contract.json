@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Close",
+  "slug": "outline-bold-close",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1826"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

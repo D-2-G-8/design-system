@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Pin2",
+  "slug": "outline-regular-pin2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2529:4141"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

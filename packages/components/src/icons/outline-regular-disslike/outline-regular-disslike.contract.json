@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Disslike",
+  "slug": "outline-regular-disslike",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1665"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

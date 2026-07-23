@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Flag",
+  "slug": "outline-regular-flag",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11016:21"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

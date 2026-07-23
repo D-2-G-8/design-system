@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/MediaDownload",
+  "slug": "outline-regular-media-download",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7727:15879"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Report-Filter",
+  "slug": "outline-regular-report-filter",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12109:1738"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

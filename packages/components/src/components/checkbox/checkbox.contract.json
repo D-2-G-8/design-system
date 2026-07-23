@@ -1,0 +1,60 @@
+{
+  "name": "Checkbox",
+  "slug": "checkbox",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "1498:5173",
+    "1498:5170",
+    "10630:20301",
+    "1498:7244",
+    "10630:20276",
+    "1498:5222",
+    "10630:20281",
+    "1498:7310",
+    "10630:20284",
+    "1498:5167",
+    "10630:20287",
+    "1498:7253",
+    "10630:20293",
+    "1498:5231",
+    "10630:20298",
+    "1498:7319",
+    "10630:20273"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Active: On"
+    },
+    {
+      "name": "Multi: Off"
+    },
+    {
+      "name": "Right Position: Off"
+    },
+    {
+      "name": "Multi: On"
+    },
+    {
+      "name": "Active: Off"
+    },
+    {
+      "name": "Right Position: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Disabled"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

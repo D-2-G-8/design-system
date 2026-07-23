@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Cart",
+  "slug": "outline-regular-cart",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11384:33"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

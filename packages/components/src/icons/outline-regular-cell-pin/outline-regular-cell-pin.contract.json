@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/CellPin",
+  "slug": "outline-regular-cell-pin",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2231:2307"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

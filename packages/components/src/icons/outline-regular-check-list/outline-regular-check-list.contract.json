@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/CheckList",
+  "slug": "outline-regular-check-list",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7230:22963"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Home",
+  "slug": "outline-regular-home",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "6745:13360"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

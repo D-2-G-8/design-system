@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/UploadSession",
+  "slug": "outline-regular-upload-session",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12079:21099"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

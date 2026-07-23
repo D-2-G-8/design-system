@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Minus",
+  "slug": "outline-bold-minus",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1839:2135"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

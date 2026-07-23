@@ -1,0 +1,28 @@
+{
+  "name": "Cell/Control/Expand/Hidden Rows",
+  "slug": "cell-control-expand-hidden-rows",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2265:903",
+    "2265:904",
+    "2265:908",
+    "2265:912"
+  ],
+  "variants": [
+    {
+      "name": "Property: Passive"
+    },
+    {
+      "name": "Property: Hover"
+    },
+    {
+      "name": "Property: Active"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

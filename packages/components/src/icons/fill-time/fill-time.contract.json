@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Time",
+  "slug": "fill-time",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2495:21"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

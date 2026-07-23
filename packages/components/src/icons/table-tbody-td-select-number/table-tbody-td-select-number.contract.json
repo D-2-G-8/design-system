@@ -1,0 +1,104 @@
+{
+  "name": "<table>/<tbody>/<td>/Select/Number",
+  "slug": "table-tbody-td-select-number",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2479:3488",
+    "2479:3489",
+    "2479:4543",
+    "2479:3493",
+    "2479:3498",
+    "2479:3502",
+    "2479:3507",
+    "2479:3511",
+    "2479:3515",
+    "2825:7190",
+    "2825:7218",
+    "2825:7246",
+    "2825:7274",
+    "2825:7302",
+    "2825:7330",
+    "2479:3519",
+    "2479:3523",
+    "2479:4547",
+    "2479:3527",
+    "2479:3532",
+    "2479:3536",
+    "2479:3541",
+    "2479:3545",
+    "2479:3549",
+    "2825:7194",
+    "2825:7222",
+    "2825:7250",
+    "2825:7278",
+    "2825:7306",
+    "2825:7334",
+    "2479:3553"
+  ],
+  "variants": [
+    {
+      "name": "Filled: Off"
+    },
+    {
+      "name": "Group expanded: Off"
+    },
+    {
+      "name": "Group expanded: On"
+    },
+    {
+      "name": "Filled: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Active left adge"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Focous"
+    },
+    {
+      "name": "Focus disable"
+    },
+    {
+      "name": "Active<tr>another"
+    },
+    {
+      "name": "Active<col>another"
+    },
+    {
+      "name": "Active<col>last"
+    },
+    {
+      "name": "Active right adge"
+    },
+    {
+      "name": "Active another"
+    },
+    {
+      "name": "Active left corner bottom"
+    },
+    {
+      "name": "Active right corner bottom"
+    },
+    {
+      "name": "Active another bottom"
+    },
+    {
+      "name": "Active<tr>last"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

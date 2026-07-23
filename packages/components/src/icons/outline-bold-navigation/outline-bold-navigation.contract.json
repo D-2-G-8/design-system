@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Navigation",
+  "slug": "outline-bold-navigation",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2452:10318"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

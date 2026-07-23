@@ -1,0 +1,15 @@
+{
+  "name": "Fill/CircleAlert",
+  "slug": "fill-circle-alert",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1605"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

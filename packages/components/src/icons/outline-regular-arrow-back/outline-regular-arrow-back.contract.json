@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/ArrowBack",
+  "slug": "outline-regular-arrow-back",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:2053"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Print",
+  "slug": "outline-regular-print",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11114:17791"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Ellipsis",
+  "slug": "outline-regular-ellipsis",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "5930:11416"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

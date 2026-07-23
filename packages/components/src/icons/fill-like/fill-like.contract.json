@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Like",
+  "slug": "fill-like",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1596"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

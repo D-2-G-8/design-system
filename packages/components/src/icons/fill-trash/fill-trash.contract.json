@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Trash",
+  "slug": "fill-trash",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1840:28"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

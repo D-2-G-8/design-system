@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Plus",
+  "slug": "outline-regular-plus",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1768"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

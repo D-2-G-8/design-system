@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Star",
+  "slug": "fill-star",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "3162:2299"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

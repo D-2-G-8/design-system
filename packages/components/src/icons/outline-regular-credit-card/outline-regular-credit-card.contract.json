@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/CreditCard",
+  "slug": "outline-regular-credit-card",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2521:10396"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

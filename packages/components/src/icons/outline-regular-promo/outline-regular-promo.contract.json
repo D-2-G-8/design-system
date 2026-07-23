@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Promo",
+  "slug": "outline-regular-promo",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11800:1387"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

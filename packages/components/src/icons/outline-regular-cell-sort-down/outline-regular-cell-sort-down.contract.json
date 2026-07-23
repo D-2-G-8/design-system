@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/CellSortDown",
+  "slug": "outline-regular-cell-sort-down",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2281:966"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Chart",
+  "slug": "outline-bold-chart",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7847:10515"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Restore",
+  "slug": "outline-regular-restore",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13164:54"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

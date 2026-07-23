@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Cell/Filter",
+  "slug": "outline-regular-cell-filter",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2280:972"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

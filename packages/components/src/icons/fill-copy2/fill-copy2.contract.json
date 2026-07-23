@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Copy2",
+  "slug": "fill-copy2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1606"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Configuration2",
+  "slug": "outline-bold-configuration2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8001:3540"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

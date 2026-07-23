@@ -1,0 +1,41 @@
+{
+  "name": "Chip MP/MAS",
+  "slug": "chip-mp-mas",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12313:2456",
+    "12313:2457",
+    "12313:2462",
+    "12313:2467",
+    "12313:2472"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Size: 40 px"
+    },
+    {
+      "name": "Type: Default"
+    },
+    {
+      "name": "Appearance: Default"
+    },
+    {
+      "name": "Active: On"
+    },
+    {
+      "name": "Size: 32 px"
+    },
+    {
+      "name": "Active: Off"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

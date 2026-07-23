@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Configuration2",
+  "slug": "outline-regular-configuration2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8001:3514"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Menu",
+  "slug": "outline-regular-menu",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7751:1746"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

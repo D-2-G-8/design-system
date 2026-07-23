@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/WarningCircle",
+  "slug": "outline-bold-warning-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1648:54"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

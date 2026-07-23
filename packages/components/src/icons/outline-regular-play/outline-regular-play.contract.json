@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Play",
+  "slug": "outline-regular-play",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10366:4477"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

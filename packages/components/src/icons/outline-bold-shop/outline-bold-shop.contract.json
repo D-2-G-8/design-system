@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Shop",
+  "slug": "outline-bold-shop",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2420:11933"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

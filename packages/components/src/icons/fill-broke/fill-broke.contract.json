@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Broke",
+  "slug": "fill-broke",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1603"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/PropertiesEdit",
+  "slug": "outline-regular-properties-edit",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10037:6416"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

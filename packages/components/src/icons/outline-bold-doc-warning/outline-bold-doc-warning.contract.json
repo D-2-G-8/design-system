@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/DocWarning",
+  "slug": "outline-bold-doc-warning",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2927:20455"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

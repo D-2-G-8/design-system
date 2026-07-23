@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Car",
+  "slug": "outline-bold-car",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8073:7490"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

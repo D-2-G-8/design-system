@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Suitcase",
+  "slug": "outline-bold-suitcase",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11927:1936"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

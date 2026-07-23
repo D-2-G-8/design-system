@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Call",
+  "slug": "outline-regular-call",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1841:4194"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

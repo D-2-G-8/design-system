@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/ChevronLeft",
+  "slug": "outline-bold-chevron-left",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1644:3511"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

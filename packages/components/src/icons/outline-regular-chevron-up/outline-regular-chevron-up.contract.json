@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/ChevronUp",
+  "slug": "outline-regular-chevron-up",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1656:1614"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

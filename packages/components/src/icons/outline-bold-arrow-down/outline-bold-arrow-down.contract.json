@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/ArrowDown",
+  "slug": "outline-bold-arrow-down",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:2041"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

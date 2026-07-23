@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/CreditCard",
+  "slug": "outline-bold-credit-card",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2521:10410"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Refresh",
+  "slug": "outline-regular-refresh",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1775:3053"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

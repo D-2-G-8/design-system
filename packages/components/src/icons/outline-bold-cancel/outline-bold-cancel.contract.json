@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Cancel",
+  "slug": "outline-bold-cancel",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2858:8000"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

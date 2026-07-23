@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Clock",
+  "slug": "outline-regular-clock",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2800:199"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

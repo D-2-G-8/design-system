@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Upload",
+  "slug": "fill-upload",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13806:38"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/HelpCircle",
+  "slug": "outline-regular-help-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2398:9607"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Manage",
+  "slug": "outline-bold-manage",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11929:1950"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

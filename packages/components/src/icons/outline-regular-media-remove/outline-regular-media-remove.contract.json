@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/MediaRemove",
+  "slug": "outline-regular-media-remove",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7727:15878"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

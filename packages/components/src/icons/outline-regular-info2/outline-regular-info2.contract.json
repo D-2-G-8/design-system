@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Info2",
+  "slug": "outline-regular-info2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13179:69"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "name": "<table>/<tbody>/<td>/Link/String",
+  "slug": "table-tbody-td-link-string",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2479:3670",
+    "2479:3671",
+    "2479:3673",
+    "2479:3675",
+    "2479:3677",
+    "2479:3679",
+    "2479:3681",
+    "2825:7516",
+    "2825:7524",
+    "2825:7532",
+    "2825:7540",
+    "2825:7548",
+    "2825:7556",
+    "2479:3683",
+    "2479:3685",
+    "2825:7518",
+    "2825:7526",
+    "2825:7534",
+    "2825:7542",
+    "2825:7550",
+    "2825:7558",
+    "2479:3687",
+    "2479:4589",
+    "2479:3689",
+    "2479:3692",
+    "2479:3695",
+    "2479:4591",
+    "2479:3697",
+    "2479:3700"
+  ],
+  "variants": [
+    {
+      "name": "Visited: Off"
+    },
+    {
+      "name": "Group expanded: Off"
+    },
+    {
+      "name": "Visited: On"
+    },
+    {
+      "name": "Group expanded: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Active<tr>another"
+    },
+    {
+      "name": "Active another"
+    },
+    {
+      "name": "Active<col>another"
+    },
+    {
+      "name": "Active<tr>last"
+    },
+    {
+      "name": "Active<col>last"
+    },
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Active left adge"
+    },
+    {
+      "name": "Active right adge"
+    },
+    {
+      "name": "Active left corner bottom"
+    },
+    {
+      "name": "Active right corner bottom"
+    },
+    {
+      "name": "Active another bottom"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Active link"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

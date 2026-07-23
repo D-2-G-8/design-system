@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/SBP",
+  "slug": "outline-regular-sbp",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12513:1134"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

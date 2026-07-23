@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/TransferHorizontal",
+  "slug": "outline-regular-transfer-horizontal",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13303:13373"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

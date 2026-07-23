@@ -1,0 +1,74 @@
+{
+  "name": "Dropdown Item",
+  "slug": "dropdown-item",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "2333:13685",
+    "2333:13686",
+    "10354:602",
+    "3623:25836",
+    "2333:13689",
+    "10354:18543",
+    "3623:25792",
+    "2333:13692",
+    "10354:608",
+    "3623:25839",
+    "2333:13697",
+    "10354:18549",
+    "3623:25796",
+    "2333:13702",
+    "10354:616",
+    "3623:25844",
+    "2333:13705",
+    "10354:18557",
+    "3623:25802",
+    "2333:13708",
+    "10354:622",
+    "3623:25847",
+    "2333:13713",
+    "10354:18563",
+    "3623:25806"
+  ],
+  "variants": [
+    {
+      "name": "Theme: Light"
+    },
+    {
+      "name": "Size: M"
+    },
+    {
+      "name": "Selected: Off"
+    },
+    {
+      "name": "Label Medium: Off"
+    },
+    {
+      "name": "Label Medium: On"
+    },
+    {
+      "name": "Size: S"
+    },
+    {
+      "name": "Selected: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Disabled"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Disabled Hover"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

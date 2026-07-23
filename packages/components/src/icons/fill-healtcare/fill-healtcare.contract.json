@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Healtcare",
+  "slug": "fill-healtcare",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8073:7472"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

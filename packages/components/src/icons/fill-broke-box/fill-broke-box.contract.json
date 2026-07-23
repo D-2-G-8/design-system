@@ -1,0 +1,15 @@
+{
+  "name": "Fill/BrokeBox",
+  "slug": "fill-broke-box",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1597"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

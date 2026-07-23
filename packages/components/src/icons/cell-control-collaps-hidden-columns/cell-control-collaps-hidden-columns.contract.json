@@ -1,0 +1,28 @@
+{
+  "name": "Cell/Control/Collaps/Hidden Columns",
+  "slug": "cell-control-collaps-hidden-columns",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2265:943",
+    "2265:944",
+    "2265:948",
+    "2265:952"
+  ],
+  "variants": [
+    {
+      "name": "Property: Passive"
+    },
+    {
+      "name": "Property: Hover"
+    },
+    {
+      "name": "Property: Active"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/ColumnEdit",
+  "slug": "outline-regular-column-edit",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7399:14831"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

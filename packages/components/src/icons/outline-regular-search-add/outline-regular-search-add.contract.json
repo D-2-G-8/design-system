@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/SearchAdd",
+  "slug": "outline-regular-search-add",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13585:7337"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

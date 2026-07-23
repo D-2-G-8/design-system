@@ -1,0 +1,15 @@
+{
+  "name": "ProtoDropDown/<col>",
+  "slug": "proto-drop-down-col",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2703:7196"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

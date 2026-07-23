@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/DocumentImport",
+  "slug": "outline-regular-document-import",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10829:63637"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

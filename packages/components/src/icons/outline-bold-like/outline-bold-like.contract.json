@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Like",
+  "slug": "outline-bold-like",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1710"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

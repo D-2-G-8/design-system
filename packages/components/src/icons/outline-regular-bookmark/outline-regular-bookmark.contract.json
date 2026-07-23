@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Bookmark",
+  "slug": "outline-regular-bookmark",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10304:388"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

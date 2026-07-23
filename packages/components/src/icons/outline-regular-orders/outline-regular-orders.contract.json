@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Orders",
+  "slug": "outline-regular-orders",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1634"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

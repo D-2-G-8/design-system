@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Syndication",
+  "slug": "outline-regular-syndication",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13192:27"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

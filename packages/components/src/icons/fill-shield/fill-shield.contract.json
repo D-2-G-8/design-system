@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Shield",
+  "slug": "fill-shield",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "8009:6479"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

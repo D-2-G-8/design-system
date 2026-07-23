@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/FolderPlus",
+  "slug": "outline-regular-folder-plus",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7935:1092"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

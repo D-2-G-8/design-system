@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Handle",
+  "slug": "outline-regular-handle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2213:81"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

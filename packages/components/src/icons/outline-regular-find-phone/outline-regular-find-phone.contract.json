@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/FindPhone",
+  "slug": "outline-regular-find-phone",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13261:38"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

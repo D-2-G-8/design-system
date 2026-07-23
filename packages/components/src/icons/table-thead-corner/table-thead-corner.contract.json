@@ -1,0 +1,28 @@
+{
+  "name": "<table>/<thead>/Corner",
+  "slug": "table-thead-corner",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2479:3292",
+    "2479:3293",
+    "2479:3302",
+    "2483:3143"
+  ],
+  "variants": [],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Active"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Copy",
+  "slug": "outline-bold-copy",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7865:13717"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

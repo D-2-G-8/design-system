@@ -1,0 +1,32 @@
+{
+  "name": "Segment",
+  "slug": "segment",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "4978:15999",
+    "4978:13554",
+    "4978:16166",
+    "4978:13555",
+    "4978:16171"
+  ],
+  "variants": [
+    {
+      "name": "Active: Off"
+    },
+    {
+      "name": "Size: 40 px"
+    },
+    {
+      "name": "Size: 32 px"
+    },
+    {
+      "name": "Active: On"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

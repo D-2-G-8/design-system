@@ -1,0 +1,15 @@
+{
+  "name": "Tabbar",
+  "slug": "tabbar",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "6298:22671"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

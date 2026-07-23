@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Calendar",
+  "slug": "outline-bold-calendar",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1840:4166"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

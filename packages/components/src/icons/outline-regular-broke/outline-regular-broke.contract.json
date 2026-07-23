@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Broke",
+  "slug": "outline-regular-broke",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1697"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

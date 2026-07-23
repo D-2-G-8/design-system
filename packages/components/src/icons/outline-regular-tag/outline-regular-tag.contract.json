@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Tag",
+  "slug": "outline-regular-tag",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12694:34668"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

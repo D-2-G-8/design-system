@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Archive",
+  "slug": "fill-archive",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7843:10491"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Home",
+  "slug": "outline-bold-home",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7841:4921"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

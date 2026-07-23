@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Disslike",
+  "slug": "outline-bold-disslike",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1832:1664"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

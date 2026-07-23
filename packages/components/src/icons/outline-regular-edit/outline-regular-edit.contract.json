@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Edit",
+  "slug": "outline-regular-edit",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2528:357"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

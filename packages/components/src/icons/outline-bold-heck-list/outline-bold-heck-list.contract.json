@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/СheckList",
+  "slug": "outline-bold-heck-list",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7234:22964"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

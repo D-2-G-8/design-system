@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/BookDownload",
+  "slug": "outline-regular-book-download",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "3182:111"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/BonusAcc",
+  "slug": "outline-regular-bonus-acc",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12750:33"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "name": "Tooltip",
+  "slug": "tooltip",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "197:3324",
+    "3714:33233",
+    "3714:33234",
+    "3714:33235",
+    "3714:33224",
+    "3714:33226",
+    "3714:33229",
+    "3714:33230",
+    "3714:33227",
+    "3714:33225",
+    "3714:33228",
+    "3714:33232",
+    "3714:33223",
+    "3714:33222",
+    "3714:33221",
+    "3714:33220",
+    "3714:33219",
+    "3714:33231",
+    "3714:33217",
+    "3714:33216",
+    "3714:33218",
+    "212:7634"
+  ],
+  "variants": [
+    {
+      "name": "Placement: Top start"
+    },
+    {
+      "name": "Resizible: Off"
+    },
+    {
+      "name": "Placement: Left"
+    },
+    {
+      "name": "Placement: Left start"
+    },
+    {
+      "name": "Resizible: On"
+    },
+    {
+      "name": "Placement: Right start"
+    },
+    {
+      "name": "Placement: Right"
+    },
+    {
+      "name": "Placement: Left end"
+    },
+    {
+      "name": "Placement: Right end"
+    },
+    {
+      "name": "Placement: Bottom start"
+    },
+    {
+      "name": "Placement: Top"
+    },
+    {
+      "name": "Placement: Bottom"
+    },
+    {
+      "name": "Placement: Top end"
+    },
+    {
+      "name": "Placement: Bottom end"
+    },
+    {
+      "name": "Placement: Tooltip"
+    },
+    {
+      "name": "Resizible: Light"
+    },
+    {
+      "name": "Property 3: Mobile"
+    },
+    {
+      "name": "Property 4: Right"
+    },
+    {
+      "name": "Property 5: Off"
+    },
+    {
+      "name": "Property 6: Off"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Unavailable",
+  "slug": "outline-regular-unavailable",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10310:19322"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

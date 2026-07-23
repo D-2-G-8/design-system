@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/ArrowLeft",
+  "slug": "outline-regular-arrow-left",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:2003"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

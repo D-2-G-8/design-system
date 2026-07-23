@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/System",
+  "slug": "outline-bold-system",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "11929:1946"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

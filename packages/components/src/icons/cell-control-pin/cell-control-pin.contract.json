@@ -1,0 +1,48 @@
+{
+  "name": "Cell/Control/Pin",
+  "slug": "cell-control-pin",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2485:2657",
+    "2485:2669",
+    "2485:2714",
+    "2485:2734",
+    "2485:2756",
+    "2485:2682",
+    "2485:2716",
+    "2485:2737",
+    "2485:2759",
+    "2230:1998",
+    "2230:1992",
+    "2231:2441",
+    "2485:2645",
+    "2231:2455"
+  ],
+  "variants": [
+    {
+      "name": "Direction: Pin X"
+    },
+    {
+      "name": "Direction: Pin Y"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Active"
+    },
+    {
+      "name": "Drag"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

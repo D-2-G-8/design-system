@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/UploadArch",
+  "slug": "outline-regular-upload-arch",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "12199:37"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Logout",
+  "slug": "outline-bold-logout",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2517:17"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

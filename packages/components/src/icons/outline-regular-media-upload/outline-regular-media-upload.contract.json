@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/MediaUpload",
+  "slug": "outline-regular-media-upload",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7727:15876"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

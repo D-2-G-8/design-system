@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold//Pin2",
+  "slug": "outline-bold-pin2",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2529:4159"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Profile",
+  "slug": "outline-bold-profile",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1590"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

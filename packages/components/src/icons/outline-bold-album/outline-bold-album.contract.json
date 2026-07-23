@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Album",
+  "slug": "outline-bold-album",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "7230:22953"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

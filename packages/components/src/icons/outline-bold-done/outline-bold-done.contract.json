@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Done",
+  "slug": "outline-bold-done",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:1981"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "<table>/<tbody>/<td>/Control",
+  "slug": "table-tbody-td-control",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2479:3853",
+    "2479:3854",
+    "2479:3856",
+    "2479:3858",
+    "2479:3860",
+    "2825:7610",
+    "2825:7626",
+    "2825:7614",
+    "2825:7628",
+    "2825:7618",
+    "2825:7630",
+    "2479:3862",
+    "2479:3865",
+    "2479:3868",
+    "2483:2438"
+  ],
+  "variants": [
+    {
+      "name": "Group expanded: Off"
+    },
+    {
+      "name": "Group expanded: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Active<tr>another"
+    },
+    {
+      "name": "Active left adge"
+    },
+    {
+      "name": "Active<col>another"
+    },
+    {
+      "name": "Active<tr>last"
+    },
+    {
+      "name": "Active<col>last"
+    },
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Active left corner bottom"
+    },
+    {
+      "name": "Active right adge"
+    },
+    {
+      "name": "Active right corner bottom"
+    },
+    {
+      "name": "Active another"
+    },
+    {
+      "name": "Active another bottom"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Disable"
+    },
+    {
+      "name": "Hover<tr>"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

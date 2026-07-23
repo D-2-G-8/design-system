@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/Logs",
+  "slug": "outline-regular-logs",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13604:16040"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

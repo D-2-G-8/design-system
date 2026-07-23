@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/SearchList",
+  "slug": "outline-regular-search-list",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "13591:50"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

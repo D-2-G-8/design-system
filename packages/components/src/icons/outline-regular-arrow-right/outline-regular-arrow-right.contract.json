@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Regular/ArrowRight",
+  "slug": "outline-regular-arrow-right",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:2011"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

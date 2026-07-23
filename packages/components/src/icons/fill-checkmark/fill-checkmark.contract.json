@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Checkmark",
+  "slug": "fill-checkmark",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "10458:1692"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

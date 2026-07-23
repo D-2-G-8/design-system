@@ -1,0 +1,32 @@
+{
+  "name": "Skeleton",
+  "slug": "skeleton",
+  "isIcon": false,
+  "figmaNodeIds": [
+    "4726:29027",
+    "4758:1160",
+    "4754:34804",
+    "4732:342",
+    "4758:2786"
+  ],
+  "variants": [
+    {
+      "name": "View: Text"
+    },
+    {
+      "name": "Lines: 1"
+    },
+    {
+      "name": "Lines: 2"
+    },
+    {
+      "name": "View: Component"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

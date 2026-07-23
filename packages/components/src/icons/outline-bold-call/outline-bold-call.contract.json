@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/Call",
+  "slug": "outline-bold-call",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1841:4181"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

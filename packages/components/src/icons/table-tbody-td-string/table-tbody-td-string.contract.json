@@ -1,0 +1,109 @@
+{
+  "name": "<table>/<tbody>/<td>/String",
+  "slug": "table-tbody-td-string",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2479:3626",
+    "2479:3627",
+    "2479:3629",
+    "2663:5735",
+    "2663:5743",
+    "2686:6353",
+    "2686:6359",
+    "2686:6389",
+    "2663:5751",
+    "2479:3631",
+    "2479:3633",
+    "2663:5737",
+    "2663:5745",
+    "2686:6355",
+    "2686:6357",
+    "2686:6391",
+    "2663:5753",
+    "2479:3635",
+    "2479:3637",
+    "2479:3639",
+    "2479:3641",
+    "2479:3643",
+    "2479:4525",
+    "2479:3645",
+    "2479:3648",
+    "2479:3651",
+    "2479:4527",
+    "2479:3653",
+    "2479:3656",
+    "2479:3659",
+    "2479:3662",
+    "2479:3664",
+    "2479:3668"
+  ],
+  "variants": [
+    {
+      "name": "Filled: Off"
+    },
+    {
+      "name": "Group expanded: Off"
+    },
+    {
+      "name": "Group expanded: ON"
+    },
+    {
+      "name": "Filled: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Active<tr>another"
+    },
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Active<col>another"
+    },
+    {
+      "name": "Active left adge"
+    },
+    {
+      "name": "Active right adge"
+    },
+    {
+      "name": "Active left corner bottom"
+    },
+    {
+      "name": "Active right corner bottom"
+    },
+    {
+      "name": "Active another bottom"
+    },
+    {
+      "name": "Active another"
+    },
+    {
+      "name": "Active<tr>last"
+    },
+    {
+      "name": "Active<col>last"
+    },
+    {
+      "name": "Hover<tr>"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Hover input"
+    },
+    {
+      "name": "Focous"
+    },
+    {
+      "name": "Focus disable"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

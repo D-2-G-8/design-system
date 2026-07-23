@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/ArrowUp",
+  "slug": "outline-bold-arrow-up",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1836:2039"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

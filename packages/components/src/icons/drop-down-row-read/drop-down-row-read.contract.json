@@ -1,0 +1,24 @@
+{
+  "name": "DropDown/<row>/Read",
+  "slug": "drop-down-row-read",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2588:3234",
+    "2588:3233",
+    "2633:7613"
+  ],
+  "variants": [
+    {
+      "name": "Edit: Off"
+    },
+    {
+      "name": "Edit: On"
+    }
+  ],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

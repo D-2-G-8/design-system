@@ -1,0 +1,95 @@
+{
+  "name": "<table>/<thead>/<th>",
+  "slug": "table-thead-th",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2485:4252",
+    "2485:4256",
+    "2485:4258",
+    "2485:4260",
+    "2485:4268",
+    "2651:5688",
+    "2485:4273",
+    "2651:5693",
+    "2485:4278",
+    "2651:5698",
+    "2485:4283",
+    "2485:4290",
+    "2485:4297",
+    "2590:4234",
+    "2633:11153",
+    "2633:11175",
+    "2485:4304",
+    "2485:4311",
+    "2485:4318",
+    "2485:4325",
+    "2485:4330",
+    "2485:4335",
+    "2633:11279",
+    "2633:11285",
+    "2633:11291",
+    "2633:11345",
+    "2633:11351",
+    "2633:11357",
+    "2633:11411",
+    "2633:11417",
+    "2633:11423"
+  ],
+  "variants": [
+    {
+      "name": "Type: Number"
+    },
+    {
+      "name": "Filter/Sort: Off"
+    },
+    {
+      "name": "Group expanded: Off"
+    },
+    {
+      "name": "Type: String"
+    },
+    {
+      "name": "Type: Indicator"
+    },
+    {
+      "name": "Filter/Sort: On"
+    },
+    {
+      "name": "Group expanded: On"
+    }
+  ],
+  "states": [
+    {
+      "name": "Default"
+    },
+    {
+      "name": "Hover"
+    },
+    {
+      "name": "Active"
+    },
+    {
+      "name": "Active expanded"
+    },
+    {
+      "name": "Active chevron hover"
+    },
+    {
+      "name": "Drug"
+    },
+    {
+      "name": "Active left corner"
+    },
+    {
+      "name": "Active another"
+    },
+    {
+      "name": "Active right corner"
+    }
+  ],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

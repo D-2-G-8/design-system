@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/BookDownload",
+  "slug": "outline-bold-book-download",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "3182:78"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

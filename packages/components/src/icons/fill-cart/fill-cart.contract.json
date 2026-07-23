@@ -1,0 +1,15 @@
+{
+  "name": "Fill/Cart",
+  "slug": "fill-cart",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "1826:1601"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}

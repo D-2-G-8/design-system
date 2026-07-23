@@ -1,0 +1,15 @@
+{
+  "name": "Outline/Bold/HelpCircle",
+  "slug": "outline-bold-help-circle",
+  "isIcon": true,
+  "figmaNodeIds": [
+    "2398:9614"
+  ],
+  "variants": [],
+  "states": [],
+  "contract": {
+    "props": [],
+    "cssVariables": [],
+    "classNames": []
+  }
+}
