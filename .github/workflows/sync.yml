@@ -70,6 +70,12 @@ jobs:
         # movable, a SHA is immutable). Runs with contents/pull-requests write.
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
         with:
+          # A PAT, NOT the default GITHUB_TOKEN: the automatic token is blocked
+          # from opening PRs ("GitHub Actions is not permitted to create or
+          # approve pull requests") AND PRs it opens do not trigger ci.yml's
+          # `on: pull_request` run -- which the admin's merge gate depends on.
+          # The PAT needs Contents: write + Pull requests: write on this repo.
+          token: ${{ secrets.CREATE_PR_TOKEN }}
           branch: sync/figma
           base: master
           title: "sync: Figma library"

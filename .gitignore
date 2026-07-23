@@ -3,6 +3,11 @@ dist/
 storybook-static/
 *.tsbuildinfo
 .DS_Store
+
+# local env / secrets (never commit)
+.env
+.env.local
+.env.*.local
 _to_delete/
 .next/
 

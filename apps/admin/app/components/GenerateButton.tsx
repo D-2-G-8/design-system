@@ -25,9 +25,14 @@ export function GenerateButton({ slug, label }: { slug: string; label: string })
           setBusy(true);
           setErr(null);
           try {
-            await generateComponent(slug);
-            router.refresh(); // surface the just-queued job in the panel without a manual reload
+            const res = await generateComponent(slug);
+            if (res.ok) {
+              router.refresh(); // surface the just-queued job in the panel without a manual reload
+            } else {
+              setErr(res.error);
+            }
           } catch (e) {
+            // Transport-level failure (the action itself returns errors, not throws).
             setErr(e instanceof Error ? e.message : String(e));
           } finally {
             setBusy(false);

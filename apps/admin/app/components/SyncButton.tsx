@@ -23,9 +23,14 @@ export function SyncButton() {
           setBusy(true);
           setErr(null);
           try {
-            await syncFromFigma();
-            router.refresh(); // surface the queued sync job in the panel
+            const res = await syncFromFigma();
+            if (res.ok) {
+              router.refresh(); // surface the queued sync job in the panel
+            } else {
+              setErr(res.error);
+            }
           } catch (e) {
+            // Transport-level failure (the action itself returns errors, not throws).
             setErr(e instanceof Error ? e.message : String(e));
           } finally {
             setBusy(false);

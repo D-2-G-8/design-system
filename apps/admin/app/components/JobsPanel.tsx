@@ -31,10 +31,19 @@ function formatCreated(value: Date | string): string {
 
 /** Live activity feed for generate jobs. Polls `getJobStatus(jobId)` every
  *  ~4s for jobs still queued/running, stops once every job is terminal.
- *  Newly-dispatched jobs show up on the next page load, not live here --
- *  keeping 4a simple per the task brief. */
+ *  A freshly-dispatched job appears without a manual reload: the Sync/Generate
+ *  buttons call `router.refresh()`, which re-runs the server component and
+ *  hands us a new `initialJobs` -- the effect below re-seeds state from it. */
 export function JobsPanel({ initialJobs, repo }: { initialJobs: Job[]; repo: string | null }) {
   const [jobs, setJobs] = useState(initialJobs);
+
+  // `useState` only seeds on first mount, so a new `initialJobs` from a
+  // `router.refresh()` (e.g. right after dispatching a sync) would otherwise be
+  // ignored until a full page reload. Re-sync whenever the server sends a fresh
+  // list -- the polling effect below then picks up any still-active jobs.
+  useEffect(() => {
+    setJobs(initialJobs);
+  }, [initialJobs]);
 
   useEffect(() => {
     const active = jobs.filter((j) => j.status === "queued" || j.status === "running").map((j) => j.id);
