@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { mergeComponentPr } from "../actions";
 import styles from "./review.module.css";
@@ -28,6 +28,15 @@ export function MergeButton({
   const [merged, setMerged] = useState(false);
   const router = useRouter();
   const reasonId = useId();
+
+  // While the merge is gated (CI still running / not yet mergeable), re-fetch the
+  // server-rendered gate every 7s so the panel + button update themselves once CI
+  // passes, without a manual reload. Stops once it's enabled or already merged.
+  useEffect(() => {
+    if (!disabled || merged) return;
+    const t = setInterval(() => router.refresh(), 7000);
+    return () => clearInterval(t);
+  }, [disabled, merged, router]);
 
   if (merged) {
     return <span className={styles.mergedOk}>Merged ✓</span>;

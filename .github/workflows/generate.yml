@@ -83,9 +83,13 @@ jobs:
           SLUG: ${{ inputs.slug }}
         # webServer (in playwright.config.ts) builds + serves Storybook; a bare
         # --update-snapshots resolves to 'changed' (Playwright 1.61) -- i.e. anything
-        # but 'none' -- so it writes/refreshes this component's baseline (anchored grep).
+        # but 'none' -- so it writes/refreshes this component's baseline.
+        # Grep is END-anchored only (`visual: <slug>$`), NOT `^...$`: Playwright's
+        # grep target carries a prefix, so a leading `^` matched nothing -> "No
+        # tests found" -> the step failed and no baseline was produced. The `$`
+        # keeps it exact (so `button` doesn't also match `radio-button`).
         run: |
-          corepack pnpm exec playwright test -c tests/visual/playwright.config.ts --update-snapshots -g "^visual: $SLUG\$"
+          corepack pnpm exec playwright test -c tests/visual/playwright.config.ts --update-snapshots -g "visual: $SLUG\$"
 
       - name: Visual review vs Figma
         continue-on-error: true
