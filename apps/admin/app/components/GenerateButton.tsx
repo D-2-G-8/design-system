@@ -9,18 +9,21 @@ import styles from "./dashboard.module.css";
  *  as the primary, high-contrast action -- it's the actual outstanding work
  *  on this page. "Regenerate" (already-committed rows) is available but
  *  intentionally quieter, so the page has one obvious next step. */
-export function GenerateButton({ slug, label }: { slug: string; label: string }) {
+export function GenerateButton({ slug, label, active = false }: { slug: string; label: string; active?: boolean }) {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const router = useRouter();
   const isPrimary = label === "Generate";
+  // `active` = this component already has a queued/running generate job. Disable
+  // so a second dispatch can't stack a duplicate run while the first is in flight.
+  const disabled = busy || active;
 
   return (
     <span>
       <button
         type="button"
         className={`${styles.button} ${isPrimary ? styles.buttonPrimary : styles.buttonSecondary}`}
-        disabled={busy}
+        disabled={disabled}
         onClick={async () => {
           setBusy(true);
           setErr(null);
@@ -39,7 +42,7 @@ export function GenerateButton({ slug, label }: { slug: string; label: string })
           }
         }}
       >
-        {busy ? "Dispatching…" : label}
+        {busy ? "Dispatching…" : active ? "Generating…" : label}
       </button>
       {err && (
         <span role="alert" className={styles.buttonError}>

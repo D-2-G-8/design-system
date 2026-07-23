@@ -16,6 +16,11 @@ export const dynamic = "force-dynamic";
 export default async function Dashboard() {
   const state = await loadComponentState().catch((e) => (e instanceof Error ? e.message : String(e)));
   const jobs = await listJobs().catch(() => []);
+  // Slugs with a queued/running generate job -> their Generate button disables
+  // ("Generating…") so a component with an in-flight run can't be dispatched twice.
+  const activeSlugs = new Set(
+    jobs.filter((j) => j.kind === "generate" && (j.status === "queued" || j.status === "running")).map((j) => j.slug),
+  );
   const syncPr = await getSyncPullRequest().catch(() => null);
   const tokensRaw = await getFileContent("tokens/tokens.json").catch(() => null);
   let tokens: Record<string, { category: string; value: string }> = {};
@@ -58,7 +63,7 @@ export default async function Dashboard() {
             </a>
           )}
         </header>
-        <ComponentTable state={state} storybookUrl={process.env.DESIGN_SYSTEM_STORYBOOK_URL ?? null} />
+        <ComponentTable state={state} storybookUrl={process.env.DESIGN_SYSTEM_STORYBOOK_URL ?? null} activeSlugs={activeSlugs} />
         <TokensPanel tokens={tokens} />
         <JobsPanel initialJobs={jobs} repo={process.env.GITHUB_DESIGN_SYSTEM_REPO ?? null} />
       </div>

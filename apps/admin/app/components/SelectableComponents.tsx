@@ -17,12 +17,16 @@ const ROW_CLASS: Record<ComponentState["status"], string> = {
 /** Client table body: per-row Generate (existing) + checkbox multi-select with a
  *  "Generate selected (N)" bar. The batch is client-side orchestration over the
  *  existing per-slug `generateComponent` action (bounded concurrency). */
-export function SelectableComponents({ state, storybookUrl }: { state: ComponentState[]; storybookUrl: string | null }) {
+export function SelectableComponents({ state, storybookUrl, activeSlugs }: { state: ComponentState[]; storybookUrl: string | null; activeSlugs: Set<string> }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState(false);
   const router = useRouter();
 
-  const selectable = state.filter((c) => c.status !== "pending"); // never + committed(regenerate)
+  // Selectable = never/committed rows WITHOUT an in-flight generate job. A slug
+  // with a queued/running job is excluded from the checkbox + "Select all" so the
+  // batch "Generate selected" can't stack a duplicate run (same guard as the
+  // per-row Generate button).
+  const selectable = state.filter((c) => c.status !== "pending" && !activeSlugs.has(c.slug));
   const allSelected = selectable.length > 0 && selectable.every((c) => selected.has(c.slug));
 
   function toggle(slug: string) {
@@ -38,7 +42,8 @@ export function SelectableComponents({ state, storybookUrl }: { state: Component
 
   async function runBatch() {
     setBusy(true);
-    const slugs = [...selected];
+    // Belt-and-suspenders: drop any slug that became active after it was selected.
+    const slugs = [...selected].filter((s) => !activeSlugs.has(s));
     const CONCURRENCY = 3;
     for (let i = 0; i < slugs.length; i += CONCURRENCY) {
       await Promise.all(slugs.slice(i, i + CONCURRENCY).map((s) => generateComponent(s).catch(() => null)));
@@ -74,7 +79,7 @@ export function SelectableComponents({ state, storybookUrl }: { state: Component
             {state.map((c) => (
               <tr key={c.slug} className={ROW_CLASS[c.status]}>
                 <td>
-                  {c.status !== "pending" && (
+                  {c.status !== "pending" && !activeSlugs.has(c.slug) && (
                     <input type="checkbox" aria-label={`Select ${c.name}`} checked={selected.has(c.slug)} onChange={() => toggle(c.slug)} />
                   )}
                 </td>
@@ -89,7 +94,7 @@ export function SelectableComponents({ state, storybookUrl }: { state: Component
                   </div>
                 </td>
                 <td className={styles.actionCell}>
-                  <RowActions c={c} />
+                  <RowActions c={c} active={activeSlugs.has(c.slug)} />
                 </td>
               </tr>
             ))}
