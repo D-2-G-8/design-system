@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getJobStatus } from "../actions";
 import type { Job } from "@/lib/jobs";
+import { formatTokens } from "@/lib/format";
 import styles from "./dashboard.module.css";
 
 const STATUS_LABEL: Record<Job["status"], string> = {
@@ -98,6 +99,12 @@ export function JobsPanel({ initialJobs, repo }: { initialJobs: Job[]; repo: str
                       <span>run {j.workflow_run_id}</span>
                     ))}
                 </span>
+                {j.input_tokens != null && j.input_tokens > 0 && (
+                  <span className={styles.jobUsage}>
+                    in {formatTokens(j.input_tokens)} / out {formatTokens(j.output_tokens ?? 0)}
+                    {j.cost_usd != null && ` · ~$${j.cost_usd.toFixed(2)}`}
+                  </span>
+                )}
                 {j.status === "running" && (
                   <span className={styles.jobProgress}>
                     <span

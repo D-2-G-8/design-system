@@ -115,6 +115,29 @@ jobs:
             echo "RESULT_EOF"
           } >> "$GITHUB_OUTPUT"
 
+      # Report token usage + estimated cost to the admin's job store, keyed by
+      # jobId. Best-effort: a telemetry failure never fails generation. Requires
+      # the ADMIN_BASE_URL + ADMIN_TOKEN repo secrets; skipped if either is unset.
+      - name: Report usage
+        if: ${{ always() }}
+        env:
+          ADMIN_BASE_URL: ${{ secrets.ADMIN_BASE_URL }}
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          JOB_ID: ${{ inputs.jobId }}
+        run: |
+          if [ -z "$ADMIN_BASE_URL" ] || [ -z "$ADMIN_TOKEN" ] || [ ! -f codegen-result.json ]; then
+            echo "usage report skipped (missing secret or result file)"; exit 0
+          fi
+          IN=$(jq -r '.inputTokens // 0' codegen-result.json)
+          OUT=$(jq -r '.outputTokens // 0' codegen-result.json)
+          COST=$(jq -r '.estimatedCostUsd // 0' codegen-result.json)
+          curl -sS --fail -X POST \
+            "$ADMIN_BASE_URL/api/jobs/$JOB_ID/usage" \
+            -H "Authorization: Bearer $ADMIN_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"inputTokens\":$IN,\"outputTokens\":$OUT,\"costUsd\":$COST}" \
+            || echo "usage report failed (non-fatal)"
+
       - name: Open/update PR
         # Third-party action pinned to a full commit SHA (supply-chain: a tag is
         # movable, a SHA is immutable). Runs with contents/pull-requests write.

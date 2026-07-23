@@ -22,6 +22,9 @@ export interface Job {
   progress: number;
   log: string | null;
   created_at: Date;
+  input_tokens: number | null;
+  output_tokens: number | null;
+  cost_usd: number | null;
 }
 
 let sql: postgres.Sql | undefined;
@@ -55,6 +58,9 @@ export async function ensureTable(): Promise<void> {
       created_at timestamptz NOT NULL DEFAULT now()
     )
   `;
+  await db`ALTER TABLE job ADD COLUMN IF NOT EXISTS input_tokens int`;
+  await db`ALTER TABLE job ADD COLUMN IF NOT EXISTS output_tokens int`;
+  await db`ALTER TABLE job ADD COLUMN IF NOT EXISTS cost_usd double precision`;
 }
 
 export async function enqueue(kind: string, slug: string): Promise<Job> {
@@ -98,4 +104,21 @@ export async function setStatus(
     RETURNING *
   `;
   return job;
+}
+
+/** Persist a job's LLM usage. Returns false when no job matched `id`
+ *  (so the route can 404 rather than silently accept a write to nothing). */
+export async function setUsage(
+  id: string,
+  u: { inputTokens: number; outputTokens: number; costUsd: number },
+): Promise<boolean> {
+  const db = getSql();
+  await ensureTable();
+  const rows = await db`
+    UPDATE job
+    SET input_tokens = ${u.inputTokens}, output_tokens = ${u.outputTokens}, cost_usd = ${u.costUsd}
+    WHERE id = ${id}
+    RETURNING id
+  `;
+  return rows.length > 0;
 }
