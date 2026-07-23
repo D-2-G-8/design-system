@@ -10,6 +10,7 @@ import {
   loadCommittedContracts,
   loadAllComponentRows,
   writeComponent,
+  writeSeedContract,
   type ComponentContractFile,
 } from "../src/loaders";
 
@@ -104,4 +105,38 @@ test("writeComponent writes 4 files + contract.json under packages/components", 
   assert.ok(existsSync(join(base, "chip.contract.json")));
   assert.equal(JSON.parse(readFileSync(join(base, "chip.contract.json"), "utf8")).name, "Chip");
   assert.ok(written.length >= 5);
+});
+
+test("writeSeedContract preserves an existing contract's figmaUpdatedAt across re-sync", () => {
+  const root = makeRepo(); // existing helper; has a manifest so componentSourcePaths dir resolves
+  // First: a generated contract stamped with a generated-from time.
+  writeSeedContract(
+    {
+      name: "Button",
+      slug: "button",
+      isIcon: false,
+      figmaNodeIds: ["1:1"],
+      variants: [],
+      states: [],
+      contract: { props: [{ name: "x" } as any], cssVariables: [], classNames: [] },
+      figmaUpdatedAt: "2026-07-01T00:00:00Z",
+    },
+    root,
+  );
+  // Re-sync writes a fresh seed WITHOUT figmaUpdatedAt (seed = no generated-from).
+  writeSeedContract(
+    {
+      name: "Button",
+      slug: "button",
+      isIcon: false,
+      figmaNodeIds: ["1:1"],
+      variants: [],
+      states: [],
+      contract: { props: [], cssVariables: [], classNames: [] },
+    },
+    root,
+  );
+  const loaded = loadComponentContract("button", root);
+  assert.equal(loaded?.figmaUpdatedAt, "2026-07-01T00:00:00Z", "generated-from stamp survives re-sync");
+  assert.equal(loaded?.contract.props.length, 1, "generated contract block also preserved");
 });

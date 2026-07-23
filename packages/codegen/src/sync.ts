@@ -148,7 +148,13 @@ export interface SyncResult {
 }
 
 function toManifestEntry(group: ResolvedComponentGroup): ManifestEntry {
-  return { name: group.name, slug: group.slug, isIcon: group.isIcon, figmaNodeIds: group.figmaNodeIds };
+  return {
+    name: group.name,
+    slug: group.slug,
+    isIcon: group.isIcon,
+    figmaNodeIds: group.figmaNodeIds,
+    figmaUpdatedAt: group.figmaUpdatedAt,
+  };
 }
 
 function toSeedContract(group: ResolvedComponentGroup): ComponentContractFile {
