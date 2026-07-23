@@ -98,8 +98,85 @@
     }
   ],
   "contract": {
-    "props": [],
-    "cssVariables": [],
-    "classNames": []
+    "props": [
+      {
+        "name": "size",
+        "type": "'24px' | '32px' | '40px' | '52px'",
+        "description": "Height of the button in pixels, controlling padding, font size, and icon dimensions; defaults to '40px' for standard UI density."
+      },
+      {
+        "name": "appearance",
+        "type": "'primary' | 'secondary' | 'tertiary'",
+        "description": "Visual style variant controlling background and text colors; 'primary' is solid black, 'secondary' is light gray, 'tertiary' is transparent with hover states; defaults to 'primary'."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "description": "When true, renders the button in a visually muted state and prevents interaction; defaults to false."
+      },
+      {
+        "name": "toggled",
+        "type": "boolean | undefined",
+        "description": "Controlled toggle state for tertiary buttons only; when true, applies a toggled background color to indicate the button is in an active/selected state; ignored for primary and secondary appearances."
+      },
+      {
+        "name": "defaultToggled",
+        "type": "boolean | undefined",
+        "description": "Initial toggle state when uncontrolled; only applies to tertiary appearance buttons; ignored if 'toggled' is provided or if appearance is primary/secondary."
+      },
+      {
+        "name": "onToggledChange",
+        "type": "(toggled: boolean) => void | undefined",
+        "description": "Callback fired when the toggle state changes in tertiary appearance buttons; receives the new toggled value; must be provided together with 'toggled' for controlled behavior, or omit both for uncontrolled behavior."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "Button label text or content; typically a string but supports any renderable content including icons and badges."
+      },
+      {
+        "name": "startIcon",
+        "type": "React.ReactNode | undefined",
+        "description": "Optional icon or component rendered before the label; pass a design-system icon component instance."
+      },
+      {
+        "name": "endIcon",
+        "type": "React.ReactNode | undefined",
+        "description": "Optional icon or component rendered after the label; pass a design-system icon component instance."
+      },
+      {
+        "name": "badge",
+        "type": "React.ReactNode | undefined",
+        "description": "Optional badge component rendered at the end of the button; pass a BadgeCount component instance for count indicators."
+      }
+    ],
+    "cssVariables": [
+      "color-000000",
+      "color-292929",
+      "color-f5f5f5",
+      "color-ffffff",
+      "color-b8b8b8",
+      "color-141414",
+      "color-757575",
+      "color-ebebeb",
+      "radius-12",
+      "radius-8"
+    ],
+    "classNames": [
+      "button",
+      "size24px",
+      "size32px",
+      "size40px",
+      "size52px",
+      "appearancePrimary",
+      "appearanceSecondary",
+      "appearanceTertiary",
+      "disabled",
+      "toggled",
+      "label",
+      "startIcon",
+      "endIcon",
+      "badge"
+    ]
   }
 }
