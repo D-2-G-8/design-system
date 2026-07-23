@@ -2,8 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
-import { deleteComponent } from "../src/delete";
+import { join, dirname } from "node:path";
+import { deleteComponent, removeComponentFiles } from "../src/delete";
 
 function repo(): string {
   const root = mkdtempSync(join(tmpdir(), "delete-"));
@@ -42,4 +42,27 @@ test("no-op on barrel when the component was never barrelled", () => {
 test("throws on a slug not in the manifest", () => {
   const root = repo();
   assert.throws(() => deleteComponent("nope", root), /not in/);
+});
+
+test("removeComponentFiles removes the dir + barrel lines, leaves siblings", () => {
+  const root = mkdtempSync(join(tmpdir(), "delete-"));
+  const compDir = join(root, "packages/components/src/components/button");
+  mkdirSync(compDir, { recursive: true });
+  writeFileSync(join(compDir, "Button.tsx"), "export const Button = () => null;");
+  const barrel = join(root, "packages/components/src/index.ts");
+  mkdirSync(dirname(barrel), { recursive: true });
+  writeFileSync(
+    barrel,
+    'export { Button } from "./components/button";\n' +
+      'export type { ButtonProps } from "./components/button";\n' +
+      'export { Chip } from "./components/chip";\n',
+  );
+
+  const changed = removeComponentFiles("button", false, root);
+
+  assert.ok(!existsSync(compDir), "component dir removed");
+  const kept = readFileSync(barrel, "utf8");
+  assert.ok(!kept.includes("./components/button"), "button barrel lines gone");
+  assert.ok(kept.includes("./components/chip"), "sibling barrel line kept");
+  assert.ok(changed.some((p) => p.includes("button")));
 });
