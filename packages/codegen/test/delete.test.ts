@@ -66,3 +66,43 @@ test("removeComponentFiles removes the dir + barrel lines, leaves siblings", () 
   assert.ok(kept.includes("./components/chip"), "sibling barrel line kept");
   assert.ok(changed.some((p) => p.includes("button")));
 });
+
+test("removeComponentFiles does not remove a sibling whose path is a prefix (button vs button-group)", () => {
+  const root = mkdtempSync(join(tmpdir(), "delete-"));
+  const compDir = join(root, "packages/components/src/components/button");
+  mkdirSync(compDir, { recursive: true });
+  writeFileSync(join(compDir, "Button.tsx"), "export const Button = () => null;");
+  const barrel = join(root, "packages/components/src/index.ts");
+  mkdirSync(dirname(barrel), { recursive: true });
+  writeFileSync(
+    barrel,
+    'export { Button } from "./components/button";\n' +
+      'export type { ButtonProps } from "./components/button";\n' +
+      'export { ButtonGroup } from "./components/button-group";\n' +
+      'export type { ButtonGroupProps } from "./components/button-group";\n',
+  );
+
+  removeComponentFiles("button", false, root);
+
+  assert.ok(!existsSync(compDir), "button dir removed");
+  const kept = readFileSync(barrel, "utf8");
+  assert.ok(!kept.includes("./components/button\""), "button barrel lines gone");
+  assert.ok(kept.includes("./components/button-group\""), "button-group barrel lines kept");
+});
+
+test("removeComponentFiles handles the icon path: dir under src/icons + ./icons/<slug> barrel line", () => {
+  const root = mkdtempSync(join(tmpdir(), "delete-"));
+  const iconDir = join(root, "packages/components/src/icons/plus");
+  mkdirSync(iconDir, { recursive: true });
+  writeFileSync(join(iconDir, "Plus.tsx"), "export const Plus = () => null;");
+  const barrel = join(root, "packages/components/src/index.ts");
+  mkdirSync(dirname(barrel), { recursive: true });
+  writeFileSync(barrel, 'export { Plus } from "./icons/plus";\n');
+
+  const changed = removeComponentFiles("plus", true, root);
+
+  assert.ok(!existsSync(iconDir), "icon dir removed");
+  const kept = readFileSync(barrel, "utf8");
+  assert.ok(!kept.includes("./icons/plus"), "icon barrel line gone");
+  assert.ok(changed.some((p) => p.includes("plus")));
+});
