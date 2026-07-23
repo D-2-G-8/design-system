@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getJobStatus } from "../actions";
 import type { Job } from "@/lib/jobs";
 import styles from "./dashboard.module.css";
@@ -36,6 +37,7 @@ function formatCreated(value: Date | string): string {
  *  hands us a new `initialJobs` -- the effect below re-seeds state from it. */
 export function JobsPanel({ initialJobs, repo }: { initialJobs: Job[]; repo: string | null }) {
   const [jobs, setJobs] = useState(initialJobs);
+  const router = useRouter();
 
   // `useState` only seeds on first mount, so a new `initialJobs` from a
   // `router.refresh()` (e.g. right after dispatching a sync) would otherwise be
@@ -51,9 +53,16 @@ export function JobsPanel({ initialJobs, repo }: { initialJobs: Job[]; repo: str
     const t = setInterval(async () => {
       const results = await Promise.all(active.map((id) => getJobStatus(id).then((r) => r.job).catch(() => null)));
       setJobs((prev) => prev.map((j) => results.find((r) => r?.id === j.id) ?? j));
+      // A job that just reached a terminal state means its workflow finished --
+      // and with it the PR it opened (generate/delete) or the merge it did. Pull
+      // fresh server state so the component rows (PR links, status, delete-PR
+      // controls) update without a manual reload.
+      if (results.some((r) => r && (r.status === "done" || r.status === "failed"))) {
+        router.refresh();
+      }
     }, 4000);
     return () => clearInterval(t);
-  }, [jobs]);
+  }, [jobs, router]);
 
   return (
     <section className={styles.section} aria-labelledby="jobs-heading">

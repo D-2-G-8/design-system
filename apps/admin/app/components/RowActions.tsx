@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { ComponentState } from "@/lib/design-state";
 import { GenerateButton } from "./GenerateButton";
 import { DeleteButton } from "./DeleteButton";
+import styles from "./dashboard.module.css";
 
 /** Per-row action cell: Generate/Regenerate + Delete. Owns the delete-confirm
  *  state so the Generate button is hidden while the confirm prompt is open
@@ -12,7 +13,7 @@ import { DeleteButton } from "./DeleteButton";
 export function RowActions({ c }: { c: ComponentState }) {
   const [confirming, setConfirming] = useState(false);
   return (
-    <>
+    <span className={styles.rowActions}>
       {!confirming && (
         <GenerateButton slug={c.slug} label={c.status === "never" ? "Generate" : "Regenerate"} />
       )}
@@ -25,6 +26,6 @@ export function RowActions({ c }: { c: ComponentState }) {
           onConfirmingChange={setConfirming}
         />
       )}
-    </>
+    </span>
   );
 }
