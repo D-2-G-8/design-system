@@ -44,6 +44,15 @@ export interface ResolvedComponentGroup {
   variants: DesignComponentVariant[];
   states: DesignComponentState[];
   isIcon: boolean;
+  figmaUpdatedAt?: string;
+}
+
+/** Later ISO-8601 UTC timestamp of two maybe-undefined values (string compare
+ *  is correct for same-offset ISO strings). */
+function maxIso(a: string | undefined, b: string | undefined): string | undefined {
+  if (!a) return b;
+  if (!b) return a;
+  return a >= b ? a : b;
 }
 
 /** "Size=Large, State=Hover" -> [{key:"Size",value:"Large"},{key:"State",value:"Hover"}]. Not an
@@ -184,11 +193,21 @@ export function buildComponentGroups(
     variants: DesignComponentVariant[],
     states: DesignComponentState[],
     isIcon: boolean,
+    updatedAt: string | undefined,
   ) => {
     const key = slugKeyFor(name);
     const existing = byName.get(key);
     if (!existing) {
-      byName.set(key, { slug: "", name: key, description, figmaNodeIds: [...figmaNodeIds], variants, states, isIcon });
+      byName.set(key, {
+        slug: "",
+        name: key,
+        description,
+        figmaNodeIds: [...figmaNodeIds],
+        variants,
+        states,
+        isIcon,
+        figmaUpdatedAt: updatedAt,
+      });
       order.push(key);
       return;
     }
@@ -203,6 +222,7 @@ export function buildComponentGroups(
     existing.figmaNodeIds = Array.from(new Set([...existing.figmaNodeIds, ...figmaNodeIds]));
     existing.description = existing.description || description;
     existing.isIcon = existing.isIcon || isIcon;
+    existing.figmaUpdatedAt = maxIso(existing.figmaUpdatedAt, updatedAt);
   };
 
   for (const set of sets) {
@@ -215,6 +235,7 @@ export function buildComponentGroups(
       variants,
       states,
       isLikelyIconName(set.name, set.containing_frame?.pageName),
+      set.updated_at,
     );
   }
 
@@ -226,6 +247,7 @@ export function buildComponentGroups(
       [],
       [],
       isLikelyIconName(component.name, component.containing_frame?.pageName),
+      component.updated_at,
     );
   }
 

@@ -140,6 +140,7 @@ export interface FigmaLibComponent {
   name: string;
   description?: string;
   containing_frame?: { pageName?: string };
+  updated_at?: string; // ISO; Figma /components + /component_sets return it per node
 }
 export interface FigmaLibStyle {
   node_id: string;
