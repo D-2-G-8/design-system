@@ -22,6 +22,9 @@ export interface Job {
   progress: number;
   log: string | null;
   created_at: Date;
+  input_tokens: number | null;
+  output_tokens: number | null;
+  cost_usd: number | null;
 }
 
 let sql: postgres.Sql | undefined;
@@ -55,6 +58,9 @@ export async function ensureTable(): Promise<void> {
       created_at timestamptz NOT NULL DEFAULT now()
     )
   `;
+  await db`ALTER TABLE job ADD COLUMN IF NOT EXISTS input_tokens int`;
+  await db`ALTER TABLE job ADD COLUMN IF NOT EXISTS output_tokens int`;
+  await db`ALTER TABLE job ADD COLUMN IF NOT EXISTS cost_usd double precision`;
 }
 
 export async function enqueue(kind: string, slug: string): Promise<Job> {
@@ -98,4 +104,17 @@ export async function setStatus(
     RETURNING *
   `;
   return job;
+}
+
+export async function setUsage(
+  id: string,
+  u: { inputTokens: number; outputTokens: number; costUsd: number },
+): Promise<void> {
+  const db = getSql();
+  await ensureTable();
+  await db`
+    UPDATE job
+    SET input_tokens = ${u.inputTokens}, output_tokens = ${u.outputTokens}, cost_usd = ${u.costUsd}
+    WHERE id = ${id}
+  `;
 }
