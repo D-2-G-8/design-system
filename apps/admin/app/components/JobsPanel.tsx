@@ -99,7 +99,7 @@ export function JobsPanel({ initialJobs, repo }: { initialJobs: Job[]; repo: str
                       <span>run {j.workflow_run_id}</span>
                     ))}
                 </span>
-                {j.input_tokens != null && (
+                {j.input_tokens != null && j.input_tokens > 0 && (
                   <span className={styles.jobUsage}>
                     in {formatTokens(j.input_tokens)} / out {formatTokens(j.output_tokens ?? 0)}
                     {j.cost_usd != null && ` · ~$${j.cost_usd.toFixed(2)}`}

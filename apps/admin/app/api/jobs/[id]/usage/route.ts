@@ -30,10 +30,11 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     );
   }
 
-  await setUsage(id, {
+  const updated = await setUsage(id, {
     inputTokens: inputTokens as number,
     outputTokens: outputTokens as number,
     costUsd: costUsd as number,
   });
+  if (!updated) return NextResponse.json({ ok: false, error: "no such job" }, { status: 404 });
   return NextResponse.json({ ok: true });
 }

@@ -106,15 +106,19 @@ export async function setStatus(
   return job;
 }
 
+/** Persist a job's LLM usage. Returns false when no job matched `id`
+ *  (so the route can 404 rather than silently accept a write to nothing). */
 export async function setUsage(
   id: string,
   u: { inputTokens: number; outputTokens: number; costUsd: number },
-): Promise<void> {
+): Promise<boolean> {
   const db = getSql();
   await ensureTable();
-  await db`
+  const rows = await db`
     UPDATE job
     SET input_tokens = ${u.inputTokens}, output_tokens = ${u.outputTokens}, cost_usd = ${u.costUsd}
     WHERE id = ${id}
+    RETURNING id
   `;
+  return rows.length > 0;
 }
