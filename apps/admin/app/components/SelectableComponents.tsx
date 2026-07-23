@@ -83,9 +83,11 @@ export function SelectableComponents({ state, storybookUrl }: { state: Component
                 <td className={styles.kind}>{c.isIcon ? "icon" : "component"}</td>
                 <td><StatusBadge status={c.status} /></td>
                 <td className={styles.links}>
-                  {c.prUrl && <a href={c.prUrl} target="_blank" rel="noreferrer">View PR ↗</a>}
-                  {c.status === "pending" && <a href={`/review/${c.slug}`}>Review</a>}
-                  {c.status === "committed" && storybookUrl && <a href={storybookUrl} target="_blank" rel="noreferrer">Storybook ↗</a>}
+                  <div className={styles.linksInner}>
+                    {c.prUrl && <a href={c.prUrl} target="_blank" rel="noreferrer">View PR ↗</a>}
+                    {c.status === "pending" && <a href={`/review/${c.slug}`}>Review</a>}
+                    {c.status === "committed" && storybookUrl && <a href={storybookUrl} target="_blank" rel="noreferrer">Storybook ↗</a>}
+                  </div>
                 </td>
                 <td className={styles.actionCell}>
                   <GenerateButton slug={c.slug} label={c.status === "never" ? "Generate" : "Regenerate"} />

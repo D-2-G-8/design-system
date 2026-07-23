@@ -337,11 +337,17 @@
   color: var(--ink-muted);
 }
 
+/* Keep the cell a real table-cell -- `display:flex` on a <td> drops its
+   `display:table-cell` and with it the cell's border-bottom (the row divider
+   breaks under this column). The flex column lives on an inner wrapper. */
 .links {
+  font-size: 0.8125rem;
+}
+
+.linksInner {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  font-size: 0.8125rem;
 }
 
 .links a {
@@ -649,6 +655,6 @@
 
 /* ---------- Delete control ---------- */
 
-.deleteWrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.deleteWrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; white-space: normal; max-width: 320px; text-align: left; }
 .buttonDanger { background: #d64545; color: #fff; border: none; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
 .buttonDanger:disabled { opacity: 0.6; cursor: default; }
