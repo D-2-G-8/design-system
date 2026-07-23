@@ -161,6 +161,20 @@ export async function getFileBase64(path: string, ref: string): Promise<string |
   return data.content ? data.content.replace(/\n/g, "") : null;
 }
 
+export interface TreeResult { paths: string[]; truncated: boolean }
+
+/** Recursive git tree at `ref` (default master) -> all blob paths + the API's
+ *  `truncated` flag. The caller MUST handle truncation rather than trust a
+ *  partial list (a missing path would read as "not committed"). */
+export async function listTree(ref = "master"): Promise<TreeResult> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/git/trees/${ref}?recursive=1`);
+  if (!res.ok) throw new Error(`listTree ${ref}: ${res.status} ${await res.text()}`);
+  const data = (await res.json()) as { tree?: { path: string; type: string }[]; truncated?: boolean };
+  const paths = (data.tree ?? []).filter((e) => e.type === "blob").map((e) => e.path);
+  return { paths, truncated: Boolean(data.truncated) };
+}
+
 export interface CheckRun { status: string; conclusion: string | null; name?: string }
 
 /** Reduce GitHub check-runs to a green flag + a short human summary. Green only
@@ -225,4 +239,25 @@ export async function mergePullRequest(number: number, headSha: string): Promise
   const text = await res.text();
   if (res.status === 405 || res.status === 409) return { merged: false, message: `GitHub refused the merge (${res.status}): ${text.slice(0, 200)}` };
   throw new Error(`mergePullRequest ${number}: ${res.status} ${text}`);
+}
+
+/** The open sync/figma -> master PR, or null. */
+export async function getSyncPullRequest(): Promise<{ number: number; htmlUrl: string; headRef: string } | null> {
+  const { repo } = getConfig();
+  const org = repo.split("/")[0];
+  const res = await githubFetch(`/repos/${repo}/pulls?state=open&head=${org}:sync/figma`);
+  if (!res.ok) throw new Error(`getSyncPullRequest: ${res.status} ${await res.text()}`);
+  const prs = (await res.json()) as { number: number; html_url: string; head: { ref: string } }[];
+  const pr = prs[0];
+  return pr ? { number: pr.number, htmlUrl: pr.html_url, headRef: pr.head.ref } : null;
+}
+
+/** Close a PR without merging (PATCH state=closed). */
+export async function closePullRequest(number: number): Promise<void> {
+  const { repo } = getConfig();
+  const res = await githubFetch(`/repos/${repo}/pulls/${number}`, {
+    method: "PATCH",
+    body: JSON.stringify({ state: "closed" }),
+  });
+  if (!res.ok) throw new Error(`closePullRequest ${number}: ${res.status} ${await res.text()}`);
 }
