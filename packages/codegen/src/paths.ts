@@ -126,6 +126,15 @@ export function storybookDefaultStoryId(slug: string, isIcon: boolean): string {
   return `${isIcon ? "icons" : "components"}-${sanitizedComponentName}--default`;
 }
 
+/** The Storybook story id for the generated `AllVariants` showcase story
+ *  ("components-<name>--all-variants" / "icons-..."). The visual baseline
+ *  screenshots this (a full variant board) when it exists. Mirrors
+ *  storybookDefaultStoryId's id derivation. */
+export function storybookAllVariantsStoryId(slug: string, isIcon: boolean): string {
+  const sanitizedComponentName = componentIdentifier(slug).toLowerCase();
+  return `${isIcon ? "icons" : "components"}-${sanitizedComponentName}--all-variants`;
+}
+
 /** A git branch name -> the slug Vercel uses in its deterministic branch alias
  *  `<project>-git-<slug>-<team>.vercel.app` (lowercase, non-alphanumeric -> "-"). */
 export function vercelBranchSlug(branch: string): string {

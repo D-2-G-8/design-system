@@ -5,6 +5,7 @@ import {
   componentIdentifier,
   componentSourcePaths,
   storybookDefaultStoryId,
+  storybookAllVariantsStoryId,
   storybookStandUrl,
 } from "../src/paths";
 
@@ -30,6 +31,13 @@ test("componentSourcePaths targets icons vs components and uses .module.scss", (
 test("storybookDefaultStoryId is section-prefixed lowercase identifier", () => {
   assert.equal(storybookDefaultStoryId("button", false), "components-button--default");
   assert.equal(storybookDefaultStoryId("plus", true), "icons-plus--default");
+});
+
+test("storybookAllVariantsStoryId mirrors the default id with the all-variants export", () => {
+  assert.equal(storybookAllVariantsStoryId("button", false), "components-button--all-variants");
+  assert.equal(storybookAllVariantsStoryId("plus", true), "icons-plus--all-variants");
+  // digit-leading slug uses the same identifier rule as the default id
+  assert.equal(storybookAllVariantsStoryId("24-outline-orders", false), "components-n24outlineorders--all-variants");
 });
 
 test("storybookStandUrl handles {branch} template, fixed stand, and null", () => {
