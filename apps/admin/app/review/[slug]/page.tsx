@@ -19,6 +19,7 @@ interface ManifestEntry {
   name: string;
   isIcon: boolean;
   figmaNodeIds?: string[];
+  figmaUpdatedAt?: string;
 }
 
 interface Manifest {
@@ -31,6 +32,11 @@ function findManifestEntry(manifest: Manifest | null, slug: string): ManifestEnt
   if (!manifest) return null;
   const all = [...(manifest.components ?? []), ...(manifest.icons ?? [])];
   return all.find((e) => e.slug === slug) ?? null;
+}
+
+/** Mirrors codegen's isFigmaStale: stale iff both set and differ. */
+function isFigmaStale(current?: string, generatedFrom?: string): boolean {
+  return !!current && !!generatedFrom && current !== generatedFrom;
 }
 
 export default async function ReviewPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -80,6 +86,23 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
   const name = entry?.name ?? slug;
   const fileKey = process.env.FIGMA_FILE_KEY ?? manifest?.figmaFileKey;
 
+  // Change-detection: read the committed contract's generated-from version and
+  // compare to the manifest's current one. Components only; guarded like every
+  // other read on this page.
+  const contractRaw =
+    entry && !entry.isIcon
+      ? await getFileContent(`packages/components/src/components/${slug}/${slug}.contract.json`).catch(() => null)
+      : null;
+  let contractFigmaUpdatedAt: string | undefined;
+  if (contractRaw) {
+    try {
+      contractFigmaUpdatedAt = (JSON.parse(contractRaw) as { figmaUpdatedAt?: string }).figmaUpdatedAt;
+    } catch {
+      contractFigmaUpdatedAt = undefined;
+    }
+  }
+  const figmaChanged = isFigmaStale(entry?.figmaUpdatedAt, contractFigmaUpdatedAt);
+
   const renderedB64 = await getFileBase64(
     `tests/visual/__screenshots__/linux/${slug}.png`,
     pr.headRef,
@@ -117,6 +140,12 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
             </a>
           </div>
         </header>
+
+        {figmaChanged && (
+          <p className={styles.staleNotice} role="status">
+            ⚠ Figma design changed since this component was generated — consider regenerating.
+          </p>
+        )}
 
         <section aria-labelledby="compare-heading">
           <h2 id="compare-heading" className={styles.sectionHeading}>

@@ -168,6 +168,19 @@
   color: var(--accent);
 }
 
+/* ---------- Stale (Figma changed) notice ---------- */
+
+.staleNotice {
+  margin: 0;
+  background: var(--status-pending-bg);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--status-pending);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.875rem;
+  color: var(--ink);
+}
+
 /* ---------- Sections ---------- */
 
 .sectionHeading {
