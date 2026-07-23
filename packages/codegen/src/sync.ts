@@ -47,6 +47,8 @@ import {
   type ManifestEntry,
   type ComponentContractFile,
 } from "./loaders";
+import { findOrphans, hasGeneratedCode } from "./sync-reconcile";
+import { removeComponentFiles } from "./delete";
 
 const TOKENS_CSS_REL = join("packages", "components", "src", "tokens", "tokens.css");
 
@@ -146,7 +148,13 @@ export interface SyncResult {
 }
 
 function toManifestEntry(group: ResolvedComponentGroup): ManifestEntry {
-  return { name: group.name, slug: group.slug, isIcon: group.isIcon, figmaNodeIds: group.figmaNodeIds };
+  return {
+    name: group.name,
+    slug: group.slug,
+    isIcon: group.isIcon,
+    figmaNodeIds: group.figmaNodeIds,
+    figmaUpdatedAt: group.figmaUpdatedAt,
+  };
 }
 
 function toSeedContract(group: ResolvedComponentGroup): ComponentContractFile {
@@ -250,14 +258,23 @@ export async function runSync(args: RunSyncArgs): Promise<SyncResult> {
   };
 }
 
+export interface WriteSyncResult {
+  written: string[];
+  removed: string[];
+  orphanedCommitted: string[];
+}
+
 /** Persists a runSync result: manifest (preserving the existing
  *  figmaFileKey), tokens.json + tokens.css, and each component's seed
- *  contract (which PRESERVES any already-generated `contract` block).
- *  Returns every path written. */
-export function writeSync(result: SyncResult, root: string = findRepoRoot()): string[] {
+ *  contract (which PRESERVES any already-generated `contract` block). Then
+ *  reconciles orphans: components in the OLD manifest but absent from this
+ *  result get their seed-only files removed; components with committed
+ *  (generated) code are reported instead of auto-deleted. Returns every path
+ *  written, every path removed, and the slugs of any committed orphans. */
+export function writeSync(result: SyncResult, root: string = findRepoRoot()): WriteSyncResult {
   const written: string[] = [];
 
-  const existing = loadManifest(root);
+  const existing = loadManifest(root); // OLD manifest -- read BEFORE writeManifest overwrites it
   writeManifest({ figmaFileKey: existing.figmaFileKey, components: result.components, icons: result.icons }, root);
   written.push(join(root, MANIFEST_FILE));
 
@@ -266,5 +283,14 @@ export function writeSync(result: SyncResult, root: string = findRepoRoot()): st
 
   for (const contract of result.contracts) written.push(writeSeedContract(contract, root));
 
-  return written;
+  // Reconcile orphans (seed-only removed; committed reported, never auto-deleted).
+  const { removable, committed } = findOrphans(
+    existing,
+    { components: result.components, icons: result.icons },
+    (slug, isIcon) => hasGeneratedCode(slug, isIcon, root),
+  );
+  const removed: string[] = [];
+  for (const { slug, isIcon } of removable) removed.push(...removeComponentFiles(slug, isIcon, root));
+
+  return { written, removed, orphanedCommitted: committed };
 }

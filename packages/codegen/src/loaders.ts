@@ -19,6 +19,7 @@ export interface ManifestEntry {
   slug: string;
   isIcon: boolean;
   figmaNodeIds: string[];
+  figmaUpdatedAt?: string; // current Figma updated_at (sync writes it every run)
 }
 
 export interface Manifest {
@@ -36,6 +37,7 @@ export interface ComponentContractFile {
   variants: DesignComponentVariant[];
   states: DesignComponentState[];
   contract: StoredComponentContract;
+  figmaUpdatedAt?: string; // the Figma updated_at this code was GENERATED FROM
 }
 
 /** Walk up from `start` to the monorepo root (the dir holding the manifest). */
@@ -82,10 +84,17 @@ export function writeTokensJson(tokens: TokenForCss[], root: string = findRepoRo
 }
 
 /** Write/merge a component's seed contract, PRESERVING an existing generated
- *  `contract` block (props/cssVariables/classNames). Only metadata is updated. */
+ *  `contract` block (props/cssVariables/classNames) AND its `figmaUpdatedAt`
+ *  generated-from stamp -- a re-sync's fresh seed carries neither, so the
+ *  existing value always wins. Only metadata (name/variants/states/etc.) is
+ *  updated. */
 export function writeSeedContract(entry: ComponentContractFile, root: string = findRepoRoot()): string {
   const existing = loadComponentContract(entry.slug, root);
-  const merged: ComponentContractFile = { ...entry, contract: existing?.contract ?? entry.contract };
+  const merged: ComponentContractFile = {
+    ...entry,
+    contract: existing?.contract ?? entry.contract,
+    figmaUpdatedAt: existing?.figmaUpdatedAt ?? entry.figmaUpdatedAt,
+  };
   const dir = join(root, "packages", "components", componentSourcePaths(entry.slug, entry.isIcon).dir);
   mkdirSync(dir, { recursive: true });
   const path = join(dir, `${entry.slug}.contract.json`);

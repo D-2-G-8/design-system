@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { ComponentState } from "@/lib/design-state";
 import { generateComponent } from "../actions";
 import { StatusBadge } from "./StatusBadge";
+import { StaleBadge } from "./StaleBadge";
 import { RowActions } from "./RowActions";
 import styles from "./dashboard.module.css";
 
@@ -85,7 +86,12 @@ export function SelectableComponents({ state, storybookUrl, activeSlugs }: { sta
                 </td>
                 <td className={styles.name}>{c.name}</td>
                 <td className={styles.kind}>{c.isIcon ? "icon" : "component"}</td>
-                <td><StatusBadge status={c.status} /></td>
+                <td>
+                  <span className={styles.badgeStack}>
+                    <StatusBadge status={c.status} />
+                    {c.stale && <StaleBadge />}
+                  </span>
+                </td>
                 <td className={styles.links}>
                   <div className={styles.linksInner}>
                     {c.prUrl && <a href={c.prUrl} target="_blank" rel="noreferrer">View PR ↗</a>}

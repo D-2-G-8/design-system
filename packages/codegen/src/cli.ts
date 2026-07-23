@@ -222,6 +222,7 @@ async function generate(slug: string, forceIcon: boolean, opts: { maxRounds: num
     name, slug, isIcon: false, figmaNodeIds,
     variants: component.variants, states: component.states,
     contract: reviewed.contract,
+    figmaUpdatedAt: entry?.figmaUpdatedAt, // stamp the Figma version we generated from
   };
 
   const result = await runValidationLoop({
@@ -294,10 +295,16 @@ async function sync(): Promise<number> {
     return 1;
   }
   const result = await runSync({ fileKey, token }); // real deps by default
-  const written = writeSync(result, root);
+  const { written, removed, orphanedCommitted } = writeSync(result, root);
   console.log(
-    `sync: ${result.components.length} components, ${result.icons.length} icons, ${result.tokens.length} tokens (${result.tokensSkipped} skipped)\n${written.length} files written`,
+    `sync: ${result.components.length} components, ${result.icons.length} icons, ${result.tokens.length} tokens (${result.tokensSkipped} skipped)\n${written.length} files written, ${removed.length} orphan paths removed`,
   );
+  if (orphanedCommitted.length > 0) {
+    console.warn(
+      `⚠ gone from Figma but has committed code (left intact): ${orphanedCommitted.join(", ")}\n` +
+        `  run \`codegen delete <slug>\` for any you intend to remove.`,
+    );
+  }
   return 0;
 }
 

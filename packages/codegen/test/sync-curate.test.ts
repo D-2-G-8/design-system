@@ -44,3 +44,14 @@ test("buildComponentGroups: curates + merges same-name + slugs", () => {
   assert.ok(plus && plus.slug.length > 0);
   assert.equal(groups.find((g) => g.name.includes("Deprecated")), undefined);
 });
+
+test("buildComponentGroups keeps the latest updated_at across merged entries", () => {
+  const comps = [
+    { node_id: "1:1", name: "🟢 Button", updated_at: "2026-07-01T00:00:00Z" },
+    { node_id: "1:2", name: "🟢 Button", updated_at: "2026-07-20T00:00:00Z" }, // same literal name -> merged
+  ] as any;
+  const groups = buildComponentGroups([], comps);
+  const button = groups.find((g) => g.slug === "button");
+  assert.ok(button);
+  assert.equal(button!.figmaUpdatedAt, "2026-07-20T00:00:00Z");
+});
