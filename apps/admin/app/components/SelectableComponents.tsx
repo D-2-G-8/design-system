@@ -89,7 +89,7 @@ export function SelectableComponents({ state, storybookUrl }: { state: Component
                 </td>
                 <td className={styles.actionCell}>
                   <GenerateButton slug={c.slug} label={c.status === "never" ? "Generate" : "Regenerate"} />
-                  {c.status === "committed" && (
+                  {c.status !== "pending" && (
                     <DeleteButton slug={c.slug} name={c.name} deletePrUrl={c.deletePrUrl} />
                   )}
                 </td>

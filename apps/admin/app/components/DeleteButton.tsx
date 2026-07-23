@@ -53,7 +53,7 @@ export function DeleteButton({ slug, name, deletePrUrl }: { slug: string; name: 
 
   return (
     <span className={styles.deleteWrap}>
-      <span>Delete {name}? Removes its code + catalog entry (the next Sync re-adds it as a seed).</span>
+      <span>Delete {name}? Removes its catalog entry and any generated code (the next Sync re-adds it as a seed).</span>
       <button
         type="button"
         className={styles.buttonDanger}
